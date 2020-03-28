@@ -1,7 +1,7 @@
 # VGA
 Simple VGA driver built in [Icestudio](https://icestudio.io/).
 
-![Screenshot](vga/vga.png)
+![Screenshot](vga.png)
 
 ## Resources
  - [Driving a VGA Monitor Using an FPGA - Embedded Thoughts](https://embeddedthoughts.com/2016/07/29/driving-a-vga-monitor-using-an-fpga/)
