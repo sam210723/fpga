@@ -38,8 +38,8 @@
             "pins": [
               {
                 "index": "0",
-                "name": "PIN_7",
-                "value": "D1"
+                "name": "PIN_1",
+                "value": "A2"
               }
             ],
             "virtual": false
@@ -98,8 +98,8 @@
             "pins": [
               {
                 "index": "0",
-                "name": "PIN_8",
-                "value": "E2"
+                "name": "PIN_2",
+                "value": "A1"
               }
             ],
             "virtual": false
