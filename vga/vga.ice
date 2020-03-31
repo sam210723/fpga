@@ -239,8 +239,8 @@
           }
         },
         {
-          "id": "dd96fcc2-0c23-4fe5-b502-6ae6a6070224",
-          "type": "f6c65ee033ce6bd73731867cbdc8a5c39233d65d",
+          "id": "d10bf5cd-a0d9-400a-abbf-7199155227f4",
+          "type": "e08f027e9b2d4a4f6fcfc120ecf93ddb3fd98958",
           "position": {
             "x": 624,
             "y": 440
@@ -331,7 +331,7 @@
             "port": "e4964ac9-e0df-40f1-9c50-4f0c267fa2cd"
           },
           "target": {
-            "block": "dd96fcc2-0c23-4fe5-b502-6ae6a6070224",
+            "block": "d10bf5cd-a0d9-400a-abbf-7199155227f4",
             "port": "ab56b571-4970-4915-8d69-303c7c7b9de0"
           },
           "vertices": [
@@ -608,7 +608,7 @@
         }
       }
     },
-    "f6c65ee033ce6bd73731867cbdc8a5c39233d65d": {
+    "e08f027e9b2d4a4f6fcfc120ecf93ddb3fd98958": {
       "package": {
         "name": "VGA Sync",
         "version": "",
@@ -694,7 +694,7 @@
               "id": "463e834f-09b5-447c-a009-bb7493faf741",
               "type": "basic.code",
               "data": {
-                "code": "// Horizontal timings\nlocalparam H_ACTIVE = 1024;     // Horizontal active pixels\nlocalparam H_FPORCH = 24;       // Horizontal front porch\nlocalparam H_PULSE  = 136;      // Horizontal sync pulse length\nlocalparam H_BPORCH = 160;      // Horizontal back porch\nlocalparam H_TOTAL  = H_ACTIVE + H_FPORCH + H_PULSE + H_BPORCH - 1;\nlocalparam H_SYNC_S = H_ACTIVE + H_FPORCH;     // Horizontal pulse start\nlocalparam H_SYNC_E = H_SYNC_S + H_PULSE - 1;  // Horizontal pulse end\n\n// Vertical timings\nlocalparam V_ACTIVE = 768;      // Active pixels\nlocalparam V_FPORCH = 3;        // Front porch\nlocalparam V_PULSE  = 6;        // Sync pulse\nlocalparam V_BPORCH = 29;       // Back porch\nlocalparam V_TOTAL  = V_ACTIVE + V_FPORCH + V_PULSE + V_BPORCH - 1;\nlocalparam V_SYNC_S = V_ACTIVE + V_FPORCH;     // Vertical pulse start\nlocalparam V_SYNC_E = V_SYNC_S + V_PULSE - 1;  // Vertical pulse end",
+                "code": "// Timing parameters (1024x768 @ 60 Hz)\nlocalparam H_ACTIVE = 1024;     // Horizontal active pixels\nlocalparam H_FPORCH = 24;       // Horizontal front porch\nlocalparam H_PULSE  = 136;      // Horizontal sync pulse\nlocalparam H_BPORCH = 160;      // Horizontal back porch\nlocalparam H_SYNC_S = 1048;     // Horizontal sync start\nlocalparam H_SYNC_E = 1183;     // Horizontal sync end\nlocalparam H_TOTAL  = 1343;     // Horizontal total pixels\nlocalparam V_ACTIVE = 768;      // Vertical active pixels\nlocalparam V_FPORCH = 3;        // Vertical front porch\nlocalparam V_PULSE  = 6;        // Vertical sync pulse\nlocalparam V_BPORCH = 29;       // Vertical back porch\nlocalparam V_SYNC_S = 771;      // Vertical sync start\nlocalparam V_SYNC_E = 776;      // Veritcal start end\nlocalparam V_TOTAL  = 805;      // Vertical total pixels\n\nreg [10:0] h_pos, v_pos;\n\nalways @(posedge clock)\n    begin\n        // Increment horizontal counter then reset on maximum value (H_TOTAL)\n        h_pos = h_pos == H_TOTAL ? 0 : h_pos + 1;\n        \n        // Increment vertical counter after horizontal counter reset\n        // then reset on maximum vertical value (V_TOTAL)\n        v_pos = h_pos == 0 ? (\n            v_pos == V_TOTAL ? 0 : v_pos + 1\n        ) : v_pos;\n    end\n\nassign h_sync = ~( h_pos >= H_SYNC_S && h_pos <= H_SYNC_E );\nassign v_sync = ~( v_pos >= V_SYNC_S && v_pos <= V_SYNC_E );\nassign x      = h_pos;\nassign y      = v_pos;\nassign blank  = h_pos < H_ACTIVE && v_pos < V_ACTIVE;\n",
                 "params": [],
                 "ports": {
                   "in": [
