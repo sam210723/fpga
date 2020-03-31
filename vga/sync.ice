@@ -70,12 +70,17 @@
           }
         },
         {
-          "id": "7c614606-1aa7-486a-9a92-ca070cc20c53",
+          "id": "f996d752-17b2-401b-9740-1092cf70ce6f",
           "type": "basic.output",
           "data": {
             "name": "x",
-            "range": "[9:0]",
+            "range": "[10:0]",
             "pins": [
+              {
+                "index": "10",
+                "name": "",
+                "value": ""
+              },
               {
                 "index": "9",
                 "name": "",
@@ -135,12 +140,17 @@
           }
         },
         {
-          "id": "4e921b8e-b770-4746-b7b4-6bfeebe1a88a",
+          "id": "af05c6ae-c334-4303-a78b-d1cbfafa8ebb",
           "type": "basic.output",
           "data": {
             "name": "y",
-            "range": "[9:0]",
+            "range": "[10:0]",
             "pins": [
+              {
+                "index": "10",
+                "name": "",
+                "value": ""
+              },
               {
                 "index": "9",
                 "name": "",
@@ -222,7 +232,7 @@
           "id": "463e834f-09b5-447c-a009-bb7493faf741",
           "type": "basic.code",
           "data": {
-            "code": "",
+            "code": "// Timing parameters (1024x768 @ 60 Hz)\nlocalparam H_ACTIVE = 1024;     // Horizontal active pixels\nlocalparam H_FPORCH = 24;       // Horizontal front porch\nlocalparam H_PULSE  = 136;      // Horizontal sync pulse\nlocalparam H_BPORCH = 160;      // Horizontal back porch\nlocalparam H_SYNC_S = 1048;     // Horizontal sync start\nlocalparam H_SYNC_E = 1183;     // Horizontal sync end\nlocalparam H_TOTAL  = 1343;     // Horizontal total pixels\nlocalparam V_ACTIVE = 768;      // Vertical active pixels\nlocalparam V_FPORCH = 3;        // Vertical front porch\nlocalparam V_PULSE  = 6;        // Vertical sync pulse\nlocalparam V_BPORCH = 29;       // Vertical back porch\nlocalparam V_SYNC_S = 771;      // Vertical sync start\nlocalparam V_SYNC_E = 776;      // Veritcal start end\nlocalparam V_TOTAL  = 805;      // Vertical total pixels\n",
             "params": [],
             "ports": {
               "in": [
@@ -239,13 +249,13 @@
                 },
                 {
                   "name": "x",
-                  "range": "[9:0]",
-                  "size": 10
+                  "range": "[10:0]",
+                  "size": 11
                 },
                 {
                   "name": "y",
-                  "range": "[9:0]",
-                  "size": 10
+                  "range": "[10:0]",
+                  "size": 11
                 },
                 {
                   "name": "blank"
@@ -310,10 +320,10 @@
             "port": "x"
           },
           "target": {
-            "block": "7c614606-1aa7-486a-9a92-ca070cc20c53",
+            "block": "f996d752-17b2-401b-9740-1092cf70ce6f",
             "port": "in"
           },
-          "size": 10
+          "size": 11
         },
         {
           "source": {
@@ -321,10 +331,10 @@
             "port": "y"
           },
           "target": {
-            "block": "4e921b8e-b770-4746-b7b4-6bfeebe1a88a",
+            "block": "af05c6ae-c334-4303-a78b-d1cbfafa8ebb",
             "port": "in"
           },
-          "size": 10
+          "size": 11
         }
       ]
     }
