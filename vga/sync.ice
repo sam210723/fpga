@@ -70,12 +70,17 @@
           }
         },
         {
-          "id": "f996d752-17b2-401b-9740-1092cf70ce6f",
+          "id": "a3d0ae56-09e7-4799-b83f-2895dff03342",
           "type": "basic.output",
           "data": {
             "name": "x",
-            "range": "[10:0]",
+            "range": "[11:0]",
             "pins": [
+              {
+                "index": "11",
+                "name": "",
+                "value": ""
+              },
               {
                 "index": "10",
                 "name": "",
@@ -140,12 +145,17 @@
           }
         },
         {
-          "id": "af05c6ae-c334-4303-a78b-d1cbfafa8ebb",
+          "id": "19c7f259-b191-4e83-9856-5522b44a7378",
           "type": "basic.output",
           "data": {
             "name": "y",
-            "range": "[10:0]",
+            "range": "[11:0]",
             "pins": [
+              {
+                "index": "11",
+                "name": "",
+                "value": ""
+              },
               {
                 "index": "10",
                 "name": "",
@@ -232,7 +242,7 @@
           "id": "463e834f-09b5-447c-a009-bb7493faf741",
           "type": "basic.code",
           "data": {
-            "code": "// Timing parameters (1024x768 @ 60 Hz)\nlocalparam H_ACTIVE = 1024;     // Horizontal active pixels\nlocalparam H_FPORCH = 24;       // Horizontal front porch\nlocalparam H_PULSE  = 136;      // Horizontal sync pulse\nlocalparam H_BPORCH = 160;      // Horizontal back porch\nlocalparam H_SYNC_S = 1048;     // Horizontal sync start\nlocalparam H_SYNC_E = 1183;     // Horizontal sync end\nlocalparam H_TOTAL  = 1343;     // Horizontal total pixels\nlocalparam V_ACTIVE = 768;      // Vertical active pixels\nlocalparam V_FPORCH = 3;        // Vertical front porch\nlocalparam V_PULSE  = 6;        // Vertical sync pulse\nlocalparam V_BPORCH = 29;       // Vertical back porch\nlocalparam V_SYNC_S = 771;      // Vertical sync start\nlocalparam V_SYNC_E = 776;      // Veritcal start end\nlocalparam V_TOTAL  = 805;      // Vertical total pixels\n\nreg [10:0] h_pos, v_pos;\n\nalways @(posedge clock)\n    begin\n        // Increment horizontal counter then reset on maximum value (H_TOTAL)\n        h_pos = h_pos == H_TOTAL ? 0 : h_pos + 1;\n        \n        // Increment vertical counter after horizontal counter reset\n        // then reset on maximum vertical value (V_TOTAL)\n        v_pos = h_pos == 0 ? (\n            v_pos == V_TOTAL ? 0 : v_pos + 1\n        ) : v_pos;\n    end\n\nassign h_sync = ~( h_pos >= H_SYNC_S && h_pos <= H_SYNC_E );\nassign v_sync = ~( v_pos >= V_SYNC_S && v_pos <= V_SYNC_E );\nassign x      = h_pos;\nassign y      = v_pos;\nassign active = h_pos < H_ACTIVE && v_pos < V_ACTIVE;\n",
+            "code": "// Timing parameters (1024x768 @ 60 Hz)\nlocalparam H_ACTIVE = 1024;     // Horizontal active pixels\nlocalparam H_FPORCH = 24;       // Horizontal front porch\nlocalparam H_PULSE  = 136;      // Horizontal sync pulse\nlocalparam H_BPORCH = 160;      // Horizontal back porch\nlocalparam H_SYNC_S = 1048;     // Horizontal sync start\nlocalparam H_SYNC_E = 1183;     // Horizontal sync end\nlocalparam H_TOTAL  = 1343;     // Horizontal total pixels\nlocalparam V_ACTIVE = 768;      // Vertical active pixels\nlocalparam V_FPORCH = 3;        // Vertical front porch\nlocalparam V_PULSE  = 6;        // Vertical sync pulse\nlocalparam V_BPORCH = 29;       // Vertical back porch\nlocalparam V_SYNC_S = 771;      // Vertical sync start\nlocalparam V_SYNC_E = 776;      // Veritcal start end\nlocalparam V_TOTAL  = 805;      // Vertical total pixels\n\nreg [11:0] h_pos, v_pos;\n\nalways @(posedge clock)\n    begin\n        // Increment horizontal counter then reset on maximum value (H_TOTAL)\n        h_pos = h_pos == H_TOTAL ? 0 : h_pos + 1;\n        \n        // Increment vertical counter after horizontal counter reset\n        // then reset on maximum vertical value (V_TOTAL)\n        v_pos = h_pos == 0 ? (\n            v_pos == V_TOTAL ? 0 : v_pos + 1\n        ) : v_pos;\n    end\n\nassign h_sync = ~( h_pos >= H_SYNC_S && h_pos <= H_SYNC_E );\nassign v_sync = ~( v_pos >= V_SYNC_S && v_pos <= V_SYNC_E );\nassign x      = h_pos;\nassign y      = v_pos;\nassign active = h_pos < H_ACTIVE && v_pos < V_ACTIVE;\n",
             "params": [],
             "ports": {
               "in": [
@@ -249,13 +259,13 @@
                 },
                 {
                   "name": "x",
-                  "range": "[10:0]",
-                  "size": 11
+                  "range": "[11:0]",
+                  "size": 12
                 },
                 {
                   "name": "y",
-                  "range": "[10:0]",
-                  "size": 11
+                  "range": "[11:0]",
+                  "size": 12
                 },
                 {
                   "name": "active"
@@ -307,13 +317,23 @@
         {
           "source": {
             "block": "463e834f-09b5-447c-a009-bb7493faf741",
+            "port": "active"
+          },
+          "target": {
+            "block": "2eb4452b-baff-4ed7-a8d2-deeec56bc3f9",
+            "port": "in"
+          }
+        },
+        {
+          "source": {
+            "block": "463e834f-09b5-447c-a009-bb7493faf741",
             "port": "x"
           },
           "target": {
-            "block": "f996d752-17b2-401b-9740-1092cf70ce6f",
+            "block": "a3d0ae56-09e7-4799-b83f-2895dff03342",
             "port": "in"
           },
-          "size": 11
+          "size": 12
         },
         {
           "source": {
@@ -321,20 +341,10 @@
             "port": "y"
           },
           "target": {
-            "block": "af05c6ae-c334-4303-a78b-d1cbfafa8ebb",
+            "block": "19c7f259-b191-4e83-9856-5522b44a7378",
             "port": "in"
           },
-          "size": 11
-        },
-        {
-          "source": {
-            "block": "463e834f-09b5-447c-a009-bb7493faf741",
-            "port": "active"
-          },
-          "target": {
-            "block": "2eb4452b-baff-4ed7-a8d2-deeec56bc3f9",
-            "port": "in"
-          }
+          "size": 12
         }
       ]
     }
