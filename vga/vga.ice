@@ -290,7 +290,7 @@
           "id": "0d467f2a-1a62-479b-acf8-53674aa78fe6",
           "type": "basic.info",
           "data": {
-            "info": "TinyFPGA BX VGA Demo\nhttps://github.com/sam210723/fpga/vga\n\nPins      ｜ VGA Info\nHSync: 1  ｜ Resolution:    1024x768\nVSync: 2  ｜ Frame Rate:    60 Hz\nRed:   3  ｜ Vertical Rate: 48.36 kHz\nGreen: 6  ｜ Pixel Clock:   65.0 MHz\nBlue:  9  ｜ Colours:       8 (1 bpp)",
+            "info": "TinyFPGA BX VGA Demo\nhttps://github.com/sam210723/fpga\n\nPins      ｜ VGA Info\nHSync: 1  ｜ Resolution:    1024x768\nVSync: 2  ｜ Frame Rate:    60 Hz\nRed:   3  ｜ Vertical Rate: 48.36 kHz\nGreen: 6  ｜ Pixel Clock:   65.0 MHz\nBlue:  9  ｜ Colours:       8 (1 bpp)",
             "readonly": false
           },
           "position": {
