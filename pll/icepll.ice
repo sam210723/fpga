@@ -5,7 +5,7 @@
     "version": "",
     "description": "PLL configuration block for Lattice iCE FPGAs",
     "author": "sam210723",
-    "image": ""
+    "image": "%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22175mm%22%20height=%22226.772%22%20viewBox=%220%200%20175%2060.000008%22%3E%3Cpath%20d=%22M17%200h5v60h-5zM22%200h12v5H22zM34%200h5v60h-5zM39%2055h12v5H39zM51%200h5v60h-5zM56%200h12v5H56zM68%200h5v60h-5zM73%2055h12v5H73zM85%200h5v60h-5zM90%200h12v5H90zM102%200h5v60h-5zM107%2055h12v5h-12zM119%200h5v60h-5zM124%200h12v5h-12zM136%200h5v60h-5zM141%2055h12v5h-12zM153%200h5v60h-5zM158%200h12v5h-12zM170%200h5v60h-5zM5%2055h12v5H5zM0%200h5v60H0z%22/%3E%3C/svg%3E"
   },
   "design": {
     "board": "TinyFPGA-BX",
