@@ -26,7 +26,7 @@
             "virtual": false
           },
           "position": {
-            "x": 1344,
+            "x": 1432,
             "y": 64
           }
         },
@@ -47,7 +47,7 @@
             "oldBlockColor": "lightseagreen"
           },
           "position": {
-            "x": 1184,
+            "x": 1272,
             "y": 64
           }
         },
@@ -71,6 +71,36 @@
           }
         },
         {
+          "id": "bf79b8fd-23a5-4411-9795-566278291306",
+          "type": "basic.output",
+          "data": {
+            "name": "RED",
+            "range": "[2:0]",
+            "pins": [
+              {
+                "index": "2",
+                "name": "PIN_3",
+                "value": "B1"
+              },
+              {
+                "index": "1",
+                "name": "PIN_4",
+                "value": "C2"
+              },
+              {
+                "index": "0",
+                "name": "PIN_5",
+                "value": "C1"
+              }
+            ],
+            "virtual": false
+          },
+          "position": {
+            "x": 1432,
+            "y": 248
+          }
+        },
+        {
           "id": "b1a615e7-7cf5-4384-9d5e-e527a668b638",
           "type": "basic.output",
           "data": {
@@ -90,22 +120,33 @@
           }
         },
         {
-          "id": "01bab2b9-7361-43d4-8ee2-2b1eb48a37ea",
+          "id": "14bd77e6-1986-4853-a44f-60862300f125",
           "type": "basic.output",
           "data": {
-            "name": "RED",
+            "name": "GREEN",
+            "range": "[2:0]",
             "pins": [
               {
+                "index": "2",
+                "name": "PIN_6",
+                "value": "D2"
+              },
+              {
+                "index": "1",
+                "name": "PIN_7",
+                "value": "D1"
+              },
+              {
                 "index": "0",
-                "name": "PIN_3",
-                "value": "B1"
+                "name": "PIN_8",
+                "value": "E2"
               }
             ],
             "virtual": false
           },
           "position": {
-            "x": 1344,
-            "y": 432
+            "x": 1432,
+            "y": 392
           }
         },
         {
@@ -143,27 +184,8 @@
             "virtual": true
           },
           "position": {
-            "x": 1000,
+            "x": 1024,
             "y": 488
-          }
-        },
-        {
-          "id": "452594ed-b7cb-4d7b-a29e-d33d04dbfb4e",
-          "type": "basic.output",
-          "data": {
-            "name": "GREEN",
-            "pins": [
-              {
-                "index": "0",
-                "name": "PIN_6",
-                "value": "D2"
-              }
-            ],
-            "virtual": false
-          },
-          "position": {
-            "x": 1344,
-            "y": 520
           }
         },
         {
@@ -185,6 +207,36 @@
           "position": {
             "x": 416,
             "y": 520
+          }
+        },
+        {
+          "id": "41309fd7-6068-43c0-90c1-5fec8da55aeb",
+          "type": "basic.output",
+          "data": {
+            "name": "BLUE",
+            "range": "[2:0]",
+            "pins": [
+              {
+                "index": "2",
+                "name": "PIN_9",
+                "value": "E1"
+              },
+              {
+                "index": "1",
+                "name": "PIN_10",
+                "value": "G2"
+              },
+              {
+                "index": "0",
+                "name": "PIN_11",
+                "value": "H1"
+              }
+            ],
+            "virtual": false
+          },
+          "position": {
+            "x": 1432,
+            "y": 536
           }
         },
         {
@@ -226,25 +278,6 @@
           "position": {
             "x": 416,
             "y": 584
-          }
-        },
-        {
-          "id": "ac3e3dcd-0ea4-4e49-813a-d45bce3cbf35",
-          "type": "basic.output",
-          "data": {
-            "name": "BLUE",
-            "pins": [
-              {
-                "index": "0",
-                "name": "PIN_9",
-                "value": "E1"
-              }
-            ],
-            "virtual": false
-          },
-          "position": {
-            "x": 1344,
-            "y": 608
           }
         },
         {
@@ -290,7 +323,7 @@
           "id": "0d467f2a-1a62-479b-acf8-53674aa78fe6",
           "type": "basic.info",
           "data": {
-            "info": "TinyFPGA BX VGA Demo\nhttps://github.com/sam210723/fpga\n\nPins      ｜ VGA Info\nHSync: 1  ｜ Resolution:    1024x768\nVSync: 2  ｜ Frame Rate:    60 Hz\nRed:   3  ｜ Vertical Rate: 48.36 kHz\nGreen: 6  ｜ Pixel Clock:   65.0 MHz\nBlue:  9  ｜ Colours:       8 (1 bpp)",
+            "info": "TinyFPGA BX VGA Demo\nhttps://github.com/sam210723/fpga\n\nPins        ｜ VGA Info\nHSync: 1    ｜ Resolution:    1024x768\nVSync: 2    ｜ Frame Rate:    60 Hz\nRed:   3-5  ｜ Vertical Rate: 48.36 kHz\nGreen: 6-8  ｜ Pixel Clock:   65.0 MHz\nBlue:  9-11 ｜ Colours:       512 (9 bpp)",
             "readonly": false
           },
           "position": {
@@ -298,7 +331,7 @@
             "y": 16
           },
           "size": {
-            "width": 320,
+            "width": 344,
             "height": 184
           }
         },
@@ -387,18 +420,6 @@
           }
         },
         {
-          "id": "c43027c2-503a-4da4-9adc-e44bd1a65af6",
-          "type": "8a3d972a154eb2e35415a6811ba2b5bdbada433d",
-          "position": {
-            "x": 1152,
-            "y": 504
-          },
-          "size": {
-            "width": 96,
-            "height": 160
-          }
-        },
-        {
           "id": "680add43-66f4-4910-b523-2807846df335",
           "type": "basic.info",
           "data": {
@@ -406,12 +427,24 @@
             "readonly": false
           },
           "position": {
-            "x": 1088,
+            "x": 1040,
             "y": 312
           },
           "size": {
             "width": 224,
             "height": 32
+          }
+        },
+        {
+          "id": "800b7d53-922f-484b-99c8-8a0acb7f1e91",
+          "type": "04c5d83512bbeeea2588d175656ce4ca6b782bde",
+          "position": {
+            "x": 1184,
+            "y": 504
+          },
+          "size": {
+            "width": 96,
+            "height": 160
           }
         }
       ],
@@ -553,9 +586,10 @@
             "port": "a3d0ae56-09e7-4799-b83f-2895dff03342"
           },
           "target": {
-            "block": "c43027c2-503a-4da4-9adc-e44bd1a65af6",
+            "block": "800b7d53-922f-484b-99c8-8a0acb7f1e91",
             "port": "ac4170b8-f2f9-4bf4-a5e6-94d467c7b983"
           },
+          "vertices": [],
           "size": 12
         },
         {
@@ -564,9 +598,10 @@
             "port": "19c7f259-b191-4e83-9856-5522b44a7378"
           },
           "target": {
-            "block": "c43027c2-503a-4da4-9adc-e44bd1a65af6",
+            "block": "800b7d53-922f-484b-99c8-8a0acb7f1e91",
             "port": "6d1703df-2ae6-4a88-baab-aec27e88a681"
           },
+          "vertices": [],
           "size": 12
         },
         {
@@ -575,7 +610,7 @@
             "port": "2eb4452b-baff-4ed7-a8d2-deeec56bc3f9"
           },
           "target": {
-            "block": "c43027c2-503a-4da4-9adc-e44bd1a65af6",
+            "block": "800b7d53-922f-484b-99c8-8a0acb7f1e91",
             "port": "686091c5-47c9-4221-86d2-611e79ecd0f2"
           }
         },
@@ -585,12 +620,12 @@
             "port": "cb08ac43-f855-4385-8bb5-00fe788e90b7"
           },
           "target": {
-            "block": "c43027c2-503a-4da4-9adc-e44bd1a65af6",
+            "block": "800b7d53-922f-484b-99c8-8a0acb7f1e91",
             "port": "b1387c93-c475-4beb-943d-96e9de0dbf1e"
           },
           "vertices": [
             {
-              "x": 1024,
+              "x": 1112,
               "y": 552
             }
           ]
@@ -607,43 +642,64 @@
         },
         {
           "source": {
-            "block": "c43027c2-503a-4da4-9adc-e44bd1a65af6",
-            "port": "f505c21d-d61a-43b4-b974-028e6ef9ad7b"
-          },
-          "target": {
-            "block": "452594ed-b7cb-4d7b-a29e-d33d04dbfb4e",
-            "port": "in"
-          }
-        },
-        {
-          "source": {
-            "block": "c43027c2-503a-4da4-9adc-e44bd1a65af6",
-            "port": "1e3c3261-e886-4028-8936-99da1a03cb83"
-          },
-          "target": {
-            "block": "ac3e3dcd-0ea4-4e49-813a-d45bce3cbf35",
-            "port": "in"
-          }
-        },
-        {
-          "source": {
-            "block": "c43027c2-503a-4da4-9adc-e44bd1a65af6",
-            "port": "bad73ad4-7ad9-4f89-a6ad-efafe95d91c4"
-          },
-          "target": {
-            "block": "01bab2b9-7361-43d4-8ee2-2b1eb48a37ea",
-            "port": "in"
-          }
-        },
-        {
-          "source": {
             "block": "4f4bd098-8c0e-4bbc-85e2-c90f791bd8a0",
             "port": "outlabel"
           },
           "target": {
-            "block": "c43027c2-503a-4da4-9adc-e44bd1a65af6",
+            "block": "800b7d53-922f-484b-99c8-8a0acb7f1e91",
             "port": "bffb3e0d-8569-43bc-89a7-4840bd505696"
           }
+        },
+        {
+          "source": {
+            "block": "800b7d53-922f-484b-99c8-8a0acb7f1e91",
+            "port": "2f1d1d32-aaa2-4182-b05d-7e6f8b6ebf1b"
+          },
+          "target": {
+            "block": "41309fd7-6068-43c0-90c1-5fec8da55aeb",
+            "port": "in"
+          },
+          "vertices": [
+            {
+              "x": 1400,
+              "y": 616
+            }
+          ],
+          "size": 3
+        },
+        {
+          "source": {
+            "block": "800b7d53-922f-484b-99c8-8a0acb7f1e91",
+            "port": "4b18b8f2-c5e4-40fa-a7ef-1b3a2ce49f76"
+          },
+          "target": {
+            "block": "14bd77e6-1986-4853-a44f-60862300f125",
+            "port": "in"
+          },
+          "vertices": [
+            {
+              "x": 1376,
+              "y": 528
+            }
+          ],
+          "size": 3
+        },
+        {
+          "source": {
+            "block": "800b7d53-922f-484b-99c8-8a0acb7f1e91",
+            "port": "4ecfe9be-3e76-44c5-bf3c-e1d37c35d26b"
+          },
+          "target": {
+            "block": "bf79b8fd-23a5-4411-9795-566278291306",
+            "port": "in"
+          },
+          "vertices": [
+            {
+              "x": 1344,
+              "y": 408
+            }
+          ],
+          "size": 3
         }
       ]
     }
@@ -1096,11 +1152,11 @@
         }
       }
     },
-    "8a3d972a154eb2e35415a6811ba2b5bdbada433d": {
+    "04c5d83512bbeeea2588d175656ce4ca6b782bde": {
       "package": {
-        "name": "VGA RGB",
+        "name": "VGA Animation Demo",
         "version": "",
-        "description": "Generate RGB signals for a VGA display",
+        "description": "Generate animated RGB signals for a VGA display",
         "author": "sam210723",
         "image": "%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20version=%221%22%20width=%22672%22%20height=%22504%22%3E%3Cpath%20fill=%22#131313%22%20d=%22M0%200h672v504H0z%22/%3E%3Cpath%20fill=%22silver%22%20d=%22M0%200h96v336H0z%22/%3E%3Cpath%20fill=%22#c0c000%22%20d=%22M96%200h96v336H96z%22/%3E%3Cpath%20fill=%22#00c0c0%22%20d=%22M192%200h96v336h-96z%22/%3E%3Cpath%20fill=%22#00c000%22%20d=%22M288%200h96v336h-96z%22/%3E%3Cpath%20fill=%22#c000c0%22%20d=%22M384%200h96v336h-96z%22/%3E%3Cpath%20fill=%22#c00000%22%20d=%22M480%200h96v336h-96z%22/%3E%3Cpath%20fill=%22#0000c0%22%20d=%22M576%200h96v336h-96zM0%20336h96v42H0z%22/%3E%3Cpath%20fill=%22#c000c0%22%20d=%22M192%20336h96v42h-96z%22/%3E%3Cpath%20fill=%22#00c0c0%22%20d=%22M384%20336h96v42h-96z%22/%3E%3Cpath%20fill=%22silver%22%20d=%22M576%20336h96v42h-96z%22/%3E%3Cpath%20fill=%22#00214c%22%20d=%22M0%20378h120v126H0z%22/%3E%3Cpath%20fill=%22#fff%22%20d=%22M120%20378h120v126H120z%22/%3E%3Cpath%20fill=%22#32006a%22%20d=%22M240%20378h120v126H240z%22/%3E%3Cpath%20fill=%22#090909%22%20d=%22M480%20378h32v126h-32z%22/%3E%3Cpath%20fill=%22#1d1d1d%22%20d=%22M544%20378h32v126h-32z%22/%3E%3C/svg%3E"
       },
@@ -1120,10 +1176,29 @@
               }
             },
             {
-              "id": "bad73ad4-7ad9-4f89-a6ad-efafe95d91c4",
+              "id": "4ecfe9be-3e76-44c5-bf3c-e1d37c35d26b",
               "type": "basic.output",
               "data": {
-                "name": "red"
+                "name": "r",
+                "range": "[2:0]",
+                "pins": [
+                  {
+                    "index": "2",
+                    "name": "",
+                    "value": ""
+                  },
+                  {
+                    "index": "1",
+                    "name": "",
+                    "value": ""
+                  },
+                  {
+                    "index": "0",
+                    "name": "",
+                    "value": ""
+                  }
+                ],
+                "virtual": true
               },
               "position": {
                 "x": 1416,
@@ -1143,17 +1218,6 @@
               }
             },
             {
-              "id": "f505c21d-d61a-43b4-b974-028e6ef9ad7b",
-              "type": "basic.output",
-              "data": {
-                "name": "green"
-              },
-              "position": {
-                "x": 1416,
-                "y": 464
-              }
-            },
-            {
               "id": "ac4170b8-f2f9-4bf4-a5e6-94d467c7b983",
               "type": "basic.input",
               "data": {
@@ -1164,6 +1228,36 @@
               },
               "position": {
                 "x": 328,
+                "y": 464
+              }
+            },
+            {
+              "id": "4b18b8f2-c5e4-40fa-a7ef-1b3a2ce49f76",
+              "type": "basic.output",
+              "data": {
+                "name": "g",
+                "range": "[2:0]",
+                "pins": [
+                  {
+                    "index": "2",
+                    "name": "",
+                    "value": ""
+                  },
+                  {
+                    "index": "1",
+                    "name": "",
+                    "value": ""
+                  },
+                  {
+                    "index": "0",
+                    "name": "",
+                    "value": ""
+                  }
+                ],
+                "virtual": true
+              },
+              "position": {
+                "x": 1416,
                 "y": 464
               }
             },
@@ -1182,10 +1276,29 @@
               }
             },
             {
-              "id": "1e3c3261-e886-4028-8936-99da1a03cb83",
+              "id": "2f1d1d32-aaa2-4182-b05d-7e6f8b6ebf1b",
               "type": "basic.output",
               "data": {
-                "name": "blue"
+                "name": "b",
+                "range": "[2:0]",
+                "pins": [
+                  {
+                    "index": "2",
+                    "name": "",
+                    "value": ""
+                  },
+                  {
+                    "index": "1",
+                    "name": "",
+                    "value": ""
+                  },
+                  {
+                    "index": "0",
+                    "name": "",
+                    "value": ""
+                  }
+                ],
+                "virtual": true
               },
               "position": {
                 "x": 1416,
@@ -1208,7 +1321,7 @@
               "id": "dfa50058-b2e6-4419-9bcf-34a397f02133",
               "type": "basic.code",
               "data": {
-                "code": "localparam H_ACTIVE = 1024;      // Horizontal active pixels\nlocalparam V_ACTIVE = 768;       // Vertical active pixels\nlocalparam F_MAX    = 511;       // Frame counter maximum\n\nreg red, green, blue;\nreg [8:0] frame;\n\nalways @(negedge v_sync)\n    begin\n        frame = frame == F_MAX ? 0 : frame + 1;\n    end\n\nalways @(posedge clock)\n    begin\n        red    = x == 0 || x == H_ACTIVE - 1\n              || y == 0 || y == V_ACTIVE - 1\n              || x > 20 && x < 40 && y > 20 && y < 20 + frame\n              || x > 140 && x < 160 && y > 20 && y < 20 + (F_MAX - frame);\n        \n        green  = x == 0 || x == H_ACTIVE - 1\n              || y == 0 || y == V_ACTIVE - 1\n              || x > 60 && x < 80 && y > 20 && y < 20 + (F_MAX - frame)\n              || x > 140 && x < 160 && y > 20 && y < 20 + (F_MAX - frame)\n              || x > 20 && x < frame && y > 9 && y < 11\n              || x > F_MAX && x < F_MAX + 2 && y > 5 && y < 15\n              || x > 18 && x < 20 && y > 5 && y < 15\n              || x > 300+F_MAX-frame && x < 300+frame && y > 100+F_MAX-frame && y < 100+frame;\n        \n        blue   = x == 0 || x == H_ACTIVE - 1\n              || y == 0 || y == V_ACTIVE - 1\n              || x > 100 && x < 120 && y > 20 && y < 20 + frame\n              || x > 140 && x < 160 && y > 20 && y < 20 + (F_MAX - frame)\n              || x > 300 && x < 300+frame && y > 100 && y < 100+frame;\n    end\n\nassign r = active && red;\nassign g = active && green;\nassign b = active && blue;\n",
+                "code": "localparam H_ACTIVE = 1024;      // Horizontal active pixels\nlocalparam V_ACTIVE = 768;       // Vertical active pixels\nlocalparam F_MAX    = 511;       // Frame counter maximum\n\nreg [2:0] red;\nreg [2:0] green;\nreg [2:0] blue;\nreg [8:0] frame;\n\nalways @(negedge v_sync)\n    begin\n        frame = frame == F_MAX ? 0 : frame + 1;\n    end\n\nalways @(posedge clock)\n    begin\n        red    = x == 0 ? 7 : 0 || x == H_ACTIVE - 2 ? 7 : 0\n              || y == 0 ? 7 : 0 || y == V_ACTIVE - 1 ? 7 : 0\n              || (y > 0 && y <= 128) ? x / 128 : 0\n              || (y > 384 && y <= 512) ? x / 128 : 0\n              || (y > 512 && x > 0 && x <= 160) ? 7 : 0\n              || (y > 512 && x > 800 && x <= 960) ? 7 : 0;\n        \n        green  = x == 0 ? 7 : 0 || x == H_ACTIVE - 2 ? 7 : 0\n              || y == 0 ? 7 : 0 || y == V_ACTIVE - 1 ? 7 : 0\n              || (y > 128 && y <= 256) ? x / 128 : 0\n              || (y > 384 && y <= 512) ? x / 128 : 0\n              || (y > 512 && x > 0 && x <= 160) ? x / 20 : 0\n              || (y > 512 && x > 160 && x <= 480) ? 7 : 0;\n        \n        blue   = x == 0 ? 7 : 0 || x == H_ACTIVE - 2 ? 7 : 0\n              || y == 0 ? 7 : 0 || y == V_ACTIVE - 1 ? 7 : 0\n              || (y > 256 && y <= 384) ? x / 128 : 0\n              || (y > 384 && y <= 512) ? x / 128 : 0\n              || (y > 512 && x > 480 && x <= 800) ? 7 : 0\n              || (y > 512 && x > 320 && x <= 480) ? (x-320) / 20 : 0;\n    end\n\nassign r = active && red;\nassign g = active && green;\nassign b = active && blue;\n",
                 "params": [],
                 "ports": {
                   "in": [
@@ -1234,13 +1347,19 @@
                   ],
                   "out": [
                     {
-                      "name": "r"
+                      "name": "r",
+                      "range": "[2:0]",
+                      "size": 3
                     },
                     {
-                      "name": "g"
+                      "name": "g",
+                      "range": "[2:0]",
+                      "size": 3
                     },
                     {
-                      "name": "b"
+                      "name": "b",
+                      "range": "[2:0]",
+                      "size": 3
                     }
                   ]
                 }
@@ -1256,36 +1375,6 @@
             }
           ],
           "wires": [
-            {
-              "source": {
-                "block": "dfa50058-b2e6-4419-9bcf-34a397f02133",
-                "port": "r"
-              },
-              "target": {
-                "block": "bad73ad4-7ad9-4f89-a6ad-efafe95d91c4",
-                "port": "in"
-              }
-            },
-            {
-              "source": {
-                "block": "dfa50058-b2e6-4419-9bcf-34a397f02133",
-                "port": "g"
-              },
-              "target": {
-                "block": "f505c21d-d61a-43b4-b974-028e6ef9ad7b",
-                "port": "in"
-              }
-            },
-            {
-              "source": {
-                "block": "dfa50058-b2e6-4419-9bcf-34a397f02133",
-                "port": "b"
-              },
-              "target": {
-                "block": "1e3c3261-e886-4028-8936-99da1a03cb83",
-                "port": "in"
-              }
-            },
             {
               "source": {
                 "block": "bffb3e0d-8569-43bc-89a7-4840bd505696",
@@ -1337,6 +1426,39 @@
                 "block": "dfa50058-b2e6-4419-9bcf-34a397f02133",
                 "port": "active"
               }
+            },
+            {
+              "source": {
+                "block": "dfa50058-b2e6-4419-9bcf-34a397f02133",
+                "port": "r"
+              },
+              "target": {
+                "block": "4ecfe9be-3e76-44c5-bf3c-e1d37c35d26b",
+                "port": "in"
+              },
+              "size": 3
+            },
+            {
+              "source": {
+                "block": "dfa50058-b2e6-4419-9bcf-34a397f02133",
+                "port": "g"
+              },
+              "target": {
+                "block": "4b18b8f2-c5e4-40fa-a7ef-1b3a2ce49f76",
+                "port": "in"
+              },
+              "size": 3
+            },
+            {
+              "source": {
+                "block": "dfa50058-b2e6-4419-9bcf-34a397f02133",
+                "port": "b"
+              },
+              "target": {
+                "block": "2f1d1d32-aaa2-4182-b05d-7e6f8b6ebf1b",
+                "port": "in"
+              },
+              "size": 3
             }
           ]
         }
