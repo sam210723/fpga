@@ -1,4 +1,4 @@
-# VGA
+# Video Graphics Array (VGA)
 Simple VGA driver built in [Icestudio](https://icestudio.io/).
 
 ![Screenshot](vga.png)
