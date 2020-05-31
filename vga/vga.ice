@@ -66,8 +66,8 @@
             "virtual": false
           },
           "position": {
-            "x": 648,
-            "y": 88
+            "x": 840,
+            "y": 112
           }
         },
         {
@@ -323,12 +323,12 @@
           "id": "0d467f2a-1a62-479b-acf8-53674aa78fe6",
           "type": "basic.info",
           "data": {
-            "info": "TinyFPGA BX VGA Demo\nhttps://github.com/sam210723/fpga\n\nPins        ｜ VGA Info\nHSync: 1    ｜ Resolution:    1024x768\nVSync: 2    ｜ Frame Rate:    60 Hz\nRed:   3-5  ｜ Vertical Rate: 48.36 kHz\nGreen: 6-8  ｜ Pixel Clock:   65.0 MHz\nBlue:  9-11 ｜ Colours:       512 (9 bpp)",
-            "readonly": false
+            "info": "# TinyFPGA BX VGA Demo\nGitHub: [sam210723/fpga](https://github.com/sam210723/fpga)\n\n### VGA Signal Properties\n- **Resolution:** 1024x768\n- **Refresh Rate:** 60.00 Hz\n- **Vertical Rate:** 48.36 kHz\n- **Pixel Clock:** 65.00 MHz\n- **Colours:** 512 (9 bpp)",
+            "readonly": true
           },
           "position": {
             "x": 16,
-            "y": 16
+            "y": 40
           },
           "size": {
             "width": 344,
@@ -343,8 +343,8 @@
             "readonly": false
           },
           "position": {
-            "x": 520,
-            "y": 48
+            "x": 712,
+            "y": 72
           },
           "size": {
             "width": 224,
@@ -355,8 +355,8 @@
           "id": "ab76cb2c-c7f4-45fa-9b84-0ecbcb3502b7",
           "type": "c4dd08263a85a91ba53e2ae2b38de344c5efcb52",
           "position": {
-            "x": 520,
-            "y": 88
+            "x": 712,
+            "y": 112
           },
           "size": {
             "width": 96,
@@ -384,7 +384,7 @@
           },
           "position": {
             "x": 160,
-            "y": 312
+            "y": 328
           },
           "size": {
             "width": 208,
@@ -400,7 +400,7 @@
           },
           "position": {
             "x": 560,
-            "y": 312
+            "y": 328
           },
           "size": {
             "width": 216,
@@ -428,7 +428,7 @@
           },
           "position": {
             "x": 1040,
-            "y": 312
+            "y": 328
           },
           "size": {
             "width": 224,
@@ -445,6 +445,22 @@
           "size": {
             "width": 96,
             "height": 160
+          }
+        },
+        {
+          "id": "b58c8563-7614-48ab-8e60-9d15d8526f5a",
+          "type": "basic.info",
+          "data": {
+            "info": "| Signal | Pin  |\n| ------ | ---- |\n| H Sync |  1   |\n| V Sync |  2   |\n| Red    | 3-5  |\n| Green  | 6-8  |\n| Blue   | 9-11 |",
+            "readonly": true
+          },
+          "position": {
+            "x": 224,
+            "y": 96
+          },
+          "size": {
+            "width": 176,
+            "height": 152
           }
         }
       ],
