@@ -12,6 +12,25 @@
     "graph": {
       "blocks": [
         {
+          "id": "2c0dab43-d509-4cc0-91c5-53152c2c9b8b",
+          "type": "basic.output",
+          "data": {
+            "name": "USB Pull-up",
+            "pins": [
+              {
+                "index": "0",
+                "name": "USBPU",
+                "value": "A3"
+              }
+            ],
+            "virtual": false
+          },
+          "position": {
+            "x": 888,
+            "y": 168
+          }
+        },
+        {
           "id": "75230e56-6eb1-44b2-8a45-39cad9128eac",
           "type": "basic.output",
           "data": {
@@ -27,7 +46,7 @@
           },
           "position": {
             "x": 1432,
-            "y": 64
+            "y": 168
           }
         },
         {
@@ -48,26 +67,7 @@
           },
           "position": {
             "x": 1272,
-            "y": 64
-          }
-        },
-        {
-          "id": "2c0dab43-d509-4cc0-91c5-53152c2c9b8b",
-          "type": "basic.output",
-          "data": {
-            "name": "USB Pull-up",
-            "pins": [
-              {
-                "index": "0",
-                "name": "USBPU",
-                "value": "A3"
-              }
-            ],
-            "virtual": false
-          },
-          "position": {
-            "x": 840,
-            "y": 112
+            "y": 168
           }
         },
         {
@@ -323,40 +323,40 @@
           "id": "0d467f2a-1a62-479b-acf8-53674aa78fe6",
           "type": "basic.info",
           "data": {
-            "info": "# TinyFPGA BX VGA Demo\nGitHub: [sam210723/fpga](https://github.com/sam210723/fpga)\n\n### VGA Signal Properties\n- **Resolution:** 1024x768\n- **Refresh Rate:** 60.00 Hz\n- **Vertical Rate:** 48.36 kHz\n- **Pixel Clock:** 65.00 MHz\n- **Colours:** 512 (9 bpp)",
+            "info": "# TinyFPGA BX VGA Demo\n\n| VGA Properties    |\n| ----------------- | ----------- |\n| **Resolution**    | 1024x768    |\n| **Refresh Rate**  | 60.00 Hz    |\n| **Vertical Rate** | 48.36 kHz   |\n| **Pixel Clock**   | 65.00 MHz   |\n| **Colours**       | 512 (9 bpp) |\n\n**GitHub:** [sam210723/fpga](https://github.com/sam210723/fpga)",
             "readonly": true
           },
           "position": {
-            "x": 16,
-            "y": 40
+            "x": 40,
+            "y": 64
           },
           "size": {
-            "width": 344,
-            "height": 184
+            "width": 400,
+            "height": 240
           }
         },
         {
           "id": "89ee46bd-7d24-4345-af7c-669352abc984",
           "type": "basic.info",
           "data": {
-            "info": "  Disable USB controller",
-            "readonly": false
+            "info": "### Disable USB controller",
+            "readonly": true
           },
           "position": {
-            "x": 712,
-            "y": 72
+            "x": 784,
+            "y": 128
           },
           "size": {
-            "width": 224,
-            "height": 32
+            "width": 232,
+            "height": 40
           }
         },
         {
           "id": "ab76cb2c-c7f4-45fa-9b84-0ecbcb3502b7",
           "type": "c4dd08263a85a91ba53e2ae2b38de344c5efcb52",
           "position": {
-            "x": 712,
-            "y": 112
+            "x": 760,
+            "y": 168
           },
           "size": {
             "width": 96,
@@ -379,32 +379,32 @@
           "id": "c25cd92c-e630-46be-a91b-08571b7267f0",
           "type": "basic.info",
           "data": {
-            "info": "  Generate pixel clock",
-            "readonly": false
+            "info": "### Generate pixel clock",
+            "readonly": true
           },
           "position": {
-            "x": 160,
-            "y": 328
+            "x": 184,
+            "y": 680
           },
           "size": {
-            "width": 208,
-            "height": 32
+            "width": 216,
+            "height": 40
           }
         },
         {
           "id": "7722f896-9aa6-41d3-b3ca-362678562f78",
           "type": "basic.info",
           "data": {
-            "info": "  Generate sync signals",
-            "readonly": false
+            "info": "### Generate sync signals",
+            "readonly": true
           },
           "position": {
-            "x": 560,
-            "y": 328
+            "x": 584,
+            "y": 680
           },
           "size": {
-            "width": 216,
-            "height": 32
+            "width": 224,
+            "height": 40
           }
         },
         {
@@ -423,16 +423,16 @@
           "id": "680add43-66f4-4910-b523-2807846df335",
           "type": "basic.info",
           "data": {
-            "info": "  Generate video signals",
-            "readonly": false
+            "info": "### Generate video signals",
+            "readonly": true
           },
           "position": {
-            "x": 1040,
-            "y": 328
+            "x": 1144,
+            "y": 680
           },
           "size": {
-            "width": 224,
-            "height": 32
+            "width": 232,
+            "height": 40
           }
         },
         {
@@ -451,16 +451,32 @@
           "id": "b58c8563-7614-48ab-8e60-9d15d8526f5a",
           "type": "basic.info",
           "data": {
-            "info": "| Signal | Pin  |\n| ------ | ---- |\n| H Sync |  1   |\n| V Sync |  2   |\n| Red    | 3-5  |\n| Green  | 6-8  |\n| Blue   | 9-11 |",
+            "info": "# &nbsp; \n\n| Signal | Pin  |\n| ------ | ---- |\n| H Sync |  1   |\n| V Sync |  2   |\n| Red    | 3-5  |\n| Green  | 6-8  |\n| Blue   | 9-11 |",
             "readonly": true
           },
           "position": {
-            "x": 224,
-            "y": 96
+            "x": 312,
+            "y": 64
           },
           "size": {
             "width": 176,
             "height": 152
+          }
+        },
+        {
+          "id": "ffdfba09-26b2-4189-8832-00647b6b0de6",
+          "type": "basic.info",
+          "data": {
+            "info": "### Signals to FPGA I/O",
+            "readonly": true
+          },
+          "position": {
+            "x": 1328,
+            "y": 128
+          },
+          "size": {
+            "width": 208,
+            "height": 40
           }
         }
       ],
