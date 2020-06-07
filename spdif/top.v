@@ -8,5 +8,8 @@ module top (
   assign USBPU = 0;
 
   // Create S/PDIF core instance
-  spdif core(CLK, LED);
+  spdif core(CLK);
+
+  // Create Heartbeat module instance
+  heartbeat beat(CLK, LED);
 endmodule
