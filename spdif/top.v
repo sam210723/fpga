@@ -6,13 +6,4 @@ module top (
 
   // Disable USB
   assign USBPU = 0;
-
-  reg [25:0] blink_counter;
-  wire [31:0] blink_pattern = 32'b101010001110111011100010101;
-
-  always @(posedge CLK) begin
-    blink_counter <= blink_counter + 1;
-  end
-
-  assign LED = blink_pattern[blink_counter[25:21]];
 endmodule
