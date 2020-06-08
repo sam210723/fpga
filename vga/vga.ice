@@ -53,7 +53,7 @@
           "id": "d93dbb7b-e29a-41db-91f3-7bc1fbc98dbf",
           "type": "basic.outputLabel",
           "data": {
-            "blockColor": "lightseagreen",
+            "blockColor": "springgreen",
             "name": "pll_locked",
             "pins": [
               {
@@ -63,7 +63,7 @@
               }
             ],
             "virtual": true,
-            "oldBlockColor": "lightseagreen"
+            "oldBlockColor": "gold"
           },
           "position": {
             "x": 1272,
@@ -172,7 +172,7 @@
           "id": "4f4bd098-8c0e-4bbc-85e2-c90f791bd8a0",
           "type": "basic.outputLabel",
           "data": {
-            "blockColor": "lightseagreen",
+            "blockColor": "red",
             "name": "pix_clock",
             "pins": [
               {
@@ -181,7 +181,8 @@
                 "value": ""
               }
             ],
-            "virtual": true
+            "virtual": true,
+            "oldBlockColor": "lightseagreen"
           },
           "position": {
             "x": 1024,
@@ -192,7 +193,7 @@
           "id": "1f3b29df-e0a7-4ef9-8083-a1b7a70242ba",
           "type": "basic.inputLabel",
           "data": {
-            "blockColor": "lightseagreen",
+            "blockColor": "red",
             "name": "pix_clock",
             "pins": [
               {
@@ -202,7 +203,7 @@
               }
             ],
             "virtual": true,
-            "oldBlockColor": "fuchsia"
+            "oldBlockColor": "lightseagreen"
           },
           "position": {
             "x": 416,
@@ -263,7 +264,7 @@
           "id": "7c10886a-a82c-4759-b7fb-8f7a0e25ee9c",
           "type": "basic.inputLabel",
           "data": {
-            "blockColor": "lightseagreen",
+            "blockColor": "springgreen",
             "name": "pll_locked",
             "pins": [
               {
@@ -273,7 +274,7 @@
               }
             ],
             "virtual": true,
-            "oldBlockColor": "lightseagreen"
+            "oldBlockColor": "gold"
           },
           "position": {
             "x": 416,
