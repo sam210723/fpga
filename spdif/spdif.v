@@ -1,5 +1,6 @@
 module spdif (
-  input  clock    // S/PDIF Clock
+  input  clock,   // S/PDIF clock
+  output spdif    // S/PDIF output
 );
 
   // Sub-frame Preambles
