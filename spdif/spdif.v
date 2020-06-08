@@ -13,6 +13,6 @@ module spdif (
 
   assign spdif_o = 0;
   assign block_o = 0;
-  assign frame_0 = 0;
+  assign frame_o = 0;
   assign subframe_o = 0;
 endmodule
