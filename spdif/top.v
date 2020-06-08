@@ -13,5 +13,8 @@ module top (
   spdif core(CLK, PIN_8);
 
   // Create Heartbeat module instance
-  heartbeat beat(CLK, LED);
+  wire pulse;
+  heartbeat beat(CLK, pulse);
+  assign LED = pulse;
+  assign PIN_1 = pulse;
 endmodule
