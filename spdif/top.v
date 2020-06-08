@@ -1,7 +1,9 @@
 module top (
-  input  CLK,   // 16 MHz Global Clock
-  output LED,   // On-board LED
-  output USBPU  // USB Pull-up Resistor
+  input  CLK,     // 16 MHz global clock
+  output LED,     // On-board LED
+  output PIN_1,   // Heartbeat pin
+  output PIN_8,   // S/PDIF pin
+  output USBPU    // USB pull-up
 );
 
   // Disable USB
