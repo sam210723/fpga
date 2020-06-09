@@ -1,5 +1,5 @@
 module heartbeat (
-  input  clock_i,   // Global clock input (16 MHz)
+  input  clock_i,   // Global clock input
   output pulse_o    // Heartbeat pulse output
 );
 
@@ -10,10 +10,10 @@ module heartbeat (
   always @ (posedge clock_i) begin
     counter <= counter + 1;
 
-    // Reset counter at 16,000,000
-    if (counter > 16e6) counter <= 0;
+    // Reset counter at 6,144,000
+    if (counter > 6.144e6) counter <= 0;
   end
 
   // Pulse pattern
-  assign pulse_o = (counter < 1e6) || (counter > 3e6 && counter < 4e6);
+  assign pulse_o = (counter < 300e3) || (counter > 1e6 && counter < 1.3e6);
 endmodule

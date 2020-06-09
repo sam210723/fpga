@@ -1,5 +1,5 @@
 module top (
-  input  CLK,     // 16 MHz global clock
+  input  PIN_14,  // External clock
   output LED,     // On-board LED
   output PIN_4,   // Heartbeat pin
   output PIN_5,   // Block status pin
@@ -13,11 +13,11 @@ module top (
   assign USBPU = 0;
 
   // Create S/PDIF core instance
-  spdif core(CLK, PIN_8, PIN_7, PIN_6, PIN_5);
+  spdif core(PIN_14, PIN_8, PIN_7, PIN_6, PIN_5);
 
   // Create Heartbeat module instance
   wire pulse;
-  heartbeat beat(CLK, pulse);
+  heartbeat beat(PIN_14, pulse);
   assign LED = pulse;
   assign PIN_4 = pulse;
 endmodule
