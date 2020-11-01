@@ -1,0 +1,694 @@
+Release 14.7 - xst P.20131013 (nt64)
+Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
+--> Parameter TMPDIR set to xst/projnav.tmp
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.09 secs
+ 
+--> Parameter xsthdpdir set to xst
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.09 secs
+ 
+--> Reading design: top.prj
+
+TABLE OF CONTENTS
+  1) Synthesis Options Summary
+  2) HDL Parsing
+  3) HDL Elaboration
+  4) HDL Synthesis
+       4.1) HDL Synthesis Report
+  5) Advanced HDL Synthesis
+       5.1) Advanced HDL Synthesis Report
+  6) Low Level Synthesis
+  7) Partition Report
+  8) Design Summary
+       8.1) Primitive and Black Box Usage
+       8.2) Device utilization summary
+       8.3) Partition Resource Summary
+       8.4) Timing Report
+            8.4.1) Clock Information
+            8.4.2) Asynchronous Control Signals Information
+            8.4.3) Timing Summary
+            8.4.4) Timing Details
+            8.4.5) Cross Clock Domains Report
+
+
+=========================================================================
+*                      Synthesis Options Summary                        *
+=========================================================================
+---- Source Parameters
+Input File Name                    : "top.prj"
+Ignore Synthesis Constraint File   : NO
+
+---- Target Parameters
+Output File Name                   : "top"
+Output Format                      : NGC
+Target Device                      : xc6slx9-2-csg324
+
+---- Source Options
+Top Module Name                    : top
+Automatic FSM Extraction           : YES
+FSM Encoding Algorithm             : Auto
+Safe Implementation                : No
+FSM Style                          : LUT
+RAM Extraction                     : Yes
+RAM Style                          : Auto
+ROM Extraction                     : Yes
+Shift Register Extraction          : YES
+ROM Style                          : Auto
+Resource Sharing                   : YES
+Asynchronous To Synchronous        : NO
+Shift Register Minimum Size        : 2
+Use DSP Block                      : Auto
+Automatic Register Balancing       : No
+
+---- Target Options
+LUT Combining                      : Auto
+Reduce Control Sets                : Auto
+Add IO Buffers                     : YES
+Global Maximum Fanout              : 100000
+Add Generic Clock Buffer(BUFG)     : 16
+Register Duplication               : YES
+Optimize Instantiated Primitives   : NO
+Use Clock Enable                   : Auto
+Use Synchronous Set                : Auto
+Use Synchronous Reset              : Auto
+Pack IO Registers into IOBs        : Auto
+Equivalent register Removal        : YES
+
+---- General Options
+Optimization Goal                  : Speed
+Optimization Effort                : 1
+Power Reduction                    : NO
+Keep Hierarchy                     : No
+Netlist Hierarchy                  : As_Optimized
+RTL Output                         : Yes
+Global Optimization                : AllClockNets
+Read Cores                         : YES
+Write Timing Constraints           : NO
+Cross Clock Analysis               : NO
+Hierarchy Separator                : /
+Bus Delimiter                      : <>
+Case Specifier                     : Maintain
+Slice Utilization Ratio            : 100
+BRAM Utilization Ratio             : 100
+DSP48 Utilization Ratio            : 100
+Auto BRAM Packing                  : NO
+Slice Utilization Ratio Delta      : 5
+
+---- Other Options
+Cores Search Directories           : {"ipcore_dir"  }
+
+=========================================================================
+
+
+=========================================================================
+*                          HDL Parsing                                  *
+=========================================================================
+Analyzing Verilog file "\\vmware-host\shared folders\Shared\ISE Projects\vga\ipcore_dir\rom.v" into library work
+Parsing module <rom>.
+Analyzing Verilog file "\\vmware-host\shared folders\Shared\ISE Projects\vga\sync.v" into library work
+Parsing module <sync>.
+Analyzing Verilog file "\\vmware-host\shared folders\Shared\ISE Projects\vga\ipcore_dir\pll.v" into library work
+Parsing module <pll>.
+Analyzing Verilog file "\\vmware-host\shared folders\Shared\ISE Projects\vga\hex.v" into library work
+Parsing module <hex>.
+Parsing module <nibble_to_segments>.
+Analyzing Verilog file "\\vmware-host\shared folders\Shared\ISE Projects\vga\draw.v" into library work
+Parsing module <draw>.
+Analyzing Verilog file "\\vmware-host\shared folders\Shared\ISE Projects\vga\top.v" into library work
+Parsing module <top>.
+
+=========================================================================
+*                            HDL Elaboration                            *
+=========================================================================
+
+Elaborating module <top>.
+
+Elaborating module <pll>.
+
+Elaborating module <IBUFG>.
+
+Elaborating module <DCM_SP(CLKDV_DIVIDE=2.0,CLKFX_DIVIDE=4,CLKFX_MULTIPLY=13,CLKIN_DIVIDE_BY_2="FALSE",CLKIN_PERIOD=10.0,CLKOUT_PHASE_SHIFT="NONE",CLK_FEEDBACK="1X",DESKEW_ADJUST="SYSTEM_SYNCHRONOUS",PHASE_SHIFT=0,STARTUP_WAIT="FALSE")>.
+WARNING:HDLCompiler:1127 - "\\vmware-host\shared folders\Shared\ISE Projects\vga\ipcore_dir\pll.v" Line 129: Assignment to status_int ignored, since the identifier is never used
+
+Elaborating module <BUFG>.
+WARNING:HDLCompiler:1127 - "\\vmware-host\shared folders\Shared\ISE Projects\vga\top.v" Line 21: Assignment to pll_locked ignored, since the identifier is never used
+
+Elaborating module <sync>.
+WARNING:HDLCompiler:413 - "\\vmware-host\shared folders\Shared\ISE Projects\vga\sync.v" Line 47: Result of 32-bit expression is truncated to fit in 13-bit target.
+WARNING:HDLCompiler:413 - "\\vmware-host\shared folders\Shared\ISE Projects\vga\sync.v" Line 52: Result of 32-bit expression is truncated to fit in 13-bit target.
+
+Elaborating module <draw>.
+
+Elaborating module <rom>.
+WARNING:HDLCompiler:1499 - "\\vmware-host\shared folders\Shared\ISE Projects\vga\ipcore_dir\rom.v" Line 39: Empty module <rom> remains a black box.
+WARNING:HDLCompiler:189 - "\\vmware-host\shared folders\Shared\ISE Projects\vga\draw.v" Line 22: Size mismatch in connection of port <addra>. Formal port size is 14-bit while actual signal size is 16-bit.
+WARNING:HDLCompiler:413 - "\\vmware-host\shared folders\Shared\ISE Projects\vga\draw.v" Line 40: Result of 32-bit expression is truncated to fit in 16-bit target.
+WARNING:HDLCompiler:413 - "\\vmware-host\shared folders\Shared\ISE Projects\vga\draw.v" Line 60: Result of 32-bit expression is truncated to fit in 13-bit target.
+WARNING:HDLCompiler:413 - "\\vmware-host\shared folders\Shared\ISE Projects\vga\draw.v" Line 61: Result of 32-bit expression is truncated to fit in 13-bit target.
+
+Elaborating module <hex(refresh_rate=1000,sys_clk_freq=65000000)>.
+
+Elaborating module <nibble_to_segments>.
+
+=========================================================================
+*                           HDL Synthesis                               *
+=========================================================================
+
+Synthesizing Unit <top>.
+    Related source file is "\\vmware-host\shared folders\Shared\ISE Projects\vga\top.v".
+INFO:Xst:3210 - "\\vmware-host\shared folders\Shared\ISE Projects\vga\top.v" line 18: Output port <LOCKED> of the instance <vga_clk> is unconnected or connected to loadless signal.
+    Found 1-bit register for signal <CLK_VGA_DIV2>.
+    Summary:
+	inferred   1 D-type flip-flop(s).
+Unit <top> synthesized.
+
+Synthesizing Unit <pll>.
+    Related source file is "\\vmware-host\shared folders\Shared\ISE Projects\vga\ipcore_dir\pll.v".
+    Summary:
+	no macro.
+Unit <pll> synthesized.
+
+Synthesizing Unit <sync>.
+    Related source file is "\\vmware-host\shared folders\Shared\ISE Projects\vga\sync.v".
+    Found 13-bit register for signal <v_out>.
+    Found 13-bit register for signal <h_out>.
+    Found 14-bit adder for signal <n0043[13:0]> created at line 47.
+    Found 14-bit adder for signal <n0045[13:0]> created at line 53.
+    Found 13-bit comparator lessequal for signal <n0009> created at line 58
+    Found 13-bit comparator lessequal for signal <n0011> created at line 58
+    Found 13-bit comparator lessequal for signal <n0015> created at line 59
+    Found 13-bit comparator lessequal for signal <n0017> created at line 59
+    Found 13-bit comparator greater for signal <h_out[12]_GND_6_o_LessThan_16_o> created at line 60
+    Found 13-bit comparator greater for signal <v_out[12]_GND_6_o_LessThan_17_o> created at line 60
+    Summary:
+	inferred   2 Adder/Subtractor(s).
+	inferred  26 D-type flip-flop(s).
+	inferred   6 Comparator(s).
+Unit <sync> synthesized.
+
+Synthesizing Unit <draw>.
+    Related source file is "\\vmware-host\shared folders\Shared\ISE Projects\vga\draw.v".
+WARNING:Xst:647 - Input <colour> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+    Found 8-bit register for signal <rgb_out>.
+    Found 13-bit register for signal <o_x>.
+    Found 13-bit register for signal <o_y>.
+    Found 1-bit register for signal <d_x>.
+    Found 1-bit register for signal <d_y>.
+    Found 16-bit register for signal <rom_addr>.
+    Found 14-bit subtractor for signal <GND_7_o_GND_7_o_sub_8_OUT> created at line 40.
+    Found 14-bit subtractor for signal <GND_7_o_GND_7_o_sub_9_OUT> created at line 40.
+    Found 14-bit subtractor for signal <GND_7_o_GND_7_o_sub_17_OUT> created at line 60.
+    Found 14-bit subtractor for signal <GND_7_o_GND_7_o_sub_20_OUT> created at line 61.
+    Found 14-bit adder for signal <_n0096> created at line 38.
+    Found 14-bit adder for signal <_n0102> created at line 38.
+    Found 32-bit adder for signal <n0051> created at line 40.
+    Found 14-bit adder for signal <n0088[13:0]> created at line 60.
+    Found 14-bit adder for signal <n0090[13:0]> created at line 61.
+    Found 13-bit comparator lessequal for signal <n0000> created at line 38
+    Found 14-bit comparator greater for signal <GND_7_o_BUS_0001_LessThan_4_o> created at line 38
+    Found 13-bit comparator lessequal for signal <n0005> created at line 38
+    Found 14-bit comparator greater for signal <GND_7_o_BUS_0002_LessThan_7_o> created at line 38
+    Summary:
+	inferred   9 Adder/Subtractor(s).
+	inferred  52 D-type flip-flop(s).
+	inferred   4 Comparator(s).
+	inferred   3 Multiplexer(s).
+Unit <draw> synthesized.
+
+Synthesizing Unit <hex>.
+    Related source file is "\\vmware-host\shared folders\Shared\ISE Projects\vga\hex.v".
+        refresh_rate = 1000
+        sys_clk_freq = 65000000
+    Found 8-bit register for signal <segments_out>.
+    Found 3-bit register for signal <segments_enable_out>.
+    Found 32-bit register for signal <divider>.
+    Found 32-bit adder for signal <divider[31]_GND_9_o_add_4_OUT> created at line 55.
+    Found 32-bit comparator greater for signal <divider[31]_GND_9_o_LessThan_4_o> created at line 53
+    HDL ADVISOR - Describing an operational reset or an explicit power-up state for register <segments_enable_out> would allow inference of a finite state machine and as consequence better performance and smaller area.
+    Summary:
+	inferred   1 Adder/Subtractor(s).
+	inferred  43 D-type flip-flop(s).
+	inferred   1 Comparator(s).
+Unit <hex> synthesized.
+
+Synthesizing Unit <nibble_to_segments>.
+    Related source file is "\\vmware-host\shared folders\Shared\ISE Projects\vga\hex.v".
+    Found 16x8-bit Read Only RAM for signal <segments_out>
+    Summary:
+	inferred   1 RAM(s).
+Unit <nibble_to_segments> synthesized.
+
+=========================================================================
+HDL Synthesis Report
+
+Macro Statistics
+# RAMs                                                 : 2
+ 16x8-bit single-port Read Only RAM                    : 2
+# Adders/Subtractors                                   : 12
+ 14-bit adder                                          : 6
+ 14-bit subtractor                                     : 4
+ 32-bit adder                                          : 2
+# Registers                                            : 12
+ 1-bit register                                        : 3
+ 13-bit register                                       : 4
+ 16-bit register                                       : 1
+ 3-bit register                                        : 1
+ 32-bit register                                       : 1
+ 8-bit register                                        : 2
+# Comparators                                          : 11
+ 13-bit comparator greater                             : 2
+ 13-bit comparator lessequal                           : 6
+ 14-bit comparator greater                             : 2
+ 32-bit comparator greater                             : 1
+# Multiplexers                                         : 3
+ 32-bit 2-to-1 multiplexer                             : 2
+ 8-bit 2-to-1 multiplexer                              : 1
+
+=========================================================================
+
+=========================================================================
+*                       Advanced HDL Synthesis                          *
+=========================================================================
+
+Reading core <ipcore_dir/rom.ngc>.
+Loading core <rom> for timing and area information for instance <img_rom>.
+WARNING:Xst:2677 - Node <rom_addr_14> of sequential type is unconnected in block <vga_video>.
+WARNING:Xst:2677 - Node <rom_addr_15> of sequential type is unconnected in block <vga_video>.
+
+Synthesizing (advanced) Unit <hex>.
+The following registers are absorbed into counter <divider>: 1 register on signal <divider>.
+Unit <hex> synthesized (advanced).
+
+Synthesizing (advanced) Unit <nibble_to_segments>.
+INFO:Xst:3218 - HDL ADVISOR - The RAM <Mram_segments_out> will be implemented on LUTs either because you have described an asynchronous read or because of currently unsupported block RAM features. If you have described an asynchronous read, making it synchronous would allow you to take advantage of available block RAM resources, for optimized device usage and improved timings. Please refer to your documentation for coding guidelines.
+    -----------------------------------------------------------------------
+    | ram_type           | Distributed                         |          |
+    -----------------------------------------------------------------------
+    | Port A                                                              |
+    |     aspect ratio   | 16-word x 8-bit                     |          |
+    |     weA            | connected to signal <GND>           | high     |
+    |     addrA          | connected to signal <nibble>        |          |
+    |     diA            | connected to signal <GND>           |          |
+    |     doA            | connected to signal <segments_out>  |          |
+    -----------------------------------------------------------------------
+Unit <nibble_to_segments> synthesized (advanced).
+
+Synthesizing (advanced) Unit <sync>.
+The following registers are absorbed into counter <h_out>: 1 register on signal <h_out>.
+The following registers are absorbed into counter <v_out>: 1 register on signal <v_out>.
+Unit <sync> synthesized (advanced).
+WARNING:Xst:2677 - Node <rom_addr_14> of sequential type is unconnected in block <draw>.
+WARNING:Xst:2677 - Node <rom_addr_15> of sequential type is unconnected in block <draw>.
+
+=========================================================================
+Advanced HDL Synthesis Report
+
+Macro Statistics
+# RAMs                                                 : 2
+ 16x8-bit single-port distributed Read Only RAM        : 2
+# Adders/Subtractors                                   : 9
+ 14-bit adder                                          : 4
+ 14-bit subtractor                                     : 3
+ 16-bit adder                                          : 1
+ 9-bit subtractor                                      : 1
+# Counters                                             : 3
+ 13-bit up counter                                     : 2
+ 32-bit up counter                                     : 1
+# Registers                                            : 62
+ Flip-Flops                                            : 62
+# Comparators                                          : 11
+ 13-bit comparator greater                             : 2
+ 13-bit comparator lessequal                           : 6
+ 14-bit comparator greater                             : 2
+ 32-bit comparator greater                             : 1
+# Multiplexers                                         : 3
+ 32-bit 2-to-1 multiplexer                             : 2
+ 8-bit 2-to-1 multiplexer                              : 1
+
+=========================================================================
+
+=========================================================================
+*                         Low Level Synthesis                           *
+=========================================================================
+WARNING:Xst:1710 - FF/Latch <segments_out_0> (without init value) has a constant value of 0 in block <hex>. This FF/Latch will be trimmed during the optimization process.
+
+Optimizing unit <top> ...
+
+Optimizing unit <draw> ...
+
+Optimizing unit <hex> ...
+
+Optimizing unit <sync> ...
+WARNING:Xst:1710 - FF/Latch <display/divider_15> (without init value) has a constant value of 0 in block <top>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <display/divider_16> (without init value) has a constant value of 0 in block <top>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <display/divider_17> (without init value) has a constant value of 0 in block <top>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <display/divider_18> (without init value) has a constant value of 0 in block <top>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <display/divider_19> (without init value) has a constant value of 0 in block <top>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <display/divider_20> (without init value) has a constant value of 0 in block <top>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <display/divider_21> (without init value) has a constant value of 0 in block <top>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <display/divider_22> (without init value) has a constant value of 0 in block <top>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <display/divider_23> (without init value) has a constant value of 0 in block <top>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <display/divider_24> (without init value) has a constant value of 0 in block <top>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <display/divider_25> (without init value) has a constant value of 0 in block <top>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <display/divider_26> (without init value) has a constant value of 0 in block <top>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <display/divider_27> (without init value) has a constant value of 0 in block <top>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <display/divider_28> (without init value) has a constant value of 0 in block <top>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <display/divider_29> (without init value) has a constant value of 0 in block <top>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <display/divider_30> (without init value) has a constant value of 0 in block <top>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <display/divider_31> (without init value) has a constant value of 0 in block <top>. This FF/Latch will be trimmed during the optimization process.
+
+Mapping all equations...
+Building and optimizing final netlist ...
+Found area constraint ratio of 100 (+ 5) on block top, actual ratio is 6.
+FlipFlop CLK_VGA_DIV2 has been replicated 1 time(s)
+
+Final Macro Processing ...
+
+=========================================================================
+Final Register Report
+
+Macro Statistics
+# Registers                                            : 103
+ Flip-Flops                                            : 103
+
+=========================================================================
+
+=========================================================================
+*                           Partition Report                            *
+=========================================================================
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+=========================================================================
+*                            Design Summary                             *
+=========================================================================
+
+Top Level Output File Name         : top.ngc
+
+Primitive and Black Box Usage:
+------------------------------
+# BELS                             : 606
+#      GND                         : 2
+#      INV                         : 50
+#      LUT1                        : 64
+#      LUT2                        : 42
+#      LUT3                        : 41
+#      LUT4                        : 56
+#      LUT5                        : 37
+#      LUT6                        : 43
+#      MUXCY                       : 148
+#      VCC                         : 2
+#      XORCY                       : 121
+# FlipFlops/Latches                : 103
+#      FD                          : 23
+#      FD_1                        : 28
+#      FDE                         : 24
+#      FDR                         : 28
+# RAMS                             : 8
+#      RAMB16BWER                  : 8
+# Clock Buffers                    : 4
+#      BUFG                        : 4
+# IO Buffers                       : 38
+#      IBUF                        : 8
+#      IBUFG                       : 1
+#      OBUF                        : 29
+# DCMs                             : 1
+#      DCM_SP                      : 1
+
+Device utilization summary:
+---------------------------
+
+Selected Device : 6slx9csg324-2 
+
+
+Slice Logic Utilization: 
+ Number of Slice Registers:             103  out of  11440     0%  
+ Number of Slice LUTs:                  333  out of   5720     5%  
+    Number used as Logic:               333  out of   5720     5%  
+
+Slice Logic Distribution: 
+ Number of LUT Flip Flop pairs used:    334
+   Number with an unused Flip Flop:     231  out of    334    69%  
+   Number with an unused LUT:             1  out of    334     0%  
+   Number of fully used LUT-FF pairs:   102  out of    334    30%  
+   Number of unique control sets:         8
+
+IO Utilization: 
+ Number of IOs:                          38
+ Number of bonded IOBs:                  38  out of    200    19%  
+
+Specific Feature Utilization:
+ Number of Block RAM/FIFO:                8  out of     32    25%  
+    Number using Block RAM only:          8
+ Number of BUFG/BUFGCTRLs:                4  out of     16    25%  
+
+---------------------------
+Partition Resource Summary:
+---------------------------
+
+  No Partitions were found in this design.
+
+---------------------------
+
+
+=========================================================================
+Timing Report
+
+NOTE: THESE TIMING NUMBERS ARE ONLY A SYNTHESIS ESTIMATE.
+      FOR ACCURATE TIMING INFORMATION PLEASE REFER TO THE TRACE REPORT
+      GENERATED AFTER PLACE-and-ROUTE.
+
+Clock Information:
+------------------
+-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------+-------+
+Clock Signal                       | Clock buffer(FF name)                                                                                                                      | Load  |
+-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------+-------+
+CLK_VGA_DIV2                       | BUFG                                                                                                                                       | 81    |
+VGA_VSYNC_OBUF(vga_sync/VSYNC3:O)  | BUFG(*)(vga_video/o_y_12)                                                                                                                  | 28    |
+vga_video/img_rom/N1               | NONE(vga_video/img_rom/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[7].ram.r/s6_init.ram/SP.SIMPLE_PRIM18.ram)| 8     |
+CLK_100MHz                         | DCM_SP:CLKFX                                                                                                                               | 2     |
+-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------+-------+
+(*) This 1 clock signal(s) are generated by combinatorial logic,
+and XST is not able to identify which are the primary clock signals.
+Please use the CLOCK_SIGNAL constraint to specify the clock signal(s) generated by combinatorial logic.
+INFO:Xst:2169 - HDL ADVISOR - Some clock signals were not automatically buffered by XST with BUFG/BUFR resources. Please use the buffer_type constraint in order to insert these buffers to the clock signals to help prevent skew problems.
+
+Asynchronous Control Signals Information:
+----------------------------------------
+No asynchronous control signals found in this design
+
+Timing Summary:
+---------------
+Speed Grade: -2
+
+   Minimum period: 7.345ns (Maximum Frequency: 136.147MHz)
+   Minimum input arrival time before clock: 5.107ns
+   Maximum output required time after clock: 8.806ns
+   Maximum combinational path delay: 6.151ns
+
+Timing Details:
+---------------
+All values displayed in nanoseconds (ns)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'CLK_VGA_DIV2'
+  Clock period: 4.799ns (frequency: 208.388MHz)
+  Total number of paths / destination ports: 4783 / 237
+-------------------------------------------------------------------------
+Delay:               4.799ns (Levels of Logic = 18)
+  Source:            vga_sync/h_out_0 (FF)
+  Destination:       vga_video/rom_addr_13 (FF)
+  Source Clock:      CLK_VGA_DIV2 rising
+  Destination Clock: CLK_VGA_DIV2 rising
+
+  Data Path: vga_sync/h_out_0 to vga_video/rom_addr_13
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDR:C->Q              9   0.525   0.976  vga_sync/h_out_0 (vga_sync/h_out_0)
+     LUT2:I1->O            1   0.254   0.000  vga_video/Msub_GND_7_o_GND_7_o_sub_9_OUT_lut<0> (vga_video/Msub_GND_7_o_GND_7_o_sub_9_OUT_lut<0>)
+     MUXCY:S->O            1   0.215   0.000  vga_video/Msub_GND_7_o_GND_7_o_sub_9_OUT_cy<0> (vga_video/Msub_GND_7_o_GND_7_o_sub_9_OUT_cy<0>)
+     MUXCY:CI->O           1   0.023   0.000  vga_video/Msub_GND_7_o_GND_7_o_sub_9_OUT_cy<1> (vga_video/Msub_GND_7_o_GND_7_o_sub_9_OUT_cy<1>)
+     MUXCY:CI->O           1   0.023   0.000  vga_video/Msub_GND_7_o_GND_7_o_sub_9_OUT_cy<2> (vga_video/Msub_GND_7_o_GND_7_o_sub_9_OUT_cy<2>)
+     MUXCY:CI->O           1   0.023   0.000  vga_video/Msub_GND_7_o_GND_7_o_sub_9_OUT_cy<3> (vga_video/Msub_GND_7_o_GND_7_o_sub_9_OUT_cy<3>)
+     MUXCY:CI->O           1   0.023   0.000  vga_video/Msub_GND_7_o_GND_7_o_sub_9_OUT_cy<4> (vga_video/Msub_GND_7_o_GND_7_o_sub_9_OUT_cy<4>)
+     MUXCY:CI->O           1   0.023   0.000  vga_video/Msub_GND_7_o_GND_7_o_sub_9_OUT_cy<5> (vga_video/Msub_GND_7_o_GND_7_o_sub_9_OUT_cy<5>)
+     MUXCY:CI->O           1   0.023   0.000  vga_video/Msub_GND_7_o_GND_7_o_sub_9_OUT_cy<6> (vga_video/Msub_GND_7_o_GND_7_o_sub_9_OUT_cy<6>)
+     MUXCY:CI->O           1   0.023   0.000  vga_video/Msub_GND_7_o_GND_7_o_sub_9_OUT_cy<7> (vga_video/Msub_GND_7_o_GND_7_o_sub_9_OUT_cy<7>)
+     MUXCY:CI->O           1   0.023   0.000  vga_video/Msub_GND_7_o_GND_7_o_sub_9_OUT_cy<8> (vga_video/Msub_GND_7_o_GND_7_o_sub_9_OUT_cy<8>)
+     MUXCY:CI->O           1   0.023   0.000  vga_video/Msub_GND_7_o_GND_7_o_sub_9_OUT_cy<9> (vga_video/Msub_GND_7_o_GND_7_o_sub_9_OUT_cy<9>)
+     MUXCY:CI->O           1   0.023   0.000  vga_video/Msub_GND_7_o_GND_7_o_sub_9_OUT_cy<10> (vga_video/Msub_GND_7_o_GND_7_o_sub_9_OUT_cy<10>)
+     MUXCY:CI->O           1   0.023   0.000  vga_video/Msub_GND_7_o_GND_7_o_sub_9_OUT_cy<11> (vga_video/Msub_GND_7_o_GND_7_o_sub_9_OUT_cy<11>)
+     XORCY:CI->O           1   0.206   0.682  vga_video/Msub_GND_7_o_GND_7_o_sub_9_OUT_xor<12> (vga_video/GND_7_o_GND_7_o_sub_9_OUT<12>)
+     LUT2:I1->O            1   0.254   0.000  vga_video/Madd_n0051_Madd_lut<12> (vga_video/Madd_n0051_Madd_lut<12>)
+     MUXCY:S->O            0   0.215   0.000  vga_video/Madd_n0051_Madd_cy<12> (vga_video/Madd_n0051_Madd_cy<12>)
+     XORCY:CI->O           1   0.206   0.682  vga_video/Madd_n0051_Madd_xor<13> (vga_video/n0051<13>)
+     LUT5:I4->O            1   0.254   0.000  vga_video/rom_addr_13_dpot (vga_video/rom_addr_13_dpot)
+     FDE:D                     0.074          vga_video/rom_addr_13
+    ----------------------------------------
+    Total                      4.799ns (2.459ns logic, 2.340ns route)
+                                       (51.2% logic, 48.8% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'VGA_VSYNC_OBUF'
+  Clock period: 4.156ns (frequency: 240.616MHz)
+  Total number of paths / destination ports: 444 / 28
+-------------------------------------------------------------------------
+Delay:               4.156ns (Levels of Logic = 3)
+  Source:            vga_video/o_x_1 (FF)
+  Destination:       vga_video/d_x (FF)
+  Source Clock:      VGA_VSYNC_OBUF falling
+  Destination Clock: VGA_VSYNC_OBUF falling
+
+  Data Path: vga_video/o_x_1 to vga_video/d_x
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FD_1:C->Q             9   0.525   1.431  vga_video/o_x_1 (vga_video/o_x_1)
+     LUT6:I0->O            1   0.254   0.682  vga_video/GND_7_o_GND_7_o_equal_24_o<12>1_SW1 (N18)
+     LUT6:I5->O            1   0.254   0.682  vga_video/GND_7_o_GND_7_o_equal_24_o<12>2 (vga_video/GND_7_o_GND_7_o_equal_24_o)
+     LUT6:I5->O            1   0.254   0.000  vga_video/d_x_glue_rst (vga_video/d_x_glue_rst)
+     FD_1:D                    0.074          vga_video/d_x
+    ----------------------------------------
+    Total                      4.156ns (1.361ns logic, 2.795ns route)
+                                       (32.7% logic, 67.3% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'CLK_100MHz'
+  Clock period: 7.345ns (frequency: 136.147MHz)
+  Total number of paths / destination ports: 2 / 2
+-------------------------------------------------------------------------
+Delay:               2.260ns (Levels of Logic = 1)
+  Source:            CLK_VGA_DIV2_1 (FF)
+  Destination:       CLK_VGA_DIV2 (FF)
+  Source Clock:      CLK_100MHz rising 3.3X
+  Destination Clock: CLK_100MHz rising 3.3X
+
+  Data Path: CLK_VGA_DIV2_1 to CLK_VGA_DIV2
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FD:C->Q               1   0.525   0.681  CLK_VGA_DIV2_1 (CLK_VGA_DIV2_1)
+     INV:I->O              2   0.255   0.725  CLK_VGA_DIV2_rstpot1_INV_0 (CLK_VGA_DIV2_rstpot)
+     FD:D                      0.074          CLK_VGA_DIV2
+    ----------------------------------------
+    Total                      2.260ns (0.854ns logic, 1.406ns route)
+                                       (37.8% logic, 62.2% route)
+
+=========================================================================
+Timing constraint: Default OFFSET IN BEFORE for Clock 'CLK_VGA_DIV2'
+  Total number of paths / destination ports: 61 / 7
+-------------------------------------------------------------------------
+Offset:              5.107ns (Levels of Logic = 4)
+  Source:            DIP<6> (PAD)
+  Destination:       display/segments_out_1 (FF)
+  Destination Clock: CLK_VGA_DIV2 rising
+
+  Data Path: DIP<6> to display/segments_out_1
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O             9   1.328   1.431  DIP_6_IBUF (DIP_6_IBUF)
+     LUT6:I0->O            2   0.254   0.834  display/segments_enable_out[2]_GND_9_o_select_9_OUT<1>22 (display/segments_enable_out[2]_GND_9_o_select_9_OUT<1>2)
+     LUT6:I4->O            1   0.250   0.682  display/segments_enable_out[2]_GND_9_o_select_9_OUT<1>1 (display/segments_enable_out[2]_GND_9_o_select_9_OUT<1>1)
+     LUT6:I5->O            1   0.254   0.000  display/segments_enable_out[2]_GND_9_o_select_9_OUT<1>2 (display/segments_enable_out[2]_GND_9_o_select_9_OUT<1>)
+     FDE:D                     0.074          display/segments_out_1
+    ----------------------------------------
+    Total                      5.107ns (2.160ns logic, 2.947ns route)
+                                       (42.3% logic, 57.7% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'CLK_VGA_DIV2'
+  Total number of paths / destination ports: 174 / 20
+-------------------------------------------------------------------------
+Offset:              8.806ns (Levels of Logic = 4)
+  Source:            vga_sync/v_out_12 (FF)
+  Destination:       VGA_PIXEL<7> (PAD)
+  Source Clock:      CLK_VGA_DIV2 rising
+
+  Data Path: vga_sync/v_out_12 to VGA_PIXEL<7>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FD:C->Q              20   0.525   1.741  vga_sync/v_out_12 (vga_sync/v_out_12)
+     LUT6:I0->O            1   0.254   1.137  vga_sync/ACTIVE2 (vga_sync/ACTIVE1)
+     LUT6:I0->O            8   0.254   1.052  vga_sync/ACTIVE3 (VGA_ACTIVE)
+     LUT2:I0->O            1   0.250   0.681  vga_video/Mmux_rgb11 (VGA_PIXEL_0_OBUF)
+     OBUF:I->O                 2.912          VGA_PIXEL_0_OBUF (VGA_PIXEL<0>)
+    ----------------------------------------
+    Total                      8.806ns (4.195ns logic, 4.611ns route)
+                                       (47.6% logic, 52.4% route)
+
+=========================================================================
+Timing constraint: Default path analysis
+  Total number of paths / destination ports: 8 / 8
+-------------------------------------------------------------------------
+Delay:               6.151ns (Levels of Logic = 3)
+  Source:            DIP<6> (PAD)
+  Destination:       LED<6> (PAD)
+
+  Data Path: DIP<6> to LED<6>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O             9   1.328   0.975  DIP_6_IBUF (DIP_6_IBUF)
+     INV:I->O              1   0.255   0.681  LED<6>1_INV_0 (LED_6_OBUF)
+     OBUF:I->O                 2.912          LED_6_OBUF (LED<6>)
+    ----------------------------------------
+    Total                      6.151ns (4.495ns logic, 1.656ns route)
+                                       (73.1% logic, 26.9% route)
+
+=========================================================================
+
+Cross Clock Domains Report:
+--------------------------
+
+Clock to Setup on destination clock CLK_100MHz
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+CLK_100MHz     |    2.260|         |         |         |
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock CLK_VGA_DIV2
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+CLK_VGA_DIV2   |    4.799|         |         |         |
+VGA_VSYNC_OBUF |         |    5.461|         |         |
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock VGA_VSYNC_OBUF
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+VGA_VSYNC_OBUF |         |         |    4.156|         |
+---------------+---------+---------+---------+---------+
+
+=========================================================================
+
+
+Total REAL time to Xst completion: 5.00 secs
+Total CPU time to Xst completion: 4.95 secs
+ 
+--> 
+
+Total memory usage is 261712 kilobytes
+
+Number of errors   :    0 (   0 filtered)
+Number of warnings :   32 (   0 filtered)
+Number of infos    :    3 (   0 filtered)
+

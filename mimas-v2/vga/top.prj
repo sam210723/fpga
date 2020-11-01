@@ -1,0 +1,6 @@
+verilog work "ipcore_dir/rom.v"
+verilog work "sync.v"
+verilog work "ipcore_dir/pll.v"
+verilog work "hex.v"
+verilog work "draw.v"
+verilog work "top.v"

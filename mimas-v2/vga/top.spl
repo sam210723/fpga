@@ -1,0 +1,14 @@
+[Inputs]
+CLK_100MHz
+=DIP[7:0]=
+[Outputs]
+VGA_HSYNC
+VGA_VSYNC
+=VGA_PIXEL[7:0]=
+=LED[7:0]=
+=SevenSegment[7:0]=
+=SevenSegmentEnable[2:0]=
+[BiDir]
+[ATTRIBUTES]
+VeriModel top
+
