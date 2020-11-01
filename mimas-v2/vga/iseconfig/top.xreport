@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2020-10-22T23:43:33</DateModified>
+  <DateModified>2020-11-01T14:55:10</DateModified>
   <ModuleName>top</ModuleName>
-  <SummaryTimeStamp>2020-10-19T22:08:14</SummaryTimeStamp>
+  <SummaryTimeStamp>2020-11-01T14:39:42</SummaryTimeStamp>
   <SavedFilePath>Z:/Shared/ISE Projects/vga/iseconfig/top.xreport</SavedFilePath>
   <ImplementationReportsDirectory>Z:/Shared/ISE Projects/vga\</ImplementationReportsDirectory>
   <DateInitialized>2020-09-11T10:51:39</DateInitialized>

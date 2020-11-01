@@ -10,12 +10,10 @@ module draw(
 
     localparam H_ACTIVE = 1600;     // Horizontal active pixels
     localparam V_ACTIVE = 1200;     // Vertical active pixels
-    //localparam I_WIDTH  = 256;      // Image horizontal size
-    //localparam I_HEIGHT = 114;      // Image vertical size
-	 localparam I_WIDTH  = 128;      // Image horizontal size
-    localparam I_HEIGHT = 128;      // Image vertical size
+    localparam I_WIDTH  = 256;      // Image horizontal size
+    localparam I_HEIGHT = 114;      // Image vertical size
 
-    reg [15:0] rom_addr;
+    reg [14:0] rom_addr;
     wire [7:0] rom_data;
     rom img_rom (
         .clka(CLK),

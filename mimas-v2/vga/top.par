@@ -1,7 +1,7 @@
 Release 14.7 par P.20131013 (nt64)
 Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 
-FPGA-PC::  Fri Oct 23 22:08:50 2020
+FPGA-PC::  Sun Nov 01 15:05:47 2020
 
 par -w -intstyle ise -ol high -mt off top_map.ncd top.ncd top.pcf 
 
@@ -21,16 +21,16 @@ Device speed data version:  "PRODUCTION 1.23 2013-10-13".
 Device Utilization Summary:
 
 Slice Logic Utilization:
-  Number of Slice Registers:                   103 out of  11,440    1%
-    Number used as Flip Flops:                 103
+  Number of Slice Registers:                   106 out of  11,440    1%
+    Number used as Flip Flops:                 105
     Number used as Latches:                      0
     Number used as Latch-thrus:                  0
-    Number used as AND/OR logics:                0
-  Number of Slice LUTs:                        272 out of   5,720    4%
-    Number used as logic:                      267 out of   5,720    4%
-      Number using O6 output only:             123
-      Number using O5 output only:              59
-      Number using O5 and O6:                   85
+    Number used as AND/OR logics:                1
+  Number of Slice LUTs:                        285 out of   5,720    4%
+    Number used as logic:                      280 out of   5,720    4%
+      Number using O6 output only:             121
+      Number using O5 output only:              67
+      Number using O5 and O6:                   92
       Number used as ROM:                        0
     Number used as Memory:                       0 out of   1,440    0%
     Number used exclusively as route-thrus:      5
@@ -39,12 +39,12 @@ Slice Logic Utilization:
       Number with other load:                    0
 
 Slice Logic Distribution:
-  Number of occupied Slices:                    91 out of   1,430    6%
-  Number of MUXCYs used:                       184 out of   2,860    6%
-  Number of LUT Flip Flop pairs used:          273
-    Number with an unused Flip Flop:           184 out of     273   67%
-    Number with an unused LUT:                   1 out of     273    1%
-    Number of fully used LUT-FF pairs:          88 out of     273   32%
+  Number of occupied Slices:                    93 out of   1,430    6%
+  Number of MUXCYs used:                       196 out of   2,860    6%
+  Number of LUT Flip Flop pairs used:          287
+    Number with an unused Flip Flop:           195 out of     287   67%
+    Number with an unused LUT:                   2 out of     287    1%
+    Number of fully used LUT-FF pairs:          90 out of     287   31%
     Number of slice register sites lost
       to control set restrictions:               0 out of  11,440    0%
 
@@ -59,7 +59,7 @@ IO Utilization:
     Number of LOCed IOBs:                       38 out of      38  100%
 
 Specific Feature Utilization:
-  Number of RAMB16BWERs:                         8 out of      32   25%
+  Number of RAMB16BWERs:                        16 out of      32   50%
   Number of RAMB8BWERs:                          0 out of      64    0%
   Number of BUFIO2/BUFIO2_2CLKs:                 1 out of      32    3%
     Number used as BUFIO2s:                      1
@@ -99,13 +99,13 @@ Finished initial Timing Analysis.  REAL time: 1 secs
 Starting Router
 
 
-Phase  1  : 2019 unrouted;      REAL time: 1 secs 
+Phase  1  : 2990 unrouted;      REAL time: 1 secs 
 
-Phase  2  : 1024 unrouted;      REAL time: 2 secs 
+Phase  2  : 1174 unrouted;      REAL time: 2 secs 
 
-Phase  3  : 387 unrouted;      REAL time: 2 secs 
+Phase  3  : 407 unrouted;      REAL time: 2 secs 
 
-Phase  4  : 387 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 2 secs 
+Phase  4  : 407 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 2 secs 
 
 Updating file: top.ncd with current fully routed design.
 
@@ -139,9 +139,9 @@ Generating Clock Report
 +---------------------+--------------+------+------+------------+-------------+
 |        Clock Net    |   Resource   |Locked|Fanout|Net Skew(ns)|Max Delay(ns)|
 +---------------------+--------------+------+------+------------+-------------+
-| VGA_VSYNC_OBUF_BUFG |  BUFGMUX_X2Y2| No   |    6 |  0.010     |  1.403      |
+|   CLK_VGA_DIV2_BUFG |  BUFGMUX_X2Y4| No   |   43 |  0.114     |  1.508      |
 +---------------------+--------------+------+------+------------+-------------+
-|   CLK_VGA_DIV2_BUFG |  BUFGMUX_X2Y4| No   |   31 |  0.106     |  1.508      |
+| VGA_VSYNC_OBUF_BUFG |  BUFGMUX_X2Y2| No   |    6 |  0.009     |  1.407      |
 +---------------------+--------------+------+------+------------+-------------+
 |             CLK_VGA | BUFGMUX_X3Y13| No   |    1 |  0.000     |  1.402      |
 +---------------------+--------------+------+------+------------+-------------+
@@ -198,7 +198,7 @@ All signals are completely routed.
 Total REAL time to PAR completion: 4 secs 
 Total CPU time to PAR completion: 4 secs 
 
-Peak Memory Usage:  315 MB
+Peak Memory Usage:  317 MB
 
 Placer: Placement generated during map.
 Routing: Completed - No errors found.

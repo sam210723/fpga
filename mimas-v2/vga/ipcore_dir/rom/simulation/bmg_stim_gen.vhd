@@ -125,7 +125,7 @@ ENTITY BMG_STIM_GEN IS
       PORT (
             CLK : IN STD_LOGIC;
             RST : IN STD_LOGIC;
-            ADDRA: OUT  STD_LOGIC_VECTOR(13 DOWNTO 0) := (OTHERS => '0'); 
+            ADDRA: OUT  STD_LOGIC_VECTOR(14 DOWNTO 0) := (OTHERS => '0'); 
             DATA_IN : IN STD_LOGIC_VECTOR (7 DOWNTO 0);   --OUTPUT VECTOR         
             STATUS : OUT STD_LOGIC:= '0'
     	  );
@@ -168,7 +168,7 @@ ARCHITECTURE BEHAVIORAL OF BMG_STIM_GEN IS
   END hex_to_std_logic_vector;
 
 CONSTANT ZERO : STD_LOGIC_VECTOR(31 DOWNTO 0) := (OTHERS => '0');
-SIGNAL READ_ADDR_INT : STD_LOGIC_VECTOR(13 DOWNTO 0) := (OTHERS => '0');
+SIGNAL READ_ADDR_INT : STD_LOGIC_VECTOR(14 DOWNTO 0) := (OTHERS => '0');
 SIGNAL READ_ADDR : STD_LOGIC_VECTOR(31 DOWNTO 0) := (OTHERS => '0');
 SIGNAL CHECK_READ_ADDR : STD_LOGIC_VECTOR(31 DOWNTO 0) := (OTHERS => '0');
 SIGNAL EXPECTED_DATA : STD_LOGIC_VECTOR(7 DOWNTO 0) := (OTHERS => '0');
@@ -184,7 +184,7 @@ BEGIN
 
 SYNTH_COE:  IF(C_ROM_SYNTH =0 ) GENERATE
 
-type mem_type is array (16383 downto 0) of std_logic_vector(7 downto 0);
+type mem_type is array (32767 downto 0) of std_logic_vector(7 downto 0);
 
   FUNCTION bit_to_sl(input: BIT) RETURN STD_LOGIC IS
     VARIABLE temp_return : STD_LOGIC;
@@ -285,12 +285,12 @@ impure FUNCTION init_memory( C_USE_DEFAULT_DATA : INTEGER;
   -- convert bit to STD_LOGIC
   --***************************************************************
 
-constant c_init : mem_type := init_memory(0,
+constant c_init : mem_type := init_memory(1,
                                           1,
 										  "rom.mif",
                                            DEFAULT_DATA,
                                           8,
-                                          16384);
+                                          32768);
 
 
 constant rom : mem_type := c_init;
@@ -299,7 +299,7 @@ BEGIN
  EXPECTED_DATA <= rom(conv_integer(unsigned(check_read_addr)));
 
   CHECKER_RD_ADDR_GEN_INST:ENTITY work.ADDR_GEN
-    GENERIC MAP( C_MAX_DEPTH =>16384 )
+    GENERIC MAP( C_MAX_DEPTH =>32768 )
 
      PORT MAP(
         CLK => CLK,
@@ -344,7 +344,7 @@ SYNTH_CHECKER: IF(C_ROM_SYNTH = 1) GENERATE
 END GENERATE;
 
 
-    READ_ADDR_INT(13 DOWNTO 0) <= READ_ADDR(13 DOWNTO 0);
+    READ_ADDR_INT(14 DOWNTO 0) <= READ_ADDR(14 DOWNTO 0);
     ADDRA <= READ_ADDR_INT ;
 
    CHECK_DATA <= DO_READ;
@@ -353,7 +353,7 @@ END GENERATE;
 
 
   RD_ADDR_GEN_INST:ENTITY work.ADDR_GEN
-    GENERIC MAP( C_MAX_DEPTH => 16384 )
+    GENERIC MAP( C_MAX_DEPTH => 32768 )
 
      PORT MAP(
         CLK => CLK,

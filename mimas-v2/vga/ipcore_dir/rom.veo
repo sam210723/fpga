@@ -49,7 +49,7 @@
 //----------- Begin Cut here for INSTANTIATION Template ---// INST_TAG
 rom your_instance_name (
   .clka(clka), // input clka
-  .addra(addra), // input [13 : 0] addra
+  .addra(addra), // input [14 : 0] addra
   .douta(douta) // output [7 : 0] douta
 );
 // INST_TAG_END ------ End INSTANTIATION Template ---------

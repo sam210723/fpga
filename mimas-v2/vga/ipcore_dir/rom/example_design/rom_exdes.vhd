@@ -88,7 +88,7 @@ USE UNISIM.VCOMPONENTS.ALL;
 ENTITY rom_exdes IS
   PORT (
       --Inputs - Port A
-    ADDRA          : IN STD_LOGIC_VECTOR(13 DOWNTO 0);
+    ADDRA          : IN STD_LOGIC_VECTOR(14 DOWNTO 0);
   
     DOUTA          : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
     CLKA       : IN STD_LOGIC
@@ -111,7 +111,7 @@ ARCHITECTURE xilinx OF rom_exdes IS
   COMPONENT rom IS
   PORT (
       --Port A
-    ADDRA      : IN STD_LOGIC_VECTOR(13 DOWNTO 0);
+    ADDRA      : IN STD_LOGIC_VECTOR(14 DOWNTO 0);
   
     DOUTA      : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
 
