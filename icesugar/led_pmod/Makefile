@@ -9,17 +9,8 @@ build: clean
 	rm -rf $(name).json $(name).asc
 
 prog: build
-
-	icelink = $(shell df | grep iCELink | awk '{print $$6}')
-	${warning iCELink Path: $(icelink)}
-
-	@if [ -d '$(ICELINK_DIR)' ]; \
-        then \
-            cp $(filename).bin $(ICELINK_DIR); \
-        else \
-            echo "iCELink not found"; \
-            exit 1; \
-    fi
+	# sudo mount -t drvfs F: /mnt/f
+	cp $(name).bin /mnt/f
 
 clean:
 	rm -rf $(name).log $(name).json $(name).asc $(name).bin
