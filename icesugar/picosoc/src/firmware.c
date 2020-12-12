@@ -480,6 +480,7 @@ void cmd_led()
 	print("  [2] RGB RED\n");
 	print("  [3] RGB GREEN\n");
 	print("  [4] RGB BLUE\n");
+	print("  [5] PMOD2 ON\n");
 	putchar('\n');
 
 	print("Choice: ");
@@ -510,6 +511,10 @@ void cmd_led()
 
 	case 4:
 		reg_leds = 0b01111111111;
+		break;
+	
+	case 5:
+		reg_leds = 0b11100000000;
 		break;
 
 	default:
