@@ -1,5 +1,7 @@
 # PicoSoC + PicoRV32 Example
 
+![](picosoc.png)
+
 | Make target     | Description                                         |
 | --------------- | --------------------------------------------------- |
 | `make`          | Build SoC and firmware into flashable bitstream     |
