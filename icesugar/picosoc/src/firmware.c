@@ -162,14 +162,17 @@ void print_dec(uint32_t v)
 	else putchar('0');
 }
 
+void toggle_led(uint8_t pos)
+{
+	reg_leds ^= 1UL << pos;
+}
+
 char getchar_prompt(char *prompt)
 {
 	int32_t c = -1;
 
 	uint32_t cycles_begin, cycles_now, cycles;
 	__asm__ volatile ("rdcycle %0" : "=r"(cycles_begin));
-
-	//reg_leds = ~0;
 
 	if (prompt)
 		print(prompt);
@@ -181,12 +184,11 @@ char getchar_prompt(char *prompt)
 			if (prompt)
 				print(prompt);
 			cycles_begin = cycles_now;
-			//reg_leds = ~reg_leds;
+			toggle_led(8);	// Toggle RGB RED
 		}
 		c = reg_uart_data;
 	}
 
-	//reg_leds = 0;
 	return c;
 }
 
