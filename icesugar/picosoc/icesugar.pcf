@@ -1,9 +1,9 @@
 # 12 MHz clock
 set_io clk        35
 
-# RS232
-set_io ser_rx      46
-set_io ser_tx      44
+# UART via iCELink
+set_io ser_rx     4
+set_io ser_tx     6
 
 # SPI Flash
 set_io flash_clk  15
