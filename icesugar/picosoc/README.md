@@ -4,7 +4,7 @@
 | --------------- | --------------------------------------------------- |
 | `make`          | Build SoC and firmware into flashable bitstream     |
 | `make core`     | Build SoC and RV32I CPU core                        |
-| `make firmware` | Combile and link firmware                           |
+| `make firmware` | Compile and link firmware                           |
 | `make image`    | Combine SoC and firmware into bitstream             |
 | `make clean`    | Delete temporary files created by the build process |
 
