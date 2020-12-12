@@ -5,3 +5,5 @@
 *.bin
 *.asc
 *.log
+*.rpt
+picosoc-example
