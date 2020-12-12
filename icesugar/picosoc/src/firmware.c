@@ -169,7 +169,7 @@ char getchar_prompt(char *prompt)
 	uint32_t cycles_begin, cycles_now, cycles;
 	__asm__ volatile ("rdcycle %0" : "=r"(cycles_begin));
 
-	reg_leds = ~0;
+	//reg_leds = ~0;
 
 	if (prompt)
 		print(prompt);
@@ -181,12 +181,12 @@ char getchar_prompt(char *prompt)
 			if (prompt)
 				print(prompt);
 			cycles_begin = cycles_now;
-			reg_leds = ~reg_leds;
+			//reg_leds = ~reg_leds;
 		}
 		c = reg_uart_data;
 	}
 
-	reg_leds = 0;
+	//reg_leds = 0;
 	return c;
 }
 
@@ -472,17 +472,68 @@ void cmd_echo()
 
 // --------------------------------------------------------
 
+void cmd_led()
+{
+	print("Options:\n");
+	print("  [0] ALL OFF\n");
+	print("  [1] ALL ON\n");
+	print("  [2] RGB RED\n");
+	print("  [3] RGB GREEN\n");
+	print("  [4] RGB BLUE\n");
+	putchar('\n');
+
+	print("Choice: ");
+	char c = getchar();
+
+	// Return if not a number
+	if (c < 48 || c > 57) return;
+	putchar(c);
+
+	// Subtract 48 off ASCII code to get number
+	switch (c - 48)
+	{
+	case 0:
+		reg_leds = 0b11111111111;
+		break;
+	
+	case 1:
+		reg_leds = 0b00000000000;
+		break;
+	
+	case 2:
+		reg_leds = 0b11011111111;
+		break;
+	
+	case 3:
+		reg_leds = 0b10111111111;
+		break;
+
+	case 4:
+		reg_leds = 0b01111111111;
+		break;
+
+	default:
+		break;
+	}
+
+	print("\nLED register set to ");
+	print_hex(reg_leds, 2);
+	putchar('\n');
+}
+
+// --------------------------------------------------------
+
 void main()
 {
-	reg_leds = 31;
+	reg_leds = 0b11111111111;	// ALL OFF
 	reg_uart_clkdiv = 104;
 	print("Booting..\n");
 
-	reg_leds = 63;
 	set_flash_qspi_flag();
+	reg_leds = 0b11011111111;	// RGB RED
 
-	reg_leds = 127;
 	while (getchar_prompt("Press ENTER to continue..\n") != '\r') { /* wait */ }
+	reg_leds = 0b10111111111;	// RGB GREEN
 
 	print("\n");
 	print("  ____  _          ____         ____\n");
@@ -502,6 +553,8 @@ void main()
 
 	cmd_print_spi_state();
 	print("\n");
+	
+	reg_leds = 0b01111111111;	// RGB BLUE
 
 	while (1)
 	{
@@ -521,6 +574,7 @@ void main()
 		print("   [M] Run Memtest\n");
 		print("   [S] Print SPI state\n");
 		print("   [e] Echo UART\n");
+		print("   [l] Set LED register\n");
 		print("\n");
 
 		for (int rep = 10; rep > 0; rep--)
@@ -568,6 +622,9 @@ void main()
 				break;
 			case 'e':
 				cmd_echo();
+				break;
+			case 'l':
+				cmd_led();
 				break;
 			default:
 				continue;

@@ -58,7 +58,7 @@ module icesugar (
 		reset_cnt <= reset_cnt + !resetn;
 	end
 
-	wire [7:0] leds;
+	wire [10:0] leds;
 
 	assign P2_1 = leds[0];
 	assign P2_2 = leds[1];
@@ -69,9 +69,9 @@ module icesugar (
 	assign P2_7 = leds[6];
 	assign P2_8 = leds[7];
 
-	assign LED_R = leds[0];
-	assign LED_G = leds[1];
-	assign LED_B = leds[2];
+	assign LED_R = leds[8];
+	assign LED_G = leds[9];
+	assign LED_B = leds[10];
 
 	wire flash_io0_oe, flash_io0_do, flash_io0_di;
 	wire flash_io1_oe, flash_io1_do, flash_io1_di;
