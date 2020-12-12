@@ -24,19 +24,23 @@
 `define PICOSOC_MEM ice40up5k_spram
 
 module icesugar (
-	input clk,
+	input CLK,
 
-	output ser_tx,
-	input ser_rx,
+	output UART_TX,
+	input  UART_RX,
 
-	output led1,
-	output led2,
-	output led3,
-	output led4,
-	output led5,
+	output P2_1,
+	output P2_2,
+	output P2_3,
+	output P2_4,
+	output P2_5,
+	output P2_6,
+	output P2_7,
+	output P2_8,
 
-	output ledr_n,
-	output ledg_n,
+	output LED_R,
+	output LED_G,
+	output LED_B,
 
 	output flash_csb,
 	output flash_clk,
@@ -50,20 +54,24 @@ module icesugar (
 	reg [5:0] reset_cnt = 0;
 	wire resetn = &reset_cnt;
 
-	always @(posedge clk) begin
+	always @(posedge CLK) begin
 		reset_cnt <= reset_cnt + !resetn;
 	end
 
 	wire [7:0] leds;
 
-	assign led1 = leds[1];
-	assign led2 = leds[2];
-	assign led3 = leds[3];
-	assign led4 = leds[4];
-	assign led5 = leds[5];
+	assign P2_1 = leds[0];
+	assign P2_2 = leds[1];
+	assign P2_3 = leds[2];
+	assign P2_4 = leds[3];
+	assign P2_5 = leds[4];
+	assign P2_6 = leds[5];
+	assign P2_7 = leds[6];
+	assign P2_8 = leds[7];
 
-	assign ledr_n = !leds[6];
-	assign ledg_n = !leds[7];
+	assign LED_R = leds[0];
+	assign LED_G = leds[1];
+	assign LED_B = leds[2];
 
 	wire flash_io0_oe, flash_io0_do, flash_io0_di;
 	wire flash_io1_oe, flash_io1_do, flash_io1_di;
@@ -90,7 +98,7 @@ module icesugar (
 	reg [31:0] gpio;
 	assign leds = gpio;
 
-	always @(posedge clk) begin
+	always @(posedge CLK) begin
 		if (!resetn) begin
 			gpio <= 0;
 		end else begin
@@ -111,11 +119,11 @@ module icesugar (
 		.ENABLE_MULDIV(0),
 		.MEM_WORDS(MEM_WORDS)
 	) soc (
-		.clk          (clk         ),
+		.clk          (CLK         ),
 		.resetn       (resetn      ),
 
-		.ser_tx       (ser_tx      ),
-		.ser_rx       (ser_rx      ),
+		.ser_tx       (UART_TX     ),
+		.ser_rx       (UART_RX     ),
 
 		.flash_csb    (flash_csb   ),
 		.flash_clk    (flash_clk   ),
