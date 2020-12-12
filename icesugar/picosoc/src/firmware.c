@@ -26,10 +26,18 @@
 // know that because "sram" is a linker symbol from sections.lds.
 extern uint32_t sram;
 
-#define reg_spictrl (*(volatile uint32_t*)0x02000000)
+// Memory Map
+// 0x00000000 - 0x00FFFFFF		Internal SRAM
+// 0x01000000 - 0x01FFFFFF		External Serial Flash
+// 0x02000000 - 0x02000003		SPI Flash Controller Config Register
+// 0x02000004 - 0x02000007		UART Clock Divider Register
+// 0x02000008 - 0x0200000B		UART Send/Recv Data Register
+// 0x03000000 - 0xFFFFFFFF		Memory mapped user peripherals
+
+#define reg_spictrl     (*(volatile uint32_t*)0x02000000)
 #define reg_uart_clkdiv (*(volatile uint32_t*)0x02000004)
-#define reg_uart_data (*(volatile uint32_t*)0x02000008)
-#define reg_leds (*(volatile uint32_t*)0x03000000)
+#define reg_uart_data   (*(volatile uint32_t*)0x02000008)
+#define reg_leds        (*(volatile uint32_t*)0x03000000)
 
 // --------------------------------------------------------
 
