@@ -523,7 +523,7 @@ void cmd_led()
 		break;
 	}
 
-	print("\nLED register set to ");
+	print("\nLED register set to 0x");
 	print_hex(reg_leds, 2);
 	putchar('\n');
 }
