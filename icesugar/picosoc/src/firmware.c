@@ -20,13 +20,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#ifdef ICEBREAKER
-#  define MEM_TOTAL 0x20000 /* 128 KB */
-#elif HX8KDEMO
-#  define MEM_TOTAL 0x200 /* 2 KB */
-#else
-#  error "Set -DICEBREAKER or -DHX8KDEMO when compiling firmware.c"
-#endif
+#define MEM_TOTAL 0x20000 /* 128 KB for iCESugar (UP5K) */
 
 // a pointer to this is a null pointer, but the compiler does not
 // know that because "sram" is a linker symbol from sections.lds.
@@ -55,62 +49,6 @@ void flashio(uint8_t *data, int len, uint8_t wrencmd)
 	((void(*)(uint8_t*, uint32_t, uint32_t))func)(data, len, wrencmd);
 }
 
-#ifdef HX8KDEMO
-void set_flash_qspi_flag()
-{
-	uint8_t buffer[8];
-	uint32_t addr_cr1v = 0x800002;
-
-	// Read Any Register (RDAR 65h)
-	buffer[0] = 0x65;
-	buffer[1] = addr_cr1v >> 16;
-	buffer[2] = addr_cr1v >> 8;
-	buffer[3] = addr_cr1v;
-	buffer[4] = 0; // dummy
-	buffer[5] = 0; // rdata
-	flashio(buffer, 6, 0);
-	uint8_t cr1v = buffer[5];
-
-	// Write Enable (WREN 06h) + Write Any Register (WRAR 71h)
-	buffer[0] = 0x71;
-	buffer[1] = addr_cr1v >> 16;
-	buffer[2] = addr_cr1v >> 8;
-	buffer[3] = addr_cr1v;
-	buffer[4] = cr1v | 2; // Enable QSPI
-	flashio(buffer, 5, 0x06);
-}
-
-void set_flash_latency(uint8_t value)
-{
-	reg_spictrl = (reg_spictrl & ~0x007f0000) | ((value & 15) << 16);
-
-	uint32_t addr = 0x800004;
-	uint8_t buffer_wr[5] = {0x71, addr >> 16, addr >> 8, addr, 0x70 | value};
-	flashio(buffer_wr, 5, 0x06);
-}
-
-void set_flash_mode_spi()
-{
-	reg_spictrl = (reg_spictrl & ~0x00700000) | 0x00000000;
-}
-
-void set_flash_mode_dual()
-{
-	reg_spictrl = (reg_spictrl & ~0x00700000) | 0x00400000;
-}
-
-void set_flash_mode_quad()
-{
-	reg_spictrl = (reg_spictrl & ~0x00700000) | 0x00200000;
-}
-
-void set_flash_mode_qddr()
-{
-	reg_spictrl = (reg_spictrl & ~0x00700000) | 0x00600000;
-}
-#endif
-
-#ifdef ICEBREAKER
 void set_flash_qspi_flag()
 {
 	uint8_t buffer[8];
@@ -151,7 +89,6 @@ void enable_flash_crm()
 {
 	reg_spictrl |= 0x00100000;
 }
-#endif
 
 // --------------------------------------------------------
 
@@ -355,38 +292,6 @@ void cmd_read_flash_id()
 
 // --------------------------------------------------------
 
-#ifdef HX8KDEMO
-uint8_t cmd_read_flash_regs_print(uint32_t addr, const char *name)
-{
-	set_flash_latency(8);
-
-	uint8_t buffer[6] = {0x65, addr >> 16, addr >> 8, addr, 0, 0};
-	flashio(buffer, 6, 0);
-
-	print("0x");
-	print_hex(addr, 6);
-	print(" ");
-	print(name);
-	print(" 0x");
-	print_hex(buffer[5], 2);
-	print("\n");
-
-	return buffer[5];
-}
-
-void cmd_read_flash_regs()
-{
-	print("\n");
-	uint8_t sr1v = cmd_read_flash_regs_print(0x800000, "SR1V");
-	uint8_t sr2v = cmd_read_flash_regs_print(0x800001, "SR2V");
-	uint8_t cr1v = cmd_read_flash_regs_print(0x800002, "CR1V");
-	uint8_t cr2v = cmd_read_flash_regs_print(0x800003, "CR2V");
-	uint8_t cr3v = cmd_read_flash_regs_print(0x800004, "CR3V");
-	uint8_t vdlp = cmd_read_flash_regs_print(0x800005, "VDLP");
-}
-#endif
-
-#ifdef ICEBREAKER
 uint8_t cmd_read_flash_reg(uint8_t cmd)
 {
 	uint8_t buffer[2] = {cmd, 0};
@@ -445,7 +350,6 @@ void cmd_read_flash_regs()
 	print_reg_bit(sr3 & 0x80, "S23 (HOLD)");
 	putchar('\n');
 }
-#endif
 
 // --------------------------------------------------------
 
@@ -509,108 +413,6 @@ uint32_t cmd_benchmark(bool verbose, uint32_t *instns_p)
 
 // --------------------------------------------------------
 
-#ifdef HX8KDEMO
-void cmd_benchmark_all()
-{
-	uint32_t instns = 0;
-
-	print("default        ");
-	reg_spictrl = (reg_spictrl & ~0x00700000) | 0x00000000;
-	print(": ");
-	print_hex(cmd_benchmark(false, &instns), 8);
-	putchar('\n');
-
-	for (int i = 8; i > 0; i--)
-	{
-		print("dspi-");
-		print_dec(i);
-		print("         ");
-
-		set_flash_latency(i);
-		reg_spictrl = (reg_spictrl & ~0x00700000) | 0x00400000;
-
-		print(": ");
-		print_hex(cmd_benchmark(false, &instns), 8);
-		putchar('\n');
-	}
-
-	for (int i = 8; i > 0; i--)
-	{
-		print("dspi-crm-");
-		print_dec(i);
-		print("     ");
-
-		set_flash_latency(i);
-		reg_spictrl = (reg_spictrl & ~0x00700000) | 0x00500000;
-
-		print(": ");
-		print_hex(cmd_benchmark(false, &instns), 8);
-		putchar('\n');
-	}
-
-	for (int i = 8; i > 0; i--)
-	{
-		print("qspi-");
-		print_dec(i);
-		print("         ");
-
-		set_flash_latency(i);
-		reg_spictrl = (reg_spictrl & ~0x00700000) | 0x00200000;
-
-		print(": ");
-		print_hex(cmd_benchmark(false, &instns), 8);
-		putchar('\n');
-	}
-
-	for (int i = 8; i > 0; i--)
-	{
-		print("qspi-crm-");
-		print_dec(i);
-		print("     ");
-
-		set_flash_latency(i);
-		reg_spictrl = (reg_spictrl & ~0x00700000) | 0x00300000;
-
-		print(": ");
-		print_hex(cmd_benchmark(false, &instns), 8);
-		putchar('\n');
-	}
-
-	for (int i = 8; i > 0; i--)
-	{
-		print("qspi-ddr-");
-		print_dec(i);
-		print("     ");
-
-		set_flash_latency(i);
-		reg_spictrl = (reg_spictrl & ~0x00700000) | 0x00600000;
-
-		print(": ");
-		print_hex(cmd_benchmark(false, &instns), 8);
-		putchar('\n');
-	}
-
-	for (int i = 8; i > 0; i--)
-	{
-		print("qspi-ddr-crm-");
-		print_dec(i);
-		print(" ");
-
-		set_flash_latency(i);
-		reg_spictrl = (reg_spictrl & ~0x00700000) | 0x00700000;
-
-		print(": ");
-		print_hex(cmd_benchmark(false, &instns), 8);
-		putchar('\n');
-	}
-
-	print("instns         : ");
-	print_hex(instns, 8);
-	putchar('\n');
-}
-#endif
-
-#ifdef ICEBREAKER
 void cmd_benchmark_all()
 {
 	uint32_t instns = 0;
@@ -651,7 +453,6 @@ void cmd_benchmark_all()
 	putchar('\n');
 
 }
-#endif
 
 void cmd_echo()
 {

@@ -18,9 +18,9 @@ core:
 
 firmware:
 	@printf "\n====== Building firmware ======\n"
-	$(RV_PRE)-cpp -P -DICEBREAKER -o icesugar_sections.lds src/sections.lds
-	$(RV_PRE)-gcc $(CFLAGS) -DICEBREAKER -march=rv32ic -Wl,-Bstatic,-T,icesugar_sections.lds,--strip-debug -ffreestanding -nostdlib -o icesugar_fw.elf $(src)
-	$(RV_PRE)-objcopy -O binary icesugar_fw.elf bin/$(name)_firmware.bin
+	$(RV_PRE)-cpp -P -o icesugar.lds src/sections.lds
+	$(RV_PRE)-gcc $(CFLAGS) -march=rv32ic -Wl,-Bstatic,-T,icesugar.lds,--strip-debug -ffreestanding -nostdlib -o icesugar.elf $(src)
+	$(RV_PRE)-objcopy -O binary icesugar.elf bin/$(name)_firmware.bin
 	rm -rf *.lds *.elf
 
 image: core firmware
@@ -30,6 +30,6 @@ image: core firmware
 
 clean:
 	@printf "\n====== Cleaning development environment ======\n"
-	rm -rf *.log *.rpt *.json *.asc bin/*.bin
+	rm -rf *.log *.rpt *.json *.asc *.lds *.elf bin/*.bin
 
 .PHONY: all core firmware image clean
