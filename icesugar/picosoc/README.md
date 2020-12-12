@@ -1,5 +1,13 @@
 # PicoSoC + PicoRV32 Example
 
+| Make target     | Description                                         |
+| --------------- | --------------------------------------------------- |
+| `make`          | Build SoC and firmware into flashable bitstream     |
+| `make core`     | Build SoC and RV32I CPU core                        |
+| `make firmware` | Combile and link firmware                           |
+| `make image`    | Combine SoC and firmware into bitstream             |
+| `make clean`    | Delete temporary files created by the build process |
+
 | File                    | Description                                            |
 | ----------------------- | ------------------------------------------------------ |
 | `hdl/picorv32.v`        | RISC-V RV32I CPU core Verilog source                   |
