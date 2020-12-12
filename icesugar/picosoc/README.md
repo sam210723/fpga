@@ -1,5 +1,7 @@
 # PicoSoC + PicoRV32 Example
 
+Based on [iCESugar PicoSoC example](https://github.com/wuxx/icesugar/tree/master/src/advanced/picorv32/picosoc) by wuxx.
+
 ![](picosoc.png)
 
 | Make target     | Description                                         |
