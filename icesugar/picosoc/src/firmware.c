@@ -476,24 +476,27 @@ void cmd_echo()
 
 void cmd_led()
 {
-	print("Options:\n");
+	print("\nOptions:\n");
 	print("  [0] ALL OFF\n");
 	print("  [1] ALL ON\n");
 	print("  [2] RGB RED\n");
 	print("  [3] RGB GREEN\n");
 	print("  [4] RGB BLUE\n");
 	print("  [5] PMOD2 ON\n");
-	putchar('\n');
+	print("\n  [0-5] > ");
 
-	print("Choice: ");
 	char c = getchar();
-
-	// Return if not a number
-	if (c < 48 || c > 57) return;
 	putchar(c);
+	putchar('\n');
+	c -= 48;
+	
+	if (c < 0 || c > 9)
+	{
+		print("  Inavlid option\n");
+		return;
+	}
 
-	// Subtract 48 off ASCII code to get number
-	switch (c - 48)
+	switch (c)
 	{
 	case 0:
 		reg_leds = 0b11111111111;
@@ -523,7 +526,7 @@ void cmd_led()
 		break;
 	}
 
-	print("\nLED register set to 0x");
+	print("  LED REG: 0x");
 	print_hex(reg_leds, 2);
 	putchar('\n');
 }
