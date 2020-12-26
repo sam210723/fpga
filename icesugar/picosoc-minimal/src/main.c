@@ -27,10 +27,12 @@ void main()
     mem_test(MEM_TOTAL);
 
     pmod_led(0x55);
-    rgb_led(0, 16, 0);
 
+    uint32_t i = 0;
+    int d;
     while (1)
     {
+        /*
         char buf[16];
         get_str(buf, "> ");
         print("\n");
@@ -38,5 +40,11 @@ void main()
         pmod_led(buf[0]);
 
         if (strcmp(buf, "memtest")) mem_test(MEM_TOTAL);
+        */
+
+        rgb_led(0, (int)(i >> 6), 0);
+        if (i >> 6 == 0 ) d =  1;
+        if (i >> 6 == 64) d = -1;
+        i += d;
     }
 }
