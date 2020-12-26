@@ -1,0 +1,42 @@
+# iCESugar Board (iCE40UP5K-QFN48)
+
+# 12 MHz Clock
+set_io CLK          35
+
+# UART via iCELink
+set_io UART_RX      4
+set_io UART_TX      6
+
+# Micro USB
+set_io USB_DP       10
+set_io USB_DN       9
+set_io USB_PULLUP   11
+
+# DIP Switch
+set_io DIP_SW[0]    18
+set_io DIP_SW[1]    19
+set_io DIP_SW[2]    20
+set_io DIP_SW[3]    21
+
+# RGB LED
+set_io LED_R        40
+set_io LED_G        41
+set_io LED_B        39
+
+# SPI Flash
+set_io flash_clk    15
+set_io flash_csb    16
+set_io flash_io0    14
+set_io flash_io1    17
+set_io flash_io2    12
+set_io flash_io3    13
+
+# LEDs (PMOD 2)
+set_io P2_1         45
+set_io P2_2         43
+set_io P2_3         38
+set_io P2_4         36
+set_io P2_5         46
+set_io P2_6         44
+set_io P2_7         42
+set_io P2_8         37
