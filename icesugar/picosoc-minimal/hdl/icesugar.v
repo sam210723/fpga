@@ -72,10 +72,6 @@ module icesugar (
 	assign P2_7 = ~gpio_led_pmod[6];
 	assign P2_8 = ~gpio_led_pmod[7];
 
-	assign LED_R = ~gpio_led_r[0];
-	assign LED_G = ~gpio_led_g[0];
-	assign LED_B = ~gpio_led_b[0];
-
 	wire flash_io0_oe, flash_io0_do, flash_io0_di;
 	wire flash_io1_oe, flash_io1_do, flash_io1_di;
 	wire flash_io2_oe, flash_io2_do, flash_io2_di;
@@ -125,6 +121,18 @@ module icesugar (
 			end
 		end
 	end
+
+	pwm rgb_pwm(
+		.clk   (CLK       ),
+		
+		.pwm_r (gpio_led_r),
+		.pwm_g (gpio_led_g),
+		.pwm_b (gpio_led_b),
+
+		.out_r (LED_R     ),
+		.out_g (LED_G     ),
+		.out_b (LED_B     )
+	);
 
 	picosoc #(
 		.BARREL_SHIFTER(0),
