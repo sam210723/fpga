@@ -122,17 +122,24 @@ module icesugar (
 		end
 	end
 
-	pwm rgb_pwm(
-		.clk   (CLK       ),
-		
-		.pwm_r (gpio_led_r),
-		.pwm_g (gpio_led_g),
-		.pwm_b (gpio_led_b),
-
-		.out_r (LED_R     ),
-		.out_g (LED_G     ),
-		.out_b (LED_B     )
+	pwm pwm_r (
+		.clk (CLK       ),
+		.pwm (gpio_led_r),
+		.out (LED_R     )
 	);
+
+	pwm pwm_g (
+		.clk (CLK       ),
+		.pwm (gpio_led_g),
+		.out (LED_G     )
+	);
+
+	pwm pwm_b (
+		.clk (CLK       ),
+		.pwm (gpio_led_b),
+		.out (LED_B     )
+	);
+	
 
 	picosoc #(
 		.BARREL_SHIFTER(0),
