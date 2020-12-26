@@ -131,6 +131,40 @@ char getc()
 }
 
 /**
+ * Get string from UART (until CRLF)
+ */
+void get_str(char *buf, char *prompt)
+{
+	print(prompt);
+
+	char c;
+	int i = 0;
+
+	// Loop until carriage return
+	while (c != '\r')
+	{
+		// Get and display char
+		c = getc();
+		putc(c);
+
+		//Add char to char array
+		buf[i] = c;
+		i++;
+	}
+
+	// Null terminate char array
+	buf[i] = '\0';
+}
+
+/**
+ * Compare two char arrays (strings)
+ */
+int strcmp(char *c1, char *c2)
+{
+	return *c1 == *c2;
+}
+
+/**
  * Print PicoSoC ASCII banner
  */
 void print_banner(int mem_total)
@@ -142,7 +176,7 @@ void print_banner(int mem_total)
 	print(" |_|   |_|\\___\\___/____/ \\___/ \\____|\n\n");
 
     print(" PicoRV32 RISC-V RV32I CPU + PicoSoC\n\n");
-    print(" Total RAM: ");
+    print("Total RAM: ");
 	print_dec(mem_total / 1024);
 	print(" KiB\n");
 }

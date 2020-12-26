@@ -16,7 +16,7 @@ Based on [iCESugar PicoSoC example](https://github.com/wuxx/icesugar/tree/master
 | ----------------------- | ------------------------------------------------------ |
 | `hdl/picorv32.v`        | RISC-V RV32I CPU core Verilog source                   |
 | `hdl/picosoc.v`         | Top-level PicoSoC Verilog module                       |
-| `hdl/icesugar.v`        | FPGA-based example implementation on iCESuagr board    |
+| `hdl/icesugar.v`        | Example SoC implementation on iCESuagr dev board       |
 | `hdl/spimemio.v`        | Memory controller for external SPI flash               |
 | `hdl/simpleuart.v`      | Simple UART core connected directly to SoC TX/RX lines |
 | `hdl/ice40up5k_spram.v` | SPRAM controller for iCE40 UP5K block RAM              |

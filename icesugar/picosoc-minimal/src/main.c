@@ -23,9 +23,10 @@ void main()
 
 	while (1)
 	{
-		print("> ");
-		char c = getc();
-		putc(c);
+		char buf[16];
+		get_str(buf, "> ");
 		print("\n");
+
+		if (strcmp(buf, "memtest")) mem_test(MEM_TOTAL);
 	}
 }

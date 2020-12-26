@@ -11,6 +11,8 @@ void print_dec(uint32_t v);
 void print_hex(uint32_t v, int digits);
 void putc(char c);
 char getc();
+void get_str(char *buf, char *prompt);
+int  strcmp(char *c1, char *c2);
 
 void print_banner(int mem);
 

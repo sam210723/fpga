@@ -29,7 +29,7 @@ void mem_test(int mem_total)
 	volatile uint32_t *base_word = (uint32_t *) 0;
 	volatile uint8_t *base_byte = (uint8_t *) 0;
 
-	print(" Running memtest");
+	print("Running memtest");
 
 	// Walk in stride increments, word access
 	for (int i = 1; i <= cyc_count; i++) {
