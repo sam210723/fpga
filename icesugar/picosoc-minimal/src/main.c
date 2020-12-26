@@ -2,6 +2,7 @@
 
 #include "uart.h"
 #include "mem.h"
+#include "led.h"
 
 #define MEM_TOTAL 0x20000 /* 128 KB for iCESugar (UP5K) */
 
@@ -16,17 +17,22 @@
 
 void main()
 {
-	setup_uart(115200);
-	print_banner(MEM_TOTAL);
+    setup_uart(115200);
+    print_banner(MEM_TOTAL);
 
-	mem_test(MEM_TOTAL);
+    mem_test(MEM_TOTAL);
 
-	while (1)
-	{
-		char buf[16];
-		get_str(buf, "> ");
-		print("\n");
+    pmod_led(0x55);
+    rgb_led(1, 0, 0);
 
-		if (strcmp(buf, "memtest")) mem_test(MEM_TOTAL);
-	}
+    while (1)
+    {
+        char buf[16];
+        get_str(buf, "> ");
+        print("\n");
+
+        pmod_led(buf[0]);
+
+        if (strcmp(buf, "memtest")) mem_test(MEM_TOTAL);
+    }
 }

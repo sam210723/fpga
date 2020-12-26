@@ -58,20 +58,23 @@ module icesugar (
 		reset_cnt <= reset_cnt + !resetn;
 	end
 
-	wire [10:0] leds;
+	wire [7:0] gpio_led_pmod;
+	wire [7:0] gpio_led_r;
+	wire [7:0] gpio_led_g;
+	wire [7:0] gpio_led_b;
 
-	assign P2_1 = leds[0];
-	assign P2_2 = leds[1];
-	assign P2_3 = leds[2];
-	assign P2_4 = leds[3];
-	assign P2_5 = leds[4];
-	assign P2_6 = leds[5];
-	assign P2_7 = leds[6];
-	assign P2_8 = leds[7];
+	assign P2_1 = ~gpio_led_pmod[0];
+	assign P2_2 = ~gpio_led_pmod[1];
+	assign P2_3 = ~gpio_led_pmod[2];
+	assign P2_4 = ~gpio_led_pmod[3];
+	assign P2_5 = ~gpio_led_pmod[4];
+	assign P2_6 = ~gpio_led_pmod[5];
+	assign P2_7 = ~gpio_led_pmod[6];
+	assign P2_8 = ~gpio_led_pmod[7];
 
-	assign LED_R = leds[8];
-	assign LED_G = leds[9];
-	assign LED_B = leds[10];
+	assign LED_R = ~gpio_led_r[0];
+	assign LED_G = ~gpio_led_g[0];
+	assign LED_B = ~gpio_led_b[0];
 
 	wire flash_io0_oe, flash_io0_do, flash_io0_di;
 	wire flash_io1_oe, flash_io1_do, flash_io1_di;
@@ -95,21 +98,30 @@ module icesugar (
 	wire [31:0] iomem_wdata;
 	reg  [31:0] iomem_rdata;
 
-	reg [31:0] gpio;
-	assign leds = gpio;
-
 	always @(posedge CLK) begin
 		if (!resetn) begin
-			gpio <= 0;
+			gpio_led_pmod <= 0;
+			gpio_led_r <= 0;
+			gpio_led_g <= 0;
+			gpio_led_b <= 0;
+		
 		end else begin
 			iomem_ready <= 0;
+			// Memory mapped peripherals
 			if (iomem_valid && !iomem_ready && iomem_addr[31:24] == 8'h 03) begin
-				iomem_ready <= 1;
-				iomem_rdata <= gpio;
-				if (iomem_wstrb[0]) gpio[ 7: 0] <= iomem_wdata[ 7: 0];
-				if (iomem_wstrb[1]) gpio[15: 8] <= iomem_wdata[15: 8];
-				if (iomem_wstrb[2]) gpio[23:16] <= iomem_wdata[23:16];
-				if (iomem_wstrb[3]) gpio[31:24] <= iomem_wdata[31:24];
+				// GPIO LEDs
+				if (iomem_addr[7:0] == 8'h00) begin
+					iomem_ready <= 1;
+					iomem_rdata[ 7: 0] <= gpio_led_pmod[7:0];
+					iomem_rdata[15: 8] <= gpio_led_r[7:0];
+					iomem_rdata[23:16] <= gpio_led_g[7:0];
+					iomem_rdata[31:24] <= gpio_led_b[7:0];
+
+					if (iomem_wstrb[0]) gpio_led_pmod[7:0] <= iomem_wdata[ 7: 0];
+					if (iomem_wstrb[1]) gpio_led_r   [7:0] <= iomem_wdata[15: 8];
+					if (iomem_wstrb[2]) gpio_led_g   [7:0] <= iomem_wdata[23:16];
+					if (iomem_wstrb[3]) gpio_led_b   [7:0] <= iomem_wdata[31:24];
+				end
 			end
 		end
 	end
