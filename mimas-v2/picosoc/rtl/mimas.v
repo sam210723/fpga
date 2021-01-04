@@ -12,9 +12,12 @@ module mimas(
 );
 
     wire resetn;
-    reset_gen rst(CLK, resetn);
+    reset_gen rst(
+        .clk   (CLK   ),
+        .resetn(resetn)
+    );
 
-    picosoc _picosoc(
+    picosoc soc(
         .clk   (CLK    ),
         .resetn(resetn ),
         .led   (LED    ),
@@ -24,7 +27,22 @@ module mimas(
 
 endmodule
 
-`include "../rtl/rst.v"
+
+module reset_gen(
+    input  clk,
+    output resetn
+);
+
+    reg [7:0] x = 8'hFF;
+
+    always @(posedge clk)
+        x <= {x[6:0], 1'b0};
+
+    assign resetn = !x[7];
+
+endmodule
+
+
 `include "../rtl/picosoc.v"
 `include "../rtl/picorv32.v"
 `include "../rtl/uart.v"
