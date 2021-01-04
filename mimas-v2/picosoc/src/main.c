@@ -1,40 +1,22 @@
-#include "util.h"
+#include <stdint.h>
 
-    
+#include "uart.h"
+
+#define MEM_TOTAL 0x2000 // 8 KB Block RAM
+
 int main()
 {
     getc();
-    
-    unsigned int a,b,y;
-    a = 23;
-    b = 45;
-    y = a*b;
-    puts("23 * 45 = "); put_dec(y); putc('\n');
+    print_banner(MEM_TOTAL);
 
-    double fa,fb,fy;
-    fa = 23.758;
-    fb = 682.7713;
-    fy = fa*fb;
-    puts("(int)(23.758 * 682.7713) = "); put_dec(fy); putc('\n');
-    
-    int i = 0;
     char c;
-
-    for (;;)
+    while (1)
     {
-        c = getc();
-        puts(&c);
+        char buf[16];
+        get_str(buf, "> ");
+        print("\n");
 
-        puts("\r\n");
-        puts("  ____  _          ____         ____\r\n");
-        puts(" |  _ \\(_) ___ ___/ ___|  ___  / ___|\r\n");
-        puts(" | |_) | |/ __/ _ \\___ \\ / _ \\| |\r\n");
-        puts(" |  __/| | (_| (_) |__) | (_) | |___\r\n");
-        puts(" |_|   |_|\\___\\___/____/ \\___/ \\____|\r\n");
-        puts("\r\n");
-
-        led(i);
-        i++;
+        //if (strcmp(buf, "memtest")) mem_test(MEM_TOTAL);
     }
 
     return 0;
