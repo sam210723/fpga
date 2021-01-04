@@ -1,7 +1,7 @@
 name = picosoc
 rtl  = rtl/mimas.v
 ucf  = mimas.ucf
-src  = src/start.S src/main.c src/util.c
+src  = src/main.c src/util.c
 
 DEVICE = xc6slx9-2csg324
 RV_PRE = riscv32-unknown-elf
@@ -15,17 +15,17 @@ firmware: build/$(name)_firmware.elf
 build/$(name)_core.bit:
 	@printf "\n====== Building RISC-V CPU core ======\n"
 	mkdir -p build
-	cd build
 	cd build; xst -ifn ../xilinx/picosoc.xst -ofn $(name).srp
 	cd build; ngdbuild -p ${DEVICE} -bm ../xilinx/picosoc.bmm -uc ../$(ucf) picosoc_core.ngc picosoc_core.ngd
 	cd build; map -w -timing -detail -p ${DEVICE} -o picosoc_core_map.ncd picosoc_core.ngd picosoc.pcf
 	cd build; par -w picosoc_core_map.ncd picosoc_core.ncd picosoc.pcf
-	cd build; bitgen -w picosoc_core.ncd picosoc_core.bit picosoc.pcf
+	cd build; bitgen -w picosoc_core.ncd $(name)_core.bit picosoc.pcf
 
 build/$(name)_firmware.elf:
 	@printf "\n====== Building firmware ======\n"
 	mkdir -p build
-	$(RV_PRE)-gcc $(CFLAGS) -march=rv32ic -Wl,-Bstatic,-T,src/sections.lds,--strip-debug -ffreestanding -nostdlib -o build/$(name)_firmware.elf $(src)
+	$(RV_PRE)-gcc -c src/start.S -o build/start.o
+	$(RV_PRE)-gcc -ffreestanding -nostdlib -Wl,-Bstatic,-T,src/sections.lds build/start.o $(src) -lgcc -o build/$(name)_firmware.elf 
 
 image: build/$(name)_core.bit build/$(name)_firmware.elf
 	@printf "\n====== Assembling bitstream ======\n"

@@ -38,7 +38,6 @@
 *.unroutes
 *.unroutes
 *.xpi
-*.xst
 *.log
 *.ut
 *.lst

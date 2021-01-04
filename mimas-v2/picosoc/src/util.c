@@ -41,7 +41,7 @@ char getc()
 
 void put_nib(unsigned int x)
 { putc(x<10 ? '0'+x : 'a'+(x-10)); }
-/*
+
 void put_hex(unsigned int x)
 { int i;
   for (i=0; i<8; i++)
@@ -57,4 +57,3 @@ void put_dec(unsigned int x)
       put_nib(n);
     leading = leading || (n!=0);
     x -= i*n; } }
-*/
