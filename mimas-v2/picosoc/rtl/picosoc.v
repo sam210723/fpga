@@ -1,4 +1,4 @@
-module top(
+module picosoc(
   input clk,
   input resetn,
   output [7:0] led,

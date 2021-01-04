@@ -16,7 +16,7 @@ int main()
         get_str(buf, "> ");
         print("\n");
 
-        if (strcmp(buf, "halt")) return 1;
+        //if (strcmp(buf, "halt")) return 1;
     }
 
     return 0;

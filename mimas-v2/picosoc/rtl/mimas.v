@@ -1,32 +1,30 @@
+`ifdef PICOSOC_V
+`error "mimas.v must be read before picosoc.v!"
+`endif
+
 module mimas(
-  input clk,
-  output [7:0] led,
-  input rs232_dce_rxd,
-  output rs232_dce_txd
+    input CLK,
+
+    output UART_TX,
+    input  UART_RX,
+
+    output [7:0] LED
 );
 
-  wire resetn;
- 
-  reset_gen _reset_gen(clk, resetn);
+    wire resetn;
+    reset_gen rst(CLK, resetn);
 
-  top _top(clk,resetn,led,rs232_dce_rxd,rs232_dce_txd);
+    picosoc _picosoc(
+        .clk   (CLK    ),
+        .resetn(resetn ),
+        .led   (LED    ),
+        .rxd   (UART_RX),
+        .txd   (UART_TX)
+    );
 
 endmodule
 
-module reset_gen(
-  input clk,
-  output resetn
-);
-
-  reg [7:0] x = 8'hff;
-
-  always @(posedge clk)
-    x <= {x[6:0], 1'b0};
-
-  assign resetn = !x[7];
-
-endmodule
-
-`include "../rtl/top.v"
+`include "../rtl/rst.v"
+`include "../rtl/picosoc.v"
 `include "../rtl/picorv32.v"
 `include "../rtl/uart.v"
