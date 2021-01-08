@@ -1,9 +1,14 @@
 module picosoc(
     input clk,
     input resetn,
-    output [7:0] led,
+    
+    output txd,
     input rxd,
-    output txd
+
+    output [7:0] led,
+
+    output [7:0] ss,
+    output [2:0] ssen
 );
 
     wire trap;
@@ -42,7 +47,7 @@ module picosoc(
 
     ram_2k_32 _ram_2k_32(clk, mem_addr[12:2], mem_wdata, ram_rdata, mem_wstrb, mem_valid && !mem_addr[31]);
 
-    io _io(clk, reset, io_valid, mem_addr[4:2], mem_wdata, mem_wstrb[0], io_rdata, led[6:0], rxd, txd);
+    io _io(clk, reset, io_valid, mem_addr[4:2], mem_wdata, mem_wstrb[0], io_rdata, led[6:0], rxd, txd, ss, ssen);
 
     assign mem_rdata = mem_addr1[31] ? io_rdata : ram_rdata;
     assign led[7] = trap;
@@ -60,20 +65,24 @@ module io(
     output reg [31:0] rdata,
     output reg [6:0] led,
     input rxd,
-    output txd
+    output txd,
+    output [7:0] ss,
+    output [2:0] ssen
 );
 
     // Peripheral Memory Map
     //
-    // 80000000     out,    LED [0], write
-    // 80000004 UART TX, data [7:0], write
-    // 80000008 UART TX,  ready [0], read
-    // 8000000c UART RX, data [7:0], read
-    // 80000010 UART RX,  ready [0], read
+    // 80000000  out,    LED [0], write
+    // 80000004  txd, data [7:0], write
+    // 80000008  txd,  ready [0], read
+    // 8000000c  rxd, data [7:0], read
+    // 80000010  rxd,  ready [0], read
+    // 80000014   ss,     [23:0], write
 
     wire led_write_strobe =        valid && (addr==3'd0) && wstrb;
     wire uart_tx_write_strobe =    valid && (addr==3'd1) && wstrb;
     wire uart_rx_read_strobe =     valid && (addr==3'd3) && !wstrb;
+    wire ss_write_strobe =         valid && (addr==3'd5) && wstrb;
 
     wire uart_tx_ready;
     wire [7:0] uart_rx_data;
@@ -94,13 +103,25 @@ module io(
     uart_tx _uart_tx(clk, reset, baudclk16, txd, wdata[7:0], uart_tx_ready, uart_tx_write_strobe);
     uart_rx _uart_rx(clk, reset, baudclk16, rxd, uart_rx_data, uart_rx_ready, uart_rx_read_strobe);
 
+    reg [23:0] reg_sevenseg_data;
+    sevenseg _sevenseg(
+        .clk (clk              ),
+        .data(reg_sevenseg_data),
+        .ss  (ss               ),
+        .ssen(ssen             )
+    );
+
     always @(posedge clk) begin
-    led[6] <= uart_tx_ready;
-    led[5] <= uart_rx_ready;
-    led[4] <= !txd;
-    led[3] <= !rxd;
-    if (led_write_strobe)
-        led[2:0] <= wdata[2:0];
+        led[6] <= uart_tx_ready;
+        led[5] <= uart_rx_ready;
+        led[4] <= !txd;
+        led[3] <= !rxd;
+        
+        if (led_write_strobe)
+            led[2:0] <= wdata[2:0];
+        
+        if (ss_write_strobe)
+            reg_sevenseg_data <= wdata[23:0];
     end
 
 endmodule
@@ -159,5 +180,39 @@ module uart_baud_clock_16x(
     c <= m ? 0 : c+1;
 
     assign baudclk16 = m;
+
+endmodule
+
+
+module sevenseg(
+    input clk,
+
+    input  [23:0] data,
+    output [ 7:0] ss,
+    output [ 2:0] ssen
+);
+
+    reg [13:0] counter;
+    always @(posedge clk) begin
+        counter <= counter + 1;
+        if (counter == 10000)
+            counter <= 0;
+    end
+    
+    wire digit_strobe = counter == 0;
+    reg [2:0] digit = 0;
+    reg [7:0] seg_data;
+    //reg [23:0] data2 = 24'h9CB63A;
+
+    always @(posedge digit_strobe) begin
+        seg_data <= (data >> (digit * 8)) & 8'hFF;
+
+        digit <= digit + 1;
+        if (digit == 2)
+            digit <= 0;
+    end
+
+    assign ss   = ~seg_data;
+    assign ssen = ~(1 << digit);
 
 endmodule

@@ -40,6 +40,11 @@ addi x31, zero, 0   # Temporary Register   (T6 )
 lui sp,%hi(8192)
 addi sp,sp,%lo(8192)
 
+# Turn off seven segment displays
+li a0, 0x80000018
+li a1, 0x00
+sw a1, 0(a0)
+
 # Set return address and jump to main
 jal ra,main
 ebreak

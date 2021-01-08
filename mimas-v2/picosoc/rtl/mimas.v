@@ -4,7 +4,9 @@ module mimas(
     output UART_TX,
     input  UART_RX,
 
-    output [7:0] LED
+    output [7:0] LED,
+    output [7:0] SevenSegment,
+    output [2:0] SevenSegmentEN
 );
 
     wire resetn;
@@ -18,10 +20,13 @@ module mimas(
         .resetn(resetn ),
         .led   (LED    ),
         .rxd   (UART_RX),
-        .txd   (UART_TX)
+        .txd   (UART_TX),
+        .ss    (SevenSegment),
+        .ssen  (SevenSegmentEN)
     );
 
 endmodule
+
 
 // Generates synchronous RESET signal after 8 clock cycles
 module reset_gen(
