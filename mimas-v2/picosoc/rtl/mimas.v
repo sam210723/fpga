@@ -1,7 +1,3 @@
-`ifdef PICOSOC_V
-`error "mimas.v must be read before picosoc.v!"
-`endif
-
 module mimas(
     input CLK,
 
@@ -27,7 +23,7 @@ module mimas(
 
 endmodule
 
-
+// Generates synchronous RESET signal after 8 clock cycles
 module reset_gen(
     input  clk,
     output resetn

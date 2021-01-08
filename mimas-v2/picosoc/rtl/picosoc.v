@@ -49,6 +49,7 @@ module picosoc(
 
 endmodule
 
+
 module io(
     input clk,
     input reset,
@@ -62,13 +63,13 @@ module io(
     output txd
 );
 
-// peripheral memory map
-//
-// 80000000 out, LED [0], write
-// 80000004 UART TX, data [7:0], write
-// 80000008 UART TX, ready [0], read
-// 8000000c UART RX, data [7:0], read
-// 80000010 UART RX, ready [0], read
+    // Peripheral Memory Map
+    //
+    // 80000000     out,    LED [0], write
+    // 80000004 UART TX, data [7:0], write
+    // 80000008 UART TX,  ready [0], read
+    // 8000000c UART RX, data [7:0], read
+    // 80000010 UART RX,  ready [0], read
 
     wire led_write_strobe =        valid && (addr==3'd0) && wstrb;
     wire uart_tx_write_strobe =    valid && (addr==3'd1) && wstrb;
@@ -104,6 +105,7 @@ module io(
 
 endmodule
 
+
 module ram_2k_32(
     input clk,
     input [10:0] addr,
@@ -119,6 +121,7 @@ module ram_2k_32(
     bram_2k_8 _bram3(clk, addr, din[31:24], dout[31:24], we[3], en);
 
 endmodule
+
 
 module bram_2k_8(
     input clk,
@@ -143,13 +146,14 @@ module bram_2k_8(
 
 endmodule
 
+
 module uart_baud_clock_16x(
     input clk,
     output baudclk16
 );
 
     reg [8:0] c;
-    wire m = (c==9'd325);    // 50000000/(16*9600) ~= 326
+    wire m = (c==9'd325);    // 100e6 / (16 * 19200) ~= 326
 
     always @(posedge clk)
     c <= m ? 0 : c+1;
