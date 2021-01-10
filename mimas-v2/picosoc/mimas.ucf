@@ -14,14 +14,14 @@ NET "LED[2]"               LOC = U18     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | S
 NET "LED[1]"               LOC = T17     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # D7
 NET "LED[0]"               LOC = T18     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # D8
 
-NET "SevenSegment[7]"      LOC = A3      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # A
-NET "SevenSegment[6]"      LOC = B4      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # B
-NET "SevenSegment[5]"      LOC = A4      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # C
-NET "SevenSegment[4]"      LOC = C4      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # D
-NET "SevenSegment[3]"      LOC = C5      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # E
-NET "SevenSegment[2]"      LOC = D6      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # F
-NET "SevenSegment[1]"      LOC = C6      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # G
-NET "SevenSegment[0]"      LOC = A5      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # .
+NET "SevenSegment[0]"      LOC = A3      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # A
+NET "SevenSegment[1]"      LOC = B4      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # B
+NET "SevenSegment[2]"      LOC = A4      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # C
+NET "SevenSegment[3]"      LOC = C4      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # D
+NET "SevenSegment[4]"      LOC = C5      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # E
+NET "SevenSegment[5]"      LOC = D6      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # F
+NET "SevenSegment[6]"      LOC = C6      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # G
+NET "SevenSegment[7]"      LOC = A5      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # .
 
 NET "SevenSegmentEN[2]"    LOC = B3      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;
 NET "SevenSegmentEN[1]"    LOC = A2      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;   

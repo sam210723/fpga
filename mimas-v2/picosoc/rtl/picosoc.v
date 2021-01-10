@@ -89,12 +89,13 @@ module io(
     wire uart_rx_ready;
     
     always @(posedge clk)
-    case (addr)
-        3'd2: rdata <= {31'd0, uart_tx_ready};
-        3'd3: rdata <= {24'd0, uart_rx_data};
-        3'd4: rdata <= {31'd0, uart_rx_ready};
-        default: rdata <= 32'd0;
-    endcase
+        case (addr)
+            3'd2: rdata <= {31'd0, uart_tx_ready};
+            3'd3: rdata <= {24'd0, uart_rx_data};
+            3'd4: rdata <= {31'd0, uart_rx_ready};
+            3'd5: rdata <= { 8'd0, reg_sevenseg_data};
+            default: rdata <= 32'd0;
+        endcase
 
     wire baudclk16;
 
@@ -121,7 +122,7 @@ module io(
             led[2:0] <= wdata[2:0];
         
         if (ss_write_strobe)
-            reg_sevenseg_data <= wdata[23:0];
+            reg_sevenseg_data[23:0] <= wdata[23:0];
     end
 
 endmodule
@@ -192,27 +193,42 @@ module sevenseg(
     output [ 2:0] ssen
 );
 
-    reg [13:0] counter;
+    // Clock divider parameters
+	parameter  rate  = 1000;
+	parameter  clk_f = 100000000;
+	localparam clk_d = clk_f / (rate * 3);
+
+    reg [31:0] c;
+    reg [2:0] digit = 3'b0;
+    reg [7:0] segments;
     always @(posedge clk) begin
-        counter <= counter + 1;
-        if (counter == 10000)
-            counter <= 0;
+        if (c < clk_d)
+            c <= c + 1;
+        else begin
+            c <= 0;
+
+            case (digit)
+                3'b001: begin
+                    segments <= data[23:16];
+                    digit <= 3'b100;
+                end
+                3'b100: begin
+                    segments <= data[15:8];
+                    digit <= 3'b010;
+                end
+                3'b010: begin
+                    segments <= data[7:0];
+                    digit <= 3'b001;
+                end
+                default: begin
+                    segments <= 8'h00;
+                    digit <= 3'b001;
+                end
+            endcase
+        end
     end
-    
-    wire digit_strobe = counter == 0;
-    reg [2:0] digit = 0;
-    reg [7:0] seg_data;
-    //reg [23:0] data2 = 24'h9CB63A;
 
-    always @(posedge digit_strobe) begin
-        seg_data <= (data >> (digit * 8)) & 8'hFF;
-
-        digit <= digit + 1;
-        if (digit == 2)
-            digit <= 0;
-    end
-
-    assign ss   = ~seg_data;
-    assign ssen = ~(1 << digit);
+    assign ss   = ~segments;
+    assign ssen = ~digit;
 
 endmodule
