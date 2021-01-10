@@ -33,9 +33,16 @@ image: build/$(name)_core.bit build/$(name)_firmware.elf
 	promgen -w -b -p bin -u 0 build/$(name).bit -o build/$(name).bin
 	cp build/$(name).bin $(name).bin
 
+test:
+	@printf "\n====== Running testbench ======\n"
+	iverilog -o test/tb test/tb.v rtl/picosoc.v rtl/picorv32.v rtl/uart.v
+	vvp -n test/tb > /dev/null
+	gtkwave test/tb.vcd --rcvar 'fontname_signals Monospace 22' --rcvar 'fontname_waves Monospace 12'
+
 clean:
 	@printf "\n====== Cleaning development environment ======\n"
 	rm -rf build
 	rm -f $(name).bin
+	rm -f test/tb test/tb.vcd
 
-.PHONY: all core firmware image clean
+.PHONY: all core firmware image test clean
