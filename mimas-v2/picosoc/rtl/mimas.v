@@ -47,3 +47,4 @@ endmodule
 `include "../rtl/picosoc.v"
 `include "../rtl/picorv32.v"
 `include "../rtl/uart.v"
+`include "../rtl/pll.v"

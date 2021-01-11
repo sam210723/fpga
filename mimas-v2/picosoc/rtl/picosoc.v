@@ -110,6 +110,15 @@ module io(
         .data(reg_sevenseg_data),
         .ss  (ss               ),
         .ssen(ssen             )
+    // VGA
+    wire pll_vga_locked;
+    pll pll_vga(
+        .clk_in   (clk           ),
+        .clk_out  (clk_vga       ),
+        .locked   (pll_vga_locked),
+        .reset    (reset         )
+    );
+
     );
 
     always @(posedge clk) begin
