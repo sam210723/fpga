@@ -6,7 +6,10 @@ module mimas(
 
     output [7:0] LED,
     output [7:0] SevenSegment,
-    output [2:0] SevenSegmentEN
+    output [2:0] SevenSegmentEN,
+    output       VGA_HSYNC,
+    output       VGA_VSYNC,
+    output [7:0] VGA_PIX
 );
 
     wire resetn;
@@ -16,13 +19,16 @@ module mimas(
     );
 
     picosoc soc(
-        .clk   (CLK    ),
-        .resetn(resetn ),
-        .led   (LED    ),
-        .rxd   (UART_RX),
-        .txd   (UART_TX),
-        .ss    (SevenSegment),
-        .ssen  (SevenSegmentEN)
+        .clk     (CLK           ),
+        .resetn  (resetn        ),
+        .led     (LED           ),
+        .rxd     (UART_RX       ),
+        .txd     (UART_TX       ),
+        .ss      (SevenSegment  ),
+        .ssen    (SevenSegmentEN),
+        .vga_h   (VGA_HSYNC     ),
+        .vga_v   (VGA_VSYNC     ),
+        .vga_pix (VGA_PIX       )
     );
 
 endmodule
@@ -48,3 +54,4 @@ endmodule
 `include "../rtl/picorv32.v"
 `include "../rtl/uart.v"
 `include "../rtl/pll.v"
+`include "../rtl/vga.v"

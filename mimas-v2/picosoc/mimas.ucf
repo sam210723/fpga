@@ -26,3 +26,14 @@ NET "SevenSegment[7]"      LOC = A5      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | S
 NET "SevenSegmentEN[2]"    LOC = B3      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;
 NET "SevenSegmentEN[1]"    LOC = A2      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;   
 NET "SevenSegmentEN[0]"    LOC = B2      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;
+
+NET "VGA_HSYNC"            LOC = B12     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;
+NET "VGA_VSYNC"            LOC = A12     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;
+NET "VGA_PIX[7]"           LOC = C9      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #R[2]
+NET "VGA_PIX[6]"           LOC = B9      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #R[1]
+NET "VGA_PIX[5]"           LOC = A9      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #R[0]
+NET "VGA_PIX[4]"           LOC = C11     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #G[2]
+NET "VGA_PIX[3]"           LOC = A10     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #G[1]
+NET "VGA_PIX[2]"           LOC = C10     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #G[0]
+NET "VGA_PIX[1]"           LOC = A11     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #B[1]
+NET "VGA_PIX[0]"           LOC = B11     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #B[0]

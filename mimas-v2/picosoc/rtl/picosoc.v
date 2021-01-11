@@ -3,12 +3,16 @@ module picosoc(
     input resetn,
     
     output txd,
-    input rxd,
+    input  rxd,
 
     output [7:0] led,
 
     output [7:0] ss,
-    output [2:0] ssen
+    output [2:0] ssen,
+
+    output       vga_h,
+    output       vga_v,
+    output [7:0] vga_pix
 );
 
     wire trap;
@@ -47,7 +51,23 @@ module picosoc(
 
     ram_2k_32 _ram_2k_32(clk, mem_addr[12:2], mem_wdata, ram_rdata, mem_wstrb, mem_valid && !mem_addr[31]);
 
-    io _io(clk, reset, io_valid, mem_addr[4:2], mem_wdata, mem_wstrb[0], io_rdata, led[6:0], rxd, txd, ss, ssen);
+    io _io(
+        clk,
+        reset,
+        io_valid,
+        mem_addr[4:2],
+        mem_wdata,
+        mem_wstrb[0],
+        io_rdata,
+        led[6:0],
+        rxd,
+        txd,
+        ss,
+        ssen,
+        vga_h,
+        vga_v,
+        vga_pix
+    );
 
     assign mem_rdata = mem_addr1[31] ? io_rdata : ram_rdata;
     assign led[7] = trap;
@@ -67,7 +87,10 @@ module io(
     input rxd,
     output txd,
     output [7:0] ss,
-    output [2:0] ssen
+    output [2:0] ssen,
+    output       vga_h,
+    output       vga_v,
+    output [7:0] vga_pix
 );
 
     // Peripheral Memory Map
@@ -104,12 +127,15 @@ module io(
     uart_tx _uart_tx(clk, reset, baudclk16, txd, wdata[7:0], uart_tx_ready, uart_tx_write_strobe);
     uart_rx _uart_rx(clk, reset, baudclk16, rxd, uart_rx_data, uart_rx_ready, uart_rx_read_strobe);
 
+    // Seven Segment Display
     reg [23:0] reg_sevenseg_data;
     sevenseg _sevenseg(
-        .clk (clk              ),
-        .data(reg_sevenseg_data),
-        .ss  (ss               ),
-        .ssen(ssen             )
+        .clk   (clk              ),
+        .data  (reg_sevenseg_data),
+        .ss    (ss               ),
+        .ssen  (ssen             )
+    );
+
     // VGA
     wire pll_vga_locked;
     pll pll_vga(
@@ -119,7 +145,18 @@ module io(
         .reset    (reset         )
     );
 
+    wire vga_active;
+    wire [12:0] vga_h_pos, vga_v_pos;
+    vga_sync _vga_sync(
+        .clk    (clk_vga   ),
+        .hsync  (vga_h     ),
+        .vsync  (vga_v     ),
+        .active (vga_active),
+        .h      (vga_h_pos ),
+        .v      (vga_v_pos )
     );
+    assign vga_pix = vga_active ? 8'b11100000 : 8'h00;
+
 
     always @(posedge clk) begin
         led[6] <= uart_tx_ready;
