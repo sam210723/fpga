@@ -102,17 +102,21 @@ module io(
 
     // Peripheral Memory Map
     //
-    // 80000000  out,    LED [0], write
-    // 80000004  txd, data [7:0], write
-    // 80000008  txd,  ready [0], read
-    // 8000000c  rxd, data [7:0], read
-    // 80000010  rxd,  ready [0], read
-    // 80000014   ss,     [23:0], write
+    // 80000000      out,    LED [0], write
+    // 80000004      txd, data [7:0], write
+    // 80000008      txd,  ready [0], read
+    // 8000000C      rxd, data [7:0], read
+    // 80000010      rxd,  ready [0], read
+    // 80000014       ss,     [23:0], write
+    // 80000018 vga_addr,      [7:0], write
+    // 8000001C vga_data,      [7:0], write
 
     wire led_write_strobe =        valid && (addr==3'd0) && wstrb;
     wire uart_tx_write_strobe =    valid && (addr==3'd1) && wstrb;
     wire uart_rx_read_strobe =     valid && (addr==3'd3) && !wstrb;
     wire ss_write_strobe =         valid && (addr==3'd5) && wstrb;
+    wire vga_addr_write_strobe =   valid && (addr==3'd6) && wstrb;
+    wire vga_data_write_strobe =   valid && (addr==3'd7) && wstrb;
 
     wire uart_tx_ready;
     wire [7:0] uart_rx_data;
@@ -166,13 +170,12 @@ module io(
 
     reg [15:0] vga_bram_waddr = 16'b0;
     reg [ 7:0] vga_bram_wdata =  8'b0;
-    wire       vga_bram_wstrb =  1'b0;
     reg [15:0] vga_bram_raddr;
     wire[ 7:0] vga_bram_rdata;
     vga_bram _vga_bram(
         .clka  (clk           ),
-        .ena   (1'b0          ),
-        .wea   (vga_bram_wstrb),
+        .ena   (vga_data_write_strobe),
+        .wea   (vga_data_write_strobe),
         .addra (vga_bram_waddr),
         .dina  (vga_bram_wdata),
         
@@ -212,6 +215,12 @@ module io(
         
         if (ss_write_strobe)
             reg_sevenseg_data[23:0] <= wdata[23:0];
+        
+        if (vga_addr_write_strobe)
+            vga_bram_waddr[15:0] <= wdata[15:0];
+        
+        if (vga_data_write_strobe)
+            vga_bram_wdata[7:0] <= wdata[7:0];
     end
 
 endmodule

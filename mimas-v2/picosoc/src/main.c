@@ -5,6 +5,8 @@
 
 #define MEM_TOTAL 0x2000 // 8 KB Block RAM
 
+#define reg_vga_addr   (*(volatile uint32_t*)0x80000018)
+#define reg_vga_data   (*(volatile uint32_t*)0x8000001C)
 
 void delay(int ms)
 {
@@ -41,6 +43,20 @@ int main()
             {
                 reg_sevenseg_data = 0x00 << 24 | picosoc_ss[i] << 16 | picosoc_ss[i + 1] << 8 | picosoc_ss[i + 2];
                 delay(500);
+            }
+        }
+        else if (strcmp(buf, "vga"))
+        {
+            for (int i = 0; i < 256; i++)
+            {
+                reg_vga_addr = (256 * (192 / 2)) + i;
+                reg_vga_data = 0b00011100;
+            }
+
+            for (int i = 0; i < 192; i++)
+            {
+                reg_vga_addr = (256 * i) + 128;
+                reg_vga_data = 0b00000011;
             }
         }
     }
