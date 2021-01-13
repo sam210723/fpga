@@ -1,7 +1,7 @@
 name = picosoc
 rtl  = rtl/mimas.v
 ucf  = mimas.ucf
-src  = src/main.c src/uart.c src/sevenseg.c
+src  = src/main.c src/uart.c src/sevenseg.c src/vga.c
 
 DEVICE = xc6slx9-2csg324
 RV_PRE = riscv32-unknown-elf

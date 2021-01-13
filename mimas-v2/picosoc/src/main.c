@@ -2,11 +2,9 @@
 
 #include "uart.h"
 #include "sevenseg.h"
+#include "vga.h"
 
 #define MEM_TOTAL 0x2000 // 8 KB Block RAM
-
-#define reg_vga_addr   (*(volatile uint32_t*)0x80000018)
-#define reg_vga_data   (*(volatile uint32_t*)0x8000001C)
 
 void delay(int ms)
 {
@@ -47,16 +45,19 @@ int main()
         }
         else if (strcmp(buf, "vga"))
         {
-            for (int i = 0; i < 256; i++)
-            {
-                reg_vga_addr = (256 * (192 / 2)) + i;
-                reg_vga_data = 0b00011100;
-            }
+            vga_clear();
 
-            for (int i = 0; i < 192; i++)
+            int i = 0;
+            for (int y = 0; y < 192; y++)
             {
-                reg_vga_addr = (256 * i) + 128;
-                reg_vga_data = 0b00000011;
+                for (int x = 0; x < 256; x++)
+                {
+                    vga_set_px(  x, 96, 0, 7, 0);
+                    vga_set_px(128,  y, 0, 0, 3);
+                }
+
+                vga_set_px(  i,  y, 7, 0, 0);
+                i++;
             }
         }
     }
