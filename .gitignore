@@ -24,7 +24,7 @@
 *.cmd_log
 *.drc
 *.lso
-*.ngc
+#*.ngc
 *.ngd
 *.ngr
 *.pad

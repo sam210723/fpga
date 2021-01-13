@@ -49,7 +49,14 @@ module picosoc(
     wire io_valid = mem_valid && (mem_addr[31]);
     wire reset = ~resetn;
 
-    ram_2k_32 _ram_2k_32(clk, mem_addr[12:2], mem_wdata, ram_rdata, mem_wstrb, mem_valid && !mem_addr[31]);
+    ram_2k_32 _ram_2k_32(
+        clk,
+        mem_addr[12:2],
+        mem_wdata,
+        ram_rdata,
+        mem_wstrb,
+        mem_valid && !mem_addr[31]
+    );
 
     io _io(
         clk,
@@ -155,7 +162,43 @@ module io(
         .h      (vga_h_pos ),
         .v      (vga_v_pos )
     );
-    assign vga_pix = vga_active ? 8'b11100000 : 8'h00;
+
+
+    reg [15:0] vga_bram_waddr = 16'b0;
+    reg [ 7:0] vga_bram_wdata =  8'b0;
+    wire       vga_bram_wstrb =  1'b0;
+    reg [15:0] vga_bram_raddr;
+    wire[ 7:0] vga_bram_rdata;
+    vga_bram _vga_bram(
+        .clka  (clk           ),
+        .ena   (1'b0          ),
+        .wea   (vga_bram_wstrb),
+        .addra (vga_bram_waddr),
+        .dina  (vga_bram_wdata),
+        
+        .clkb  (clk_vga       ),
+        .addrb (vga_bram_raddr),
+        .doutb (vga_bram_rdata)
+    );
+
+    reg [7:0] vga_out;
+    always @(posedge clk_vga) begin
+        // Frame buffer 4:1 output
+        vga_bram_raddr <= (vga_h_pos >> 2) + ((vga_v_pos >> 2) * 256);
+        vga_out <= vga_bram_rdata;
+
+        // Frame buffer 1:1 output
+        /*
+        if (vga_h_pos < 256 & vga_v_pos < 192) begin
+            vga_bram_raddr <= vga_h_pos + (vga_v_pos * 256);
+            vga_out <= vga_bram_rdata;
+        end else begin
+            vga_bram_raddr <= 16'h0000;
+            vga_out <= 8'b00000000;
+        end
+        */
+    end
+    assign vga_pix = vga_active ? vga_out : 8'h00;
 
 
     always @(posedge clk) begin

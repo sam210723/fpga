@@ -15,8 +15,10 @@ firmware: build/$(name)_firmware.elf
 build/$(name)_core.bit:
 	@printf "\n====== Building RISC-V CPU core ======\n"
 	mkdir -p build
+	mkdir build/netlist
 	cd build; xst -ifn ../xilinx/picosoc.xst -ofn $(name).srp
-	cd build; ngdbuild -p ${DEVICE} -bm ../xilinx/picosoc.bmm -uc ../$(ucf) picosoc_core.ngc picosoc_core.ngd
+	cp xilinx/vga_bram.ngc build/netlist/vga_bram.ngc
+	cd build; ngdbuild -p ${DEVICE} -bm ../xilinx/picosoc.bmm -uc ../$(ucf) -sd netlist netlist/picosoc_core.ngc picosoc_core.ngd
 	cd build; map -w -timing -detail -p ${DEVICE} -o picosoc_core_map.ncd picosoc_core.ngd picosoc.pcf
 	cd build; par -w picosoc_core_map.ncd picosoc_core.ncd picosoc.pcf
 	cd build; bitgen -w picosoc_core.ncd $(name)_core.bit picosoc.pcf
