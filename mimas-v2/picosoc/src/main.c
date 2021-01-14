@@ -15,12 +15,60 @@ void delay(int ms)
 }
 
 
+void gfx()
+{
+    // Gradients
+    for (int i = 0; i < 8; i++)
+    {
+        vga_fill(
+            i * 8, 0,
+            (i + 1) * 8, 48,
+            i, 0, 0
+        );
+
+        vga_fill(
+            i * 8, 48,
+            (i + 1) * 8, 96,
+            0, i, 0
+        );
+
+        vga_fill(
+            i * 8, 96,
+            (i + 1) * 8, 144,
+            0, 0, i / 2
+        );
+
+        vga_fill(
+            i * 8, 144,
+            (i + 1) * 8, 192,
+            i, i, i / 2
+        );
+    }
+
+    // Left boundary line
+    vga_fill(0, 0, 1, 192, 7, 7, 3);
+
+    // Crosshair
+    for (int y = 91; y < 102; y++)
+    {
+        for (int x = 123; x < 134; x++)
+        {
+            vga_set_px(  x, 96, 7, 7, 3);
+            vga_set_px(128,  y, 7, 7, 3);
+        }
+    }
+    vga_set_px(128, 96, 0, 0, 0);
+}
+
+
 int main()
 {
     // Seven segment dots
     sevenseg_set(0, 0x80);
     sevenseg_set(1, 0x80);
     sevenseg_set(2, 0x80);
+
+    gfx();
 
     getc();
     print_banner(MEM_TOTAL);
