@@ -118,6 +118,7 @@ module io(
     wire ss_write_strobe =         valid && (addr==4'd5) && wstrb;
     wire vga_addr_write_strobe =   valid && (addr==4'd6) && wstrb;
     wire vga_data_write_strobe =   valid && (addr==4'd7) && wstrb;
+    wire vga_active_strobe =       valid && (addr==4'd8) && !wstrb;
 
     wire uart_tx_ready;
     wire [7:0] uart_rx_data;
@@ -129,6 +130,7 @@ module io(
             4'd3: rdata <= {24'd0, uart_rx_data};
             4'd4: rdata <= {31'd0, uart_rx_ready};
             4'd5: rdata <= { 8'd0, reg_sevenseg_data};
+            4'd8: rdata <= {31'd0, vga_active};
             default: rdata <= 32'd0;
         endcase
 
