@@ -62,7 +62,7 @@ module picosoc(
         clk,
         reset,
         io_valid,
-        mem_addr[4:2],
+        mem_addr[5:2],
         mem_wdata,
         mem_wstrb[0],
         io_rdata,
@@ -86,7 +86,7 @@ module io(
     input clk,
     input reset,
     input valid,
-    input [2:0] addr,
+    input [3:0] addr,
     input [31:0] wdata,
     input wstrb,
     output reg [31:0] rdata,
@@ -102,21 +102,22 @@ module io(
 
     // Peripheral Memory Map
     //
-    // 80000000      out,    LED [0], write
-    // 80000004      txd, data [7:0], write
-    // 80000008      txd,  ready [0], read
-    // 8000000C      rxd, data [7:0], read
-    // 80000010      rxd,  ready [0], read
-    // 80000014       ss,     [23:0], write
-    // 80000018 vga_addr,      [7:0], write
-    // 8000001C vga_data,      [7:0], write
+    // 80000000        out,    LED [0], write
+    // 80000004        txd, data [7:0], write
+    // 80000008        txd,  ready [0], read
+    // 8000000C        rxd, data [7:0], read
+    // 80000010        rxd,  ready [0], read
+    // 80000014         ss,     [23:0], write
+    // 80000018   vga_addr,      [7:0], write
+    // 8000001C   vga_data,      [7:0], write
+    // 80000020 vga_active,        [0], read
 
-    wire led_write_strobe =        valid && (addr==3'd0) && wstrb;
-    wire uart_tx_write_strobe =    valid && (addr==3'd1) && wstrb;
-    wire uart_rx_read_strobe =     valid && (addr==3'd3) && !wstrb;
-    wire ss_write_strobe =         valid && (addr==3'd5) && wstrb;
-    wire vga_addr_write_strobe =   valid && (addr==3'd6) && wstrb;
-    wire vga_data_write_strobe =   valid && (addr==3'd7) && wstrb;
+    wire led_write_strobe =        valid && (addr==4'd0) && wstrb;
+    wire uart_tx_write_strobe =    valid && (addr==4'd1) && wstrb;
+    wire uart_rx_read_strobe =     valid && (addr==4'd3) && !wstrb;
+    wire ss_write_strobe =         valid && (addr==4'd5) && wstrb;
+    wire vga_addr_write_strobe =   valid && (addr==4'd6) && wstrb;
+    wire vga_data_write_strobe =   valid && (addr==4'd7) && wstrb;
 
     wire uart_tx_ready;
     wire [7:0] uart_rx_data;
@@ -124,10 +125,10 @@ module io(
     
     always @(posedge clk)
         case (addr)
-            3'd2: rdata <= {31'd0, uart_tx_ready};
-            3'd3: rdata <= {24'd0, uart_rx_data};
-            3'd4: rdata <= {31'd0, uart_rx_ready};
-            3'd5: rdata <= { 8'd0, reg_sevenseg_data};
+            4'd2: rdata <= {31'd0, uart_tx_ready};
+            4'd3: rdata <= {24'd0, uart_rx_data};
+            4'd4: rdata <= {31'd0, uart_rx_ready};
+            4'd5: rdata <= { 8'd0, reg_sevenseg_data};
             default: rdata <= 32'd0;
         endcase
 
