@@ -93,20 +93,28 @@ int main()
         }
         else if (strcmp(buf, "vga"))
         {
-            vga_clear();
-
-            int i = 0;
-            for (int y = 0; y < 192; y++)
+            // Wait for keyboard interrupt
+            while(!reg_uart_rx_ready)
             {
-                for (int x = 0; x < 256; x++)
+                for (int i = 0; i < (192 - 8); i++)
                 {
-                    vga_set_px(  x, 96, 0, 7, 0);
-                    vga_set_px(128,  y, 0, 0, 3);
+                    // Clear 8px vertical column on far right
+                    vga_fill(256-8, 0, 256, 192, 0, 0, 0);
+
+                    vga_fill(256-8, i, 256, i + 8, 7, 0, 0);
                 }
 
-                vga_set_px(  i,  y, 7, 0, 0);
-                i++;
+                for (int i = (192 - 8); i > 0; i--)
+                {
+                    // Clear 8px vertical column on far right
+                    vga_fill(256-8, 0, 256, 192, 0, 0, 0);
+
+                    vga_fill(256-8, i, 256, i + 8, 0, 7, 0);
+                }
             }
+
+            // Clear 8px vertical column on far right
+            vga_fill(256-8, 0, 256, 192, 0, 0, 0);
         }
     }
 
