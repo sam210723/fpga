@@ -17,6 +17,20 @@ void vga_clear()
 }
 
 /**
+ * Fill frame buffer area with colour
+ */
+void vga_fill(int x1, int y1, int x2, int y2, int r, int g, int b)
+{
+    for (int y = y1; y < y2; y++)
+    {
+        for (int x = x1; x < x2; x++)
+        {
+            vga_set_px(x, y, r, g, b);
+        }
+    }
+}
+
+/**
  * Set pixel in VGA frame buffer
  */
 void vga_set_px(int x, int y, int r, int g, int b)
