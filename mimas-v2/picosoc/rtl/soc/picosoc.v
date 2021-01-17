@@ -15,40 +15,50 @@ module picosoc(
     output [7:0] vga_pix
 );
 
-    wire trap;
-    wire mem_valid;
+    wire trap;                  // CPU trap condition flag
+    wire mem_valid;             // CPU memory valid flag
     wire mem_instr;
-    reg mem_ready;
-    wire [31:0] mem_addr;
-    wire [31:0] mem_wdata;
-    wire [3:0] mem_wstrb;
-    wire [31:0] mem_rdata;
+    reg  mem_ready;             // Synchronous memory valid flag
+    wire [31:0] mem_addr;       // Current memory address
+    wire [31:0] mem_wdata;      // Memory (BRAM or I/O) write buffer
+    wire [ 3:0] mem_wstrb;      // Memory write strobe
+    wire [31:0] mem_rdata;      // Memory (BRAM or I/O) read buffer
     
+    /**
+     * PicoRV32 RISC-V RV32I CPU Core
+     */
     picorv32 #(.ENABLE_REGS_DUALPORT(0)) _picorv32(
-    .clk(clk),
-    .resetn(resetn),
-    .trap(trap),
-    .mem_valid(mem_valid),
-    .mem_instr(mem_instr),
-    .mem_ready(mem_ready),
-    .mem_addr(mem_addr),
-    .mem_wdata(mem_wdata),
-    .mem_wstrb(mem_wstrb),
-    .mem_rdata(mem_rdata)
+        .clk       (clk      ),
+        .resetn    (resetn   ),
+        .trap      (trap     ),
+        .mem_valid (mem_valid),
+        .mem_instr (mem_instr),
+        .mem_ready (mem_ready),
+        .mem_addr  (mem_addr ),
+        .mem_wdata (mem_wdata),
+        .mem_wstrb (mem_wstrb),
+        .mem_rdata (mem_rdata)
     );
 
-    wire [31:0] ram_rdata;
-    wire [31:0] io_rdata;
-    reg [31:0] mem_addr1;
+    wire [31:0] ram_rdata;      // BRAM read buffer
+    wire [31:0] io_rdata;       // I/O read buffer
+    reg  [31:0] mem_addr1;      // Synchronous memory address buffer
 
+    // Generate synchronous memory valid flag and address
     always @(posedge clk) begin
-    mem_ready <= mem_valid;
-    mem_addr1 <= mem_addr;
+        mem_ready <= mem_valid;
+        mem_addr1 <= mem_addr;
     end
 
+    // Memory valid and address within memory mapped I/O range
     wire io_valid = mem_valid && (mem_addr[31]);
+
+    // Inverted reset signal
     wire reset = ~resetn;
 
+    /**
+     * 8KB BRAM (4 x 2KB)
+     */
     ram_2k_32 _ram_2k_32(
         clk,
         mem_addr[12:2],
@@ -58,6 +68,9 @@ module picosoc(
         mem_valid && !mem_addr[31]
     );
 
+    /**
+     * Memory mapped I/O peripherals (e.g. UART, VGA)
+     */
     io _io(
         clk,
         reset,
@@ -76,7 +89,10 @@ module picosoc(
         vga_pix
     );
 
+    // Read from memory mapped I/O if address MSB is set, else read from BRAM
     assign mem_rdata = mem_addr1[31] ? io_rdata : ram_rdata;
+
+    // Indicate CPU trap condition (interrupt or exception) has occurred
     assign led[7] = trap;
 
 endmodule
