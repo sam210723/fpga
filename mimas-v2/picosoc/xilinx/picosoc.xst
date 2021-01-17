@@ -1,6 +1,6 @@
 run
--ifn ../rtl/mimas.v
+-ifn ../rtl/top.v
 -ofn netlist/picosoc_core.ngc
 -ifmt Verilog
--top mimas
+-top top
 -p xc6slx9-2csg324

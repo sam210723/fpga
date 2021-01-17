@@ -1,4 +1,4 @@
-module mimas(
+module top(
     input CLK,
 
     output UART_TX,
@@ -41,7 +41,6 @@ module reset_gen(
 );
 
     reg [7:0] x = 8'hFF;
-
     always @(posedge clk)
         x <= {x[6:0], 1'b0};
 
@@ -50,8 +49,8 @@ module reset_gen(
 endmodule
 
 
-`include "../rtl/picosoc.v"
-`include "../rtl/picorv32.v"
-`include "../rtl/uart.v"
-`include "../rtl/pll.v"
-`include "../rtl/vga.v"
+`include "../rtl/soc/picosoc.v"
+`include "../rtl/soc/picorv32.v"
+`include "../rtl/util/pll.v"
+`include "../rtl/peripheral/uart.v"
+`include "../rtl/peripheral/vga.v"

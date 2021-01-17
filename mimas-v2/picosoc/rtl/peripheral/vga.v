@@ -62,8 +62,8 @@ module vga_sync(
 	end
 	
 	// Assign outputs
-	assign hsync  = ~( h_out >= H_SYNC_S && h_out <= H_SYNC_E );
-	assign vsync  = ~( v_out >= V_SYNC_S && v_out <= V_SYNC_E );
+    assign hsync  = ~( h_out >= H_SYNC_S && h_out <= H_SYNC_E );
+    assign vsync  = ~( v_out >= V_SYNC_S && v_out <= V_SYNC_E );
     assign active =    h_out <  H_ACTIVE && v_out <  V_ACTIVE  ;
     assign h = h_out;
     assign v = v_out;
