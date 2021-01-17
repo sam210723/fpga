@@ -1,7 +1,7 @@
 # PicoSoC for Numato Lab Mimas V2
 
 The [Mimas V2](https://numato.com/product/mimas-v2-spartan-6-fpga-development-board-with-ddr-sdram/) by [Numato Lab](https://numato.com/) is a Spartan 6 FPGA development board with VGA, SD Card, PMOD and audio interfaces.
-The Spartan 6 variant used by the Mimas V2 is the XC6SLX9 which has 9152 logic cells and 512 Mb BRAM.
+The Spartan 6 variant used by the Mimas V2 is the XC6SLX9 which has 9152 logic cells and 576 Kb BRAM.
 
 ![Mimas V2](https://numato.com/wp-content/uploads/2020/08/MimasV2_2-2-1.png)
 
