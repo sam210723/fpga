@@ -1,39 +1,39 @@
 CONFIG VCCAUX = "3.3" ;
 
-NET "CLK"                  LOC = V10     | IOSTANDARD = LVCMOS33 | PERIOD = 100MHz ;
+NET "CLK"                  LOC = V10 | IOSTANDARD = LVCMOS33 | PERIOD = 100MHz ;
 
-NET "UART_TX"              LOC = B8      |  IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;
-NET "UART_RX"              LOC = A8      |  IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;
+NET "UART_TX"              LOC = B8  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;
+NET "UART_RX"              LOC = A8  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;
 
-NET "LED[7]"               LOC = P15     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # D1
-NET "LED[6]"               LOC = P16     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # D2
-NET "LED[5]"               LOC = N15     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # D3
-NET "LED[4]"               LOC = N16     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # D4
-NET "LED[3]"               LOC = U17     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # D5
-NET "LED[2]"               LOC = U18     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # D6
-NET "LED[1]"               LOC = T17     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # D7
-NET "LED[0]"               LOC = T18     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # D8
+NET "LED[7]"               LOC = P15 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # D1
+NET "LED[6]"               LOC = P16 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # D2
+NET "LED[5]"               LOC = N15 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # D3
+NET "LED[4]"               LOC = N16 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # D4
+NET "LED[3]"               LOC = U17 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # D5
+NET "LED[2]"               LOC = U18 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # D6
+NET "LED[1]"               LOC = T17 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # D7
+NET "LED[0]"               LOC = T18 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # D8
 
-NET "SevenSegment[0]"      LOC = A3      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # A
-NET "SevenSegment[1]"      LOC = B4      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # B
-NET "SevenSegment[2]"      LOC = A4      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # C
-NET "SevenSegment[3]"      LOC = C4      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # D
-NET "SevenSegment[4]"      LOC = C5      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # E
-NET "SevenSegment[5]"      LOC = D6      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # F
-NET "SevenSegment[6]"      LOC = C6      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # G
-NET "SevenSegment[7]"      LOC = A5      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # .
+NET "SEV_SEG[0]"           LOC = A3  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # A
+NET "SEV_SEG[1]"           LOC = B4  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # B
+NET "SEV_SEG[2]"           LOC = A4  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # C
+NET "SEV_SEG[3]"           LOC = C4  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # D
+NET "SEV_SEG[4]"           LOC = C5  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # E
+NET "SEV_SEG[5]"           LOC = D6  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # F
+NET "SEV_SEG[6]"           LOC = C6  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # G
+NET "SEV_SEG[7]"           LOC = A5  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # .
 
-NET "SevenSegmentEN[2]"    LOC = B3      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;
-NET "SevenSegmentEN[1]"    LOC = A2      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;   
-NET "SevenSegmentEN[0]"    LOC = B2      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;
+NET "SEV_SEG_EN[2]"        LOC = B3  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # L
+NET "SEV_SEG_EN[1]"        LOC = A2  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # C
+NET "SEV_SEG_EN[0]"        LOC = B2  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # R
 
-NET "VGA_HSYNC"            LOC = B12     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;
-NET "VGA_VSYNC"            LOC = A12     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;
-NET "VGA_PIX[7]"           LOC = C9      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #R[2]
-NET "VGA_PIX[6]"           LOC = B9      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #R[1]
-NET "VGA_PIX[5]"           LOC = A9      | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #R[0]
-NET "VGA_PIX[4]"           LOC = C11     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #G[2]
-NET "VGA_PIX[3]"           LOC = A10     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #G[1]
-NET "VGA_PIX[2]"           LOC = C10     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #G[0]
-NET "VGA_PIX[1]"           LOC = A11     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #B[1]
-NET "VGA_PIX[0]"           LOC = B11     | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  #B[0]
+NET "VGA_HSYNC"            LOC = B12 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;
+NET "VGA_VSYNC"            LOC = A12 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;
+NET "VGA_PIX[7]"           LOC = C9  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # R[2]
+NET "VGA_PIX[6]"           LOC = B9  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # R[1]
+NET "VGA_PIX[5]"           LOC = A9  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # R[0]
+NET "VGA_PIX[4]"           LOC = C11 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # G[2]
+NET "VGA_PIX[3]"           LOC = A10 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # G[1]
+NET "VGA_PIX[2]"           LOC = C10 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # G[0]
+NET "VGA_PIX[1]"           LOC = A11 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # B[1]
+NET "VGA_PIX[0]"           LOC = B11 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST ;  # B[0]

@@ -1,15 +1,23 @@
+/**
+ * Interfaces SoC module with real I/O on the
+ * Numato Lab Mimas V2 Spartan 6 (XC6SLX9) development board.
+ * 
+ * A delayed synchronous reset signal for the CPU is also generated here.
+ */
 module top(
-    input CLK,
+    input CLK,                      // 100 MHz system clock
 
-    output UART_TX,
-    input  UART_RX,
+    output UART_TX,                 // PIC uC USB UART transmit
+    input  UART_RX,                 // PIC uC USB UART receive
 
-    output [7:0] LED,
-    output [7:0] SevenSegment,
-    output [2:0] SevenSegmentEN,
-    output       VGA_HSYNC,
-    output       VGA_VSYNC,
-    output [7:0] VGA_PIX
+    output [7:0] LED,               // LEDs D1-D8
+    
+    output [7:0] SEV_SEG,           // Seven segment display anodes
+    output [2:0] SEV_SEG_EN,        // Seven segment display cathodes (enable)
+
+    output       VGA_HSYNC,         // VGA horizontal sync pulse
+    output       VGA_VSYNC,         // VGA vertical sync pulse
+    output [7:0] VGA_PIX            // VGA pixel data for R3G3B3 R2R DAC
 );
 
     wire resetn;
@@ -19,22 +27,24 @@ module top(
     );
 
     picosoc soc(
-        .clk     (CLK           ),
-        .resetn  (resetn        ),
-        .led     (LED           ),
-        .rxd     (UART_RX       ),
-        .txd     (UART_TX       ),
-        .ss      (SevenSegment  ),
-        .ssen    (SevenSegmentEN),
-        .vga_h   (VGA_HSYNC     ),
-        .vga_v   (VGA_VSYNC     ),
-        .vga_pix (VGA_PIX       )
+        .clk     (CLK       ),
+        .resetn  (resetn    ),
+        .led     (LED       ),
+        .rxd     (UART_RX   ),
+        .txd     (UART_TX   ),
+        .ss      (SEV_SEG   ),
+        .ssen    (SEV_SEG_EN),
+        .vga_h   (VGA_HSYNC ),
+        .vga_v   (VGA_VSYNC ),
+        .vga_pix (VGA_PIX   )
     );
 
 endmodule
 
 
-// Generates synchronous RESET signal after 8 clock cycles
+/**
+ * Generates synchronous RESET signal after 8 clock cycles
+ */
 module reset_gen(
     input  clk,
     output resetn
