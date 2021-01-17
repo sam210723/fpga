@@ -63,4 +63,5 @@ endmodule
 `include "../rtl/soc/picorv32.v"
 `include "../rtl/util/pll.v"
 `include "../rtl/peripheral/uart.v"
+`include "../rtl/peripheral/sevseg.v"
 `include "../rtl/peripheral/vga.v"

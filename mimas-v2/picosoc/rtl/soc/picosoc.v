@@ -192,15 +192,15 @@ module io(
     reg [15:0] vga_bram_raddr;
     wire[ 7:0] vga_bram_rdata;
     vga_bram _vga_bram(
-        .clka  (clk           ),
+        .clka  (clk                  ),
         .ena   (vga_data_write_strobe),
         .wea   (vga_data_write_strobe),
-        .addra (vga_bram_waddr),
-        .dina  (vga_bram_wdata),
+        .addra (vga_bram_waddr       ),
+        .dina  (vga_bram_wdata       ),
         
-        .clkb  (clk_vga       ),
-        .addrb (vga_bram_raddr),
-        .doutb (vga_bram_rdata)
+        .clkb  (clk_vga              ),
+        .addrb (vga_bram_raddr       ),
+        .doutb (vga_bram_rdata       )
     );
 
     reg [7:0] vga_out;
@@ -298,54 +298,5 @@ module uart_baud_clock_16x(
     c <= m ? 0 : c+1;
 
     assign baudclk16 = m;
-
-endmodule
-
-
-module sevenseg(
-    input clk,
-
-    input  [23:0] data,
-    output [ 7:0] ss,
-    output [ 2:0] ssen
-);
-
-    // Clock divider parameters
-	parameter  rate  = 1000;
-	parameter  clk_f = 100000000;
-	localparam clk_d = clk_f / (rate * 3);
-
-    reg [31:0] c;
-    reg [2:0] digit = 3'b0;
-    reg [7:0] segments;
-    always @(posedge clk) begin
-        if (c < clk_d)
-            c <= c + 1;
-        else begin
-            c <= 0;
-
-            case (digit)
-                3'b001: begin
-                    segments <= data[23:16];
-                    digit <= 3'b100;
-                end
-                3'b100: begin
-                    segments <= data[15:8];
-                    digit <= 3'b010;
-                end
-                3'b010: begin
-                    segments <= data[7:0];
-                    digit <= 3'b001;
-                end
-                default: begin
-                    segments <= 8'h00;
-                    digit <= 3'b001;
-                end
-            endcase
-        end
-    end
-
-    assign ss   = ~segments;
-    assign ssen = ~digit;
 
 endmodule

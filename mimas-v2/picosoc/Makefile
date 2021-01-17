@@ -1,5 +1,6 @@
 name = picosoc
-rtl  = rtl/top.v
+top  = rtl/top.v
+rtl  = rtl/soc/picosoc.v rtl/soc/picorv32.v rtl/peripheral/uart.v rtl/peripheral/vga.v rtl/util/pll.v rtl/util/fifo.v
 ucf  = mimas.ucf
 src  = src/main.c src/uart.c src/sevenseg.c src/vga.c
 
@@ -37,7 +38,7 @@ image: build/$(name)_core.bit build/$(name)_firmware.elf
 
 test:
 	@printf "\n====== Running testbench ======\n"
-	iverilog -o test/tb test/tb.v rtl/soc/picosoc.v rtl/soc/picorv32.v rtl/peripheral/uart.v
+	iverilog -o test/tb test/tb.v rtl/peripheral/sevseg.v
 	vvp -n test/tb > /dev/null
 	gtkwave test/tb.vcd --rcvar 'fontname_signals Monospace 22' --rcvar 'fontname_waves Monospace 12'
 

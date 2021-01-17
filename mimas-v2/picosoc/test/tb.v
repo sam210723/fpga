@@ -4,7 +4,7 @@ module tb;
     parameter PERIOD = 1;
 
     reg clk;
-    reg [23:0] data = 24'hFF5511;
+    reg [23:0] data = 24'hFF5500;
 
     sevenseg uut(
         .clk(clk),
