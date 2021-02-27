@@ -14,9 +14,9 @@
 // 0x02000008 - 0x0200000B		UART Send/Recv Data Register
 // 0x03000000 - 0xFFFFFFFF		Memory mapped user peripherals
 //     0x00:    PMOD LEDs
-//     0x01:    RGB Red PWM (0-255)
+//     0x01:    RGB Red PWM   (0-255)
 //     0x02:    RGB Green PWM (0-255)
-//     0x03:    RGB Blue PWM (0-255)
+//     0x03:    RGB Blue PWM  (0-255)
 
 
 void main()
