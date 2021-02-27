@@ -27,4 +27,4 @@ module tb;
 endmodule
 
 
-`include "rtl/pll/nco.v"
+`include "rtl/pma/nco.v"
