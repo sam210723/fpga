@@ -1,8 +1,0 @@
-INTSTYLE=ise
-INFILE=Z:\Shared\ISE Projects\sfp\top.ncd
-OUTFILE=Z:\Shared\ISE Projects\sfp\top.bit
-FAMILY=Spartan6
-PART=xc6slx9-2csg324
-WORKINGDIR=Z:\Shared\ISE Projects\sfp
-LICENSE=WebPack
-USER_INFO=211680811_0_0_478
