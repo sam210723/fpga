@@ -1,4 +1,4 @@
-name = sfp-eth
+name = sfp
 
 all: clean test
 

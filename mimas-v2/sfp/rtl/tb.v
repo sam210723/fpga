@@ -13,10 +13,6 @@ module tb;
     always #PERIOD clk = ~clk;
 
 
-    /************/
-    /**  UUTs  **/
-    /************/
-
     nco nco(
         .clk (clk)
     );
