@@ -1,9 +1,5 @@
 # FPGA Projects
 A collection of FPGA projects on various FPGA development boards.
-[TinyFPGA BX](https://www.crowdsupply.com/tinyfpga/tinyfpga-bx)
-[Numato Lab Mimas V2](https://numato.com/product/mimas-v2-spartan-6-fpga-development-board-with-ddr-sdram/)
-[iCESugar v1.5](https://github.com/wuxx/icesugar/blob/master/README_en.md)
-[iCESugar Nano](https://github.com/wuxx/icesugar-nano).
 
 | Board                                 | Project                                                                                   | Description           | Status   |
 |---------------------------------------|-------------------------------------------------------------------------------------------|-----------------------|----------|
@@ -22,3 +18,4 @@ A collection of FPGA projects on various FPGA development boards.
 |                                       | [PicoSoC Minimal](https://github.com/sam210723/fpga/tree/master/icesugar/picosoc-minimal) | PicoSoC with helpers  | Complete |
 |                                       | [I2C](https://github.com/sam210723/fpga/tree/master/icesugar/i2c)                         | I2C core              | WIP      |
 | [iCESugar Nano](https://git.io/JqHiX) | [Blink](https://github.com/sam210723/fpga/tree/master/icesugar-nano/blink)                | Basic blink example   | Complete |
+|                                       | [PWM](https://github.com/sam210723/fpga/tree/master/icesugar-nano/pwm)                    | Basic LED PWM example | Complete |
