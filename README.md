@@ -18,4 +18,4 @@ A collection of FPGA projects on various FPGA development boards.
 |                                       | [PicoSoC Minimal](https://github.com/sam210723/fpga/tree/master/icesugar/picosoc-minimal) | PicoSoC with helpers  | Complete |
 |                                       | [I2C](https://github.com/sam210723/fpga/tree/master/icesugar/i2c)                         | I2C core              | WIP      |
 | [iCESugar Nano](https://git.io/JqHiX) | [Blink](https://github.com/sam210723/fpga/tree/master/icesugar-nano/blink)                | Basic blink example   | Complete |
-|                                       | [PWM](https://github.com/sam210723/fpga/tree/master/icesugar-nano/pwm)                    | Basic LED PWM example | Complete |
+|                                       | [PWM](https://github.com/sam210723/fpga/tree/master/icesugar-nano/led_pwm)                | Basic LED PWM example | Complete |
