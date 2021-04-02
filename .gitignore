@@ -49,3 +49,8 @@
 
 # Testbench output
 mimas-v2/sfp/test
+*.vcd
+
+# nMigen
+__pycache__
+build
