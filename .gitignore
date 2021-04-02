@@ -46,7 +46,6 @@
 *.xbcd
 *.sdbl
 *.sdbx
-*.pcf
 
 # Testbench output
 mimas-v2/sfp/test
