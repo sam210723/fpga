@@ -28,7 +28,7 @@ class ICESugarNanoPlatform(LatticeICE40Platform):
             attrs=Attrs(IO_STANDARD="SB_LVCMOS")
         ),
 
-        Resource("A", 1, Pins("A1", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),  # TEMP
+        Resource("pmod", 0, Pins("B4 B5 E1 B1 A1 C2 E3 C6", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
     ]
     connectors = [
         Connector("pmod", 0, "E2 D1 B1 A1 - -  -  -  -  - - -"), # PMOD1 - IO pin D1 shared by CLK

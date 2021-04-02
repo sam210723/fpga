@@ -13,10 +13,6 @@ class SPDIF(Elaboratable):
     def elaborate(self, platform):
         m = Module()
 
-        # Setup PLL
-        if not self.sim:
-            clk_freq = platform.default_clk_frequency
-
         # Test counter
         counter = Signal(25)
         m.d.sync += counter.eq(counter + 1)
@@ -25,9 +21,9 @@ class SPDIF(Elaboratable):
         # Assign pins
         if not self.sim:
             led = platform.request("led", 0)
-            pin = platform.request("A", 1)
+            pmod = platform.request("pmod", 0)
             m.d.comb += led.o.eq(self.out)
-            m.d.comb += pin.o.eq(self.out)
+            m.d.comb += pmod.o[4].eq(self.out)  # A1
 
         return m
 
