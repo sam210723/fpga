@@ -10,8 +10,9 @@ sim: clean
 	gtkwave $(name).vcd --rcvar 'fontname_signals Monospace 16' --rcvar 'fontname_waves Monospace 12'
 
 prog: build
-	#sudo mount -t drvfs F: /mnt/f
-	cp build/top.bin /mnt/f
+	sudo icesprog --write build/top.bin
 
 clean:
 	rm -rf __pycache__ build $(name).vcd
+
+.PHONY: build
