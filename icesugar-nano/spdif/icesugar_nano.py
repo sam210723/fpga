@@ -16,7 +16,7 @@ class ICESugarNanoPlatform(LatticeICE40Platform):
         Resource("clk12", 0, Pins("D1", dir="i"),
         Clock(12e6), Attrs(IO_STANDARD="SB_LVCMOS")),
 
-        *LEDResources(pins="B6", invert=True, attrs=Attrs(IO_STANDARD="SB_LVCMOS")),
+        *LEDResources(pins="B6", invert=False, attrs=Attrs(IO_STANDARD="SB_LVCMOS")),
 
         UARTResource(0,
             rx="A3", tx="B3",
