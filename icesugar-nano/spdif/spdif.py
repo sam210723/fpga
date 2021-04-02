@@ -9,26 +9,52 @@ class SPDIF(Elaboratable):
         self.ch = ch
         self.sr = sr
         self.out = Signal()
+        self.pll_clk_freq = 6.144e6 * 4
 
     def elaborate(self, platform):
         m = Module()
 
-        # Get default clock frequency of platform
-        if not self.sim: clk_freq = platform.default_clk_frequency
+        # Setup PLL
+        if not self.sim:
+            m.domains.spdif = cd_spdif = ClockDomain(reset_less=False)
+            m.submodules += PLL(
+                platform.default_clk_frequency,
+                self.pll_clk_freq,
+                odomain="spdif"
+            )
+            platform.add_clock_constraint(cd_spdif.clk, self.pll_clk_freq)
 
         # Test counter
-        counter = Signal(25)
-        m.d.sync += counter.eq(counter + 1)
-        m.d.comb += self.out.eq(counter[22])
+        #counter = Signal(25)
+        #m.d.spdif += counter.eq(counter + 1)
+        #m.d.comb += self.out.eq(counter[24])
+        m.d.spdif += self.out.eq(~self.out.bool())
 
-        # Assign LED to output signal
+        # Assign pins
         if not self.sim:
             led = platform.request("led", 0)
+            pin = platform.request("A", 1)
             m.d.comb += led.o.eq(self.out)
+            m.d.comb += pin.o.eq(self.out)
 
         return m
 
 
+class PLL(Elaboratable):
+    # https://github.com/GlasgowEmbedded/glasgow/blob/main/software/glasgow/gateware/pll.py
+
+    def __init__(self, f_in, f_out, odomain, idomain="sync"):
+        self.f_in    = float(f_in)
+        self.f_out   = float(f_out)
+        self.odomain = odomain
+        self.idomain = idomain
+
+    def elaborate(self, platform):
+        if hasattr(platform, "get_pll"): return platform.get_pll(self)
+        raise NotImplementedError("No PLL support for platform")
+
+
+# Build or simulate
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()
@@ -46,9 +72,7 @@ if __name__ == "__main__":
         sim = Simulator(spdif)
         with sim.write_vcd("spdif.vcd"):
             def process():
-                for i in range(100):
-                    #print("out =", (yield spdif.out))
-                    yield Tick()
+                for i in range(100): yield Tick()
 
             sim.add_clock(1/6.144e6)
             sim.add_sync_process(process)
