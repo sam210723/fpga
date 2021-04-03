@@ -10,6 +10,7 @@ sim: clean
 	gtkwave $(name).vcd --rcvar 'fontname_signals Monospace 16' --rcvar 'fontname_waves Monospace 12'
 
 prog: build
+	sudo icesprog -c 4
 	sudo icesprog --write build/top.bin
 
 clean:
