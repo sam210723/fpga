@@ -15,20 +15,46 @@ class SPDIF(Elaboratable):
     def elaborate(self, platform):
         m = Module()
 
-        # Clock divider
-        counter = Signal(32)
-        m.d.sync += counter.eq(counter + 0x83126E97)
-        clk_stb = Signal()
-        m.d.comb += clk_stb.eq(counter + 0x83126E97 > 2**32)
-        #m.d.comb += clk_stb.eq(counter[31])
-        m.d.comb += self.out.eq(clk_stb)
+        # Clock generator
+        self.clkgen = ClockGen(72e6, self.br)
+        m.submodules.clkgen = self.clkgen
+        m.domains.spdif = cd_spdif = ClockDomain(reset_less=True)
+        cd_spdif.clk = self.clkgen.stb
+
+        # Test output
+        m.d.spdif += self.out.eq(~self.out)
 
         # Assign pins
         if not self.sim:
             led = platform.request("led", 0)
             pmod = platform.request("pmod", 0)
             m.d.comb += led.o.eq(self.out)
-            m.d.comb += pmod.o[4].eq(self.out)  # A1
+            m.d.comb += pmod.o[3].eq(self.out)  # B1
+
+        return m
+
+
+class ClockGen(Elaboratable):
+    def __init__(self, f_in, f_out):
+        self.f_in = f_in
+        self.f_out = f_out
+        self.width = 32
+
+        # Calcualte parameters
+        self.div = self.f_in / self.f_out
+        self.step = round(2**self.width / self.div)
+        print(f"[CLK] WIDTH={self.width} DIV={self.div} STEP=0x{self.step:X}")
+
+        self.stb = Signal()
+    
+    def elaborate(self, platform):
+        m = Module()
+
+        counter = Signal(self.width)
+
+        # Combinational logic
+        m.d.sync += counter.eq(counter + self.step)
+        m.d.comb += self.stb.eq(counter + self.step > 2**self.width)
 
         return m
 
