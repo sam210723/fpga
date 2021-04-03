@@ -19,7 +19,7 @@ class SPDIF(Elaboratable):
         self.clkgen = ClockGen(72e6, self.br)                           # Create clock generator instance (72 MHz input)
         m.submodules.clkgen = self.clkgen                               # Add clock generator submodule to top module
         m.domains.spdif = cd_spdif = ClockDomain(reset_less=True)       # Create new clock domain for S/PDIF clock
-        cd_spdif.clk = self.clkgen.stb                                  # Assign clock generator output to clock domain
+        cd_spdif.clk = self.clkgen.clk_out                              # Assign clock generator output to clock domain
 
         # Test output
         m.d.spdif += self.out.eq(~self.out)
@@ -47,14 +47,14 @@ class ClockGen(Elaboratable):
 
         self.width = 32                         # Counter register width
         self.max = 2 ** self.width              # Maximum counter value
-        self.div = f_in / f_out                 # Division factor
+        self.div = f_in / (f_out * 2)           # Division factor
         self.step = round(self.max / self.div)  # Counter step size
-        self.stb = Signal()                     # Output clock signal
+        self.clk_out = Signal()                 # Output clock signal
 
         print(
             f"[clk] f_in={f_in / 1e6} MHz  " \
-            f"f_out={f_out / 1e6} MHz" \
-            f"width={self.width}  " \
+            f"f_out={f_out / 1e6} MHz  " \
+            f"width={self.width} bits  " \
             f"div={self.div}  " \
             f"step=0x{self.step:X}"
         )
@@ -68,7 +68,12 @@ class ClockGen(Elaboratable):
         m.d.sync += counter.eq(counter + self.step)
 
         # Check for overflow condition
-        m.d.comb += self.stb.eq(counter + self.step > self.max)
+        ovf = Signal()
+        m.d.comb += ovf.eq(counter + self.step > self.max)
+        
+        # Toggle output clock on overflow strobe
+        with m.If(ovf):
+            m.d.sync += self.clk_out.eq(~self.clk_out)
 
         return m
 
