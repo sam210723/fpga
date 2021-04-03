@@ -41,9 +41,9 @@ class SPDIF(Elaboratable):
                 m.d.spdif += c_subframe.eq(c_subframe + 1)
 
 
-        ####################
-        ##    Preamble    ##
-        ####################
+        ###################
+        ##    Encoder    ##
+        ###################
         PREAMBLE_B = 0b00010111     # Channel A (Left) and start of block
         PREAMBLE_M = 0b00100111     # Channel A (Left)
         PREAMBLE_W = 0b01000111     # Channel B (Right)
@@ -64,14 +64,22 @@ class SPDIF(Elaboratable):
             # Right channel (W)
             with m.Else():
                 m.d.spdif += self.out.eq(~PREAMBLE_W >> c_cell)
-        
+
         # Auxiliary bits
         with m.Elif((8 <= c_cell) & (c_cell <= 15)):
             m.d.spdif += self.out.eq((c_cell >> 1) & 0x01)
 
-        # Payload
-        with m.Else():
+        # Audio sample
+        with m.Elif((16 <= c_cell) & (c_cell <= 55)):
+            m.d.spdif += self.out.eq((c_cell >> 1) & 0x01)
+        
+        # Parity
+        with m.Elif(c_cell >= 61):
             m.d.spdif += self.out.eq(~self.out)
+
+        # Flags
+        with m.Else():
+            m.d.spdif += self.out.eq((c_cell >> 1) & 0x01)
 
 
         ###############
