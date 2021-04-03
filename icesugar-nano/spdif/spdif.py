@@ -28,7 +28,7 @@ class SPDIF(Elaboratable):
         ##    Counters    ##
         ####################
         c_subframe = Signal(9)      # Each S/PDIF block contains 192 frames, each containing two subframes
-        c_cell = Signal(5)          # Within each subframe there are 32 cells (time-slots)
+        c_cell = Signal(6)          # Within each subframe there are 32 cells (time-slots)
 
         # Increment cell counter on S/PDIF clock rising edge
         m.d.spdif += c_cell.eq(c_cell + 1)
@@ -41,7 +41,33 @@ class SPDIF(Elaboratable):
                 m.d.spdif += c_subframe.eq(c_subframe + 1)
 
 
-        m.d.spdif += self.out.eq(~self.out)
+        ####################
+        ##    Preamble    ##
+        ####################
+        PREAMBLE_B = 0b00010111     # Channel A (Left) and start of block
+        PREAMBLE_M = 0b00100111     # Channel A (Left)
+        PREAMBLE_W = 0b01000111     # Channel B (Right)
+
+        # Left channel flag
+        left_flag = Signal()
+        m.d.comb += left_flag.eq(~(c_subframe & 0x001))
+
+        # Preamble
+        with m.If(c_cell <= 7):
+            # Left channel (B or M)
+            with m.If(left_flag):
+                with m.If(c_subframe == 0):
+                    m.d.spdif += self.out.eq(PREAMBLE_B >> c_cell)
+                with m.Else():
+                    m.d.spdif += self.out.eq(PREAMBLE_M >> c_cell)
+            
+            # Right channel (W)
+            with m.Else():
+                m.d.spdif += self.out.eq(PREAMBLE_W >> c_cell)
+        
+        # Payload
+        with m.Else():
+            m.d.spdif += self.out.eq(~self.out)
 
 
         ###############
@@ -119,7 +145,7 @@ if __name__ == "__main__":
         sim = Simulator(spdif)
         with sim.write_vcd("spdif.vcd"):
             def process():
-                for i in range(int(1000)): yield Tick()
+                for i in range(int(5000)): yield Tick()
 
             sim.add_clock(1/72e6)
             sim.add_sync_process(process)
