@@ -19,7 +19,7 @@ class SPDIF(Elaboratable):
         self.clkgen = ClockGen(72e6, self.br)                           # Create clock generator instance (72 MHz input)
         m.submodules.clkgen = self.clkgen                               # Add clock generator submodule to top module
         m.domains.spdif = cd_spdif = ClockDomain(reset_less=True)       # Create new clock domain for S/PDIF clock
-        cd_spdif.clk = self.clkgen.out                                  # Assign clock generator output to clock domain
+        cd_spdif.clk = self.clkgen.stb                                  # Assign clock generator output to clock domain
 
         # Test output
         m.d.spdif += self.out.eq(~self.out)
@@ -49,7 +49,7 @@ class ClockGen(Elaboratable):
         self.max = 2 ** self.width              # Maximum counter value
         self.div = f_in / f_out                 # Division factor
         self.step = round(self.max / self.div)  # Counter step size
-        self.out = Signal()                     # Output clock signal
+        self.stb = Signal()                     # Output clock signal
 
         print(
             f"[clk] f_in={f_in / 1e6} MHz  " \
@@ -68,7 +68,7 @@ class ClockGen(Elaboratable):
         m.d.sync += counter.eq(counter + self.step)
 
         # Check for overflow condition
-        m.d.comb += self.out.eq(counter + self.step > self.max)
+        m.d.comb += self.stb.eq(counter + self.step > self.max)
 
         return m
 
@@ -94,7 +94,7 @@ if __name__ == "__main__":
             def process():
                 for i in range(int(1000)): yield Tick()
 
-            sim.add_clock(1/6.144e6)
+            sim.add_clock(1/72e6)
             sim.add_sync_process(process)
             sim.run()
     
