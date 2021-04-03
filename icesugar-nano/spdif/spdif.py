@@ -4,57 +4,71 @@ from nmigen.back.pysim import *
 __all__ = ["SPDIF"]
 
 class SPDIF(Elaboratable):
-    def __init__(self, sim, ch, sr, bd, br):
-        self.sim = sim
-        self.ch = ch
-        self.sr = sr
-        self.bd = bd
-        self.br = br
-        self.out = Signal()
+    def __init__(self, sim, ch, sr, bd):
+        self.sim = sim                  # Simulation flag (no I/O)
+        self.ch = ch                    # Number of channels
+        self.sr = sr                    # Audio sample rate
+        self.bd = bd                    # Audio sample bit depth (max 24)
+        self.br = sr * 32 * ch * 2      # S/PDIF block rate (bitrate * 2)
+        self.out = Signal()             # S/PDIF output signal
 
     def elaborate(self, platform):
         m = Module()
 
-        # Clock generator
-        self.clkgen = ClockGen(72e6, self.br)
-        m.submodules.clkgen = self.clkgen
-        m.domains.spdif = cd_spdif = ClockDomain(reset_less=True)
-        cd_spdif.clk = self.clkgen.stb
+        # Setup clock generator and domain
+        self.clkgen = ClockGen(72e6, self.br)                           # Create clock generator instance (72 MHz input)
+        m.submodules.clkgen = self.clkgen                               # Add clock generator submodule to top module
+        m.domains.spdif = cd_spdif = ClockDomain(reset_less=True)       # Create new clock domain for S/PDIF clock
+        cd_spdif.clk = self.clkgen.out                                  # Assign clock generator output to clock domain
 
         # Test output
         m.d.spdif += self.out.eq(~self.out)
 
-        # Assign pins
+        # Assign output pins
         if not self.sim:
+            # Get LED and PMOD pins
             led = platform.request("led", 0)
             pmod = platform.request("pmod", 0)
-            m.d.comb += led.o.eq(self.out)
+
+            # Assign S/PDIF output to LED and PMOD pin
+            m.d.comb += led.o.eq(self.out)      # B6
             m.d.comb += pmod.o[3].eq(self.out)  # B1
 
         return m
 
 
 class ClockGen(Elaboratable):
+    """
+    Fractional clock divider
+    """
+
     def __init__(self, f_in, f_out):
-        self.f_in = f_in
-        self.f_out = f_out
-        self.width = 32
+        assert f_in >= f_out, "Output frequency must be smaller than input frequency"
 
-        # Calcualte parameters
-        self.div = self.f_in / self.f_out
-        self.step = round(2**self.width / self.div)
-        print(f"[CLK] WIDTH={self.width} DIV={self.div} STEP=0x{self.step:X}")
+        self.width = 32                         # Counter register width
+        self.max = 2 ** self.width              # Maximum counter value
+        self.div = f_in / f_out                 # Division factor
+        self.step = round(self.max / self.div)  # Counter step size
+        self.out = Signal()                     # Output clock signal
 
-        self.stb = Signal()
-    
+        print(
+            f"[clk] f_in={f_in / 1e6} MHz  " \
+            f"f_out={f_out / 1e6} MHz" \
+            f"width={self.width}  " \
+            f"div={self.div}  " \
+            f"step=0x{self.step:X}"
+        )
+
+
     def elaborate(self, platform):
         m = Module()
 
+        # Increment counter on each input clock cycle
         counter = Signal(self.width)
-
-        # Combinational logic
         m.d.sync += counter.eq(counter + self.step)
-        m.d.comb += self.stb.eq(counter + self.step > 2**self.width)
+
+        # Check for overflow condition
+        m.d.comb += self.out.eq(counter + self.step > self.max)
 
         return m
 
@@ -70,11 +84,10 @@ if __name__ == "__main__":
 
     ch = 2      # Number of channels
     sr = 48e3   # Audio sample rate
-    bd = 32     # Sample bit depth
-    br = sr * bd * ch * 2
+    bd = 24     # Sample bit depth
 
     if args.action == "simulate":
-        spdif = SPDIF(True, ch, sr, bd, br)
+        spdif = SPDIF(True, ch, sr, bd)
 
         sim = Simulator(spdif)
         with sim.write_vcd("spdif.vcd"):
@@ -86,7 +99,7 @@ if __name__ == "__main__":
             sim.run()
     
     elif args.action == "generate":
-        spdif = SPDIF(False, ch, sr, bd, br)
+        spdif = SPDIF(False, ch, sr, bd)
 
         from icesugar_nano import ICESugarNanoPlatform
         ICESugarNanoPlatform().build(spdif, do_program=False)
