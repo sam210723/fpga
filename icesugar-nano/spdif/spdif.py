@@ -15,16 +15,38 @@ class SPDIF(Elaboratable):
     def elaborate(self, platform):
         m = Module()
 
-        # Setup clock generator and domain
+        ##################
+        ##    Clocks    ##
+        ##################
         self.clkgen = ClockGen(72e6, self.br)                           # Create clock generator instance (72 MHz input)
         m.submodules.clkgen = self.clkgen                               # Add clock generator submodule to top module
         m.domains.spdif = cd_spdif = ClockDomain(reset_less=True)       # Create new clock domain for S/PDIF clock
         cd_spdif.clk = self.clkgen.clk_out                              # Assign clock generator output to clock domain
 
-        # Test output
+
+        ####################
+        ##    Counters    ##
+        ####################
+        c_subframe = Signal(9)      # Each S/PDIF block contains 192 frames, each containing two subframes
+        c_cell = Signal(5)          # Within each subframe there are 32 cells (time-slots)
+
+        # Increment cell counter on S/PDIF clock rising edge
+        m.d.spdif += c_cell.eq(c_cell + 1)
+
+        # Increment subframe counter after cell counter resets
+        with m.If(c_cell == 31):
+            with m.If(c_subframe == 383):
+                m.d.spdif += c_subframe.eq(0)
+            with m.Else():
+                m.d.spdif += c_subframe.eq(c_subframe + 1)
+
+
         m.d.spdif += self.out.eq(~self.out)
 
-        # Assign output pins
+
+        ###############
+        ##    I/O    ##
+        ###############
         if not self.sim:
             # Get LED and PMOD pins
             led = platform.request("led", 0)
