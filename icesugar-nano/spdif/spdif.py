@@ -34,7 +34,7 @@ class SPDIF(Elaboratable):
         m.d.spdif += c_cell.eq(c_cell + 1)
 
         # Increment subframe counter after cell counter resets
-        with m.If(c_cell == 31):
+        with m.If(c_cell == 63):
             with m.If(c_subframe == 383):
                 m.d.spdif += c_subframe.eq(0)
             with m.Else():
@@ -57,14 +57,18 @@ class SPDIF(Elaboratable):
             # Left channel (B or M)
             with m.If(left_flag):
                 with m.If(c_subframe == 0):
-                    m.d.spdif += self.out.eq(PREAMBLE_B >> c_cell)
+                    m.d.spdif += self.out.eq(~PREAMBLE_B >> c_cell)
                 with m.Else():
-                    m.d.spdif += self.out.eq(PREAMBLE_M >> c_cell)
+                    m.d.spdif += self.out.eq(~PREAMBLE_M >> c_cell)
             
             # Right channel (W)
             with m.Else():
-                m.d.spdif += self.out.eq(PREAMBLE_W >> c_cell)
+                m.d.spdif += self.out.eq(~PREAMBLE_W >> c_cell)
         
+        # Auxiliary bits
+        with m.Elif((8 <= c_cell) & (c_cell <= 15)):
+            m.d.spdif += self.out.eq((c_cell >> 1) & 0x01)
+
         # Payload
         with m.Else():
             m.d.spdif += self.out.eq(~self.out)
