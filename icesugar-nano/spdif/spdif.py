@@ -22,19 +22,21 @@ class Transmitter(Elaboratable):
         if not self.sim: platform.add_clock_constraint(cd_spdif.clk, self.br)
 
 
+
         ####    Counters    ####
-        c_subframe = Signal(9)      # Each S/PDIF block contains 192 frames, each containing two subframes
-        c_cell = Signal(6)          # Within each subframe there are 32 cells (time-slots)
+        subframe = Signal(9)        # Each S/PDIF block contains 192 frames, each containing two subframes
+        cell = Signal(6)            # Within each subframe there are 32 cells (time-slots)
 
         # Increment cell counter on S/PDIF clock rising edge
-        m.d.spdif += c_cell.eq(c_cell + 1)
+        m.d.spdif += cell.eq(cell + 1)
 
         # Increment subframe counter after cell counter resets
-        with m.If(c_cell == 63):
-            with m.If(c_subframe == 383):
-                m.d.spdif += c_subframe.eq(0)
+        with m.If(cell == 63):
+            with m.If(subframe == 383):
+                m.d.spdif += subframe.eq(0)
             with m.Else():
-                m.d.spdif += c_subframe.eq(c_subframe + 1)
+                m.d.spdif += subframe.eq(subframe + 1)
+
 
 
         ####    Encoder    ####
@@ -43,39 +45,38 @@ class Transmitter(Elaboratable):
         PREAMBLE_W = 0b01000111     # Channel B (Right)
 
         # Left channel flag
-        left_flag = Signal()
-        m.d.comb += left_flag.eq(~(c_subframe & 0x001))
-
-        #TODO: Replace this garbage with proper biphase-mark encoder
+        is_left = Signal()
+        m.d.comb += is_left.eq(~(subframe & 0x001))
 
         # Preamble
-        with m.If(c_cell <= 7):
+        with m.If(cell <= 7):
             # Left channel (B or M)
-            with m.If(left_flag):
-                with m.If(c_subframe == 0):
-                    m.d.spdif += self.out.eq(~PREAMBLE_B >> c_cell)
+            with m.If(is_left):
+                with m.If(subframe == 0):
+                    m.d.spdif += self.out.eq(~PREAMBLE_B >> cell)
                 with m.Else():
-                    m.d.spdif += self.out.eq(~PREAMBLE_M >> c_cell)
+                    m.d.spdif += self.out.eq(~PREAMBLE_M >> cell)
             
             # Right channel (W)
             with m.Else():
-                m.d.spdif += self.out.eq(~PREAMBLE_W >> c_cell)
+                m.d.spdif += self.out.eq(~PREAMBLE_W >> cell)
 
         # Auxiliary bits
-        with m.Elif((8 <= c_cell) & (c_cell <= 15)):
-            m.d.spdif += self.out.eq((c_cell >> 1) & 0x01)
+        with m.Elif((8 <= cell) & (cell <= 15)):
+            m.d.spdif += self.out.eq((cell >> 1) & 0x01)
 
         # Audio sample
-        with m.Elif((16 <= c_cell) & (c_cell <= 55)):
-            m.d.spdif += self.out.eq((c_cell >> 1) & 0x01)
+        with m.Elif((16 <= cell) & (cell <= 55)):
+            m.d.spdif += self.out.eq((cell >> 1) & 0x01)
         
         # Parity
-        with m.Elif(c_cell >= 61):
+        with m.Elif(cell >= 61):
             m.d.spdif += self.out.eq(~self.out)
 
         # Flags
         with m.Else():
-            m.d.spdif += self.out.eq((c_cell >> 1) & 0x01)
+            m.d.spdif += self.out.eq((cell >> 1) & 0x01)
+
 
 
         ####    I/O    ####
