@@ -1,9 +1,8 @@
 from nmigen import *
 from nmigen.back.pysim import *
 
-__all__ = ["SPDIF"]
 
-class SPDIF(Elaboratable):
+class Transmitter(Elaboratable):
     def __init__(self, sim, ch, sr, bd):
         self.sim = sim                  # Simulation flag (no I/O)
         self.ch = ch                    # Number of channels
@@ -15,9 +14,7 @@ class SPDIF(Elaboratable):
     def elaborate(self, platform):
         m = Module()
 
-        ##################
-        ##    Clocks    ##
-        ##################
+        ####    Clocks    ####
         self.clkgen = ClockGen(72e6, self.br)                           # Create clock generator instance (72 MHz input)
         m.submodules.clkgen = self.clkgen                               # Add clock generator submodule to top module
         m.domains.spdif = cd_spdif = ClockDomain(reset_less=True)       # Create new clock domain for S/PDIF clock
@@ -25,9 +22,7 @@ class SPDIF(Elaboratable):
         if not self.sim: platform.add_clock_constraint(cd_spdif.clk, self.br)
 
 
-        ####################
-        ##    Counters    ##
-        ####################
+        ####    Counters    ####
         c_subframe = Signal(9)      # Each S/PDIF block contains 192 frames, each containing two subframes
         c_cell = Signal(6)          # Within each subframe there are 32 cells (time-slots)
 
@@ -42,9 +37,7 @@ class SPDIF(Elaboratable):
                 m.d.spdif += c_subframe.eq(c_subframe + 1)
 
 
-        ###################
-        ##    Encoder    ##
-        ###################
+        ####    Encoder    ####
         PREAMBLE_B = 0b00010111     # Channel A (Left) and start of block
         PREAMBLE_M = 0b00100111     # Channel A (Left)
         PREAMBLE_W = 0b01000111     # Channel B (Right)
@@ -85,9 +78,7 @@ class SPDIF(Elaboratable):
             m.d.spdif += self.out.eq((c_cell >> 1) & 0x01)
 
 
-        ###############
-        ##    I/O    ##
-        ###############
+        ####    I/O    ####
         if not self.sim:
             # Get LED and PMOD pins
             led = platform.request("led", 0)
@@ -155,9 +146,9 @@ if __name__ == "__main__":
     bd = 24     # Sample bit depth
 
     if args.action == "simulate":
-        spdif = SPDIF(True, ch, sr, bd)
+        tx = Transmitter(True, ch, sr, bd)
 
-        sim = Simulator(spdif)
+        sim = Simulator(tx)
         with sim.write_vcd("spdif.vcd"):
             def process():
                 for i in range(int(5000)): yield Tick()
@@ -167,7 +158,7 @@ if __name__ == "__main__":
             sim.run()
     
     elif args.action == "generate":
-        spdif = SPDIF(False, ch, sr, bd)
+        tx = Transmitter(False, ch, sr, bd)
 
         from icesugar_nano import ICESugarNanoPlatform
-        ICESugarNanoPlatform().build(spdif, do_program=False)
+        ICESugarNanoPlatform().build(tx, do_program=False)
