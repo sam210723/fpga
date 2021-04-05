@@ -14,12 +14,17 @@ class Transmitter(Elaboratable):
     def elaborate(self, platform):
         m = Module()
 
+        ####    Reset    ####
+        self.resetgen = ResetGen(16)
+        m.submodules.resetgen = self.resetgen
+
         ####    Clocks    ####
         self.clkgen = ClockGen(72e6, self.br)                           # Create clock generator instance (72 MHz input)
         m.submodules.clkgen = self.clkgen                               # Add clock generator submodule to top module
-        m.domains.spdif = cd_spdif = ClockDomain(reset_less=True)       # Create new clock domain for S/PDIF clock
+        m.domains.spdif = cd_spdif = ClockDomain(reset_less=False)      # Create new clock domain for S/PDIF clock
         cd_spdif.clk = self.clkgen.clk_out                              # Assign clock generator output to clock domain
         if not self.sim: platform.add_clock_constraint(cd_spdif.clk, self.br)
+        m.d.comb += cd_spdif.rst.eq(self.resetgen.resetn)
 
 
 
@@ -46,7 +51,7 @@ class Transmitter(Elaboratable):
 
         # Left channel flag
         is_left = Signal()
-        m.d.comb += is_left.eq(~(subframe & 0x001))
+        m.d.comb += is_left.eq(~(subframe[0]))
 
         # Preamble
         with m.If(cell <= 7):
@@ -129,6 +134,28 @@ class ClockGen(Elaboratable):
         # Toggle output clock on overflow strobe
         with m.If(ovf):
             m.d.sync += self.clk_out.eq(~self.clk_out)
+
+        return m
+
+
+class ResetGen(Elaboratable):
+    """
+    Synchronous reset signal generator
+    """
+
+    def __init__(self, cycles):
+        self.cycles = cycles        # Number of cycles to wait until de-asserting resetn
+        self.resetn = Signal()      # Reset output signal
+    
+    def elaborate(self, platform):
+        m = Module()
+
+        # Shift 1 into x register on each cycle
+        x = Signal(self.cycles)
+        m.d.sync += x.eq(Cat(1, x))
+
+        # Assign resetn signal to inverse of x register MSB
+        m.d.comb += self.resetn.eq(~x[self.cycles - 1])
 
         return m
 
