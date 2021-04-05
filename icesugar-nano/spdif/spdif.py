@@ -18,13 +18,15 @@ class Transmitter(Elaboratable):
         self.resetgen = ResetGen(16)
         m.submodules.resetgen = self.resetgen
 
+
+
         ####    Clocks    ####
         self.clkgen = ClockGen(72e6, self.br)                           # Create clock generator instance (72 MHz input)
         m.submodules.clkgen = self.clkgen                               # Add clock generator submodule to top module
         m.domains.spdif = cd_spdif = ClockDomain(reset_less=False)      # Create new clock domain for S/PDIF clock
         cd_spdif.clk = self.clkgen.clk_out                              # Assign clock generator output to clock domain
+        m.d.comb += cd_spdif.rst.eq(self.resetgen.resetn)               # Synchronous reset signal from ResetGen
         if not self.sim: platform.add_clock_constraint(cd_spdif.clk, self.br)
-        m.d.comb += cd_spdif.rst.eq(self.resetgen.resetn)
 
 
 
