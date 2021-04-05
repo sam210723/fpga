@@ -4,6 +4,7 @@ import subprocess
 from nmigen.build import *
 from nmigen.vendor.lattice_ice40 import *
 from resources import *
+from extensions import *
 
 __all__ = ["ICESugarNanoPlatform"]
 
