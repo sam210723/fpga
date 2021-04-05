@@ -22,6 +22,7 @@ class SPDIF(Elaboratable):
         m.submodules.clkgen = self.clkgen                               # Add clock generator submodule to top module
         m.domains.spdif = cd_spdif = ClockDomain(reset_less=True)       # Create new clock domain for S/PDIF clock
         cd_spdif.clk = self.clkgen.clk_out                              # Assign clock generator output to clock domain
+        if not self.sim: platform.add_clock_constraint(cd_spdif.clk, self.br)
 
 
         ####################
@@ -51,6 +52,8 @@ class SPDIF(Elaboratable):
         # Left channel flag
         left_flag = Signal()
         m.d.comb += left_flag.eq(~(c_subframe & 0x001))
+
+        #TODO: Replace this garbage with proper biphase-mark encoder
 
         # Preamble
         with m.If(c_cell <= 7):
