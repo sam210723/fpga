@@ -58,29 +58,16 @@ class Transmitter(Elaboratable):
             # Left channel (B or M)
             with m.If(is_left):
                 with m.If(subframe == 0):
-                    m.d.spdif += self.out.eq(~PREAMBLE_B >> cell)
+                    m.d.spdif += self.out.eq(PREAMBLE_B >> cell)
                 with m.Else():
-                    m.d.spdif += self.out.eq(~PREAMBLE_M >> cell)
+                    m.d.spdif += self.out.eq(PREAMBLE_M >> cell)
             
             # Right channel (W)
             with m.Else():
-                m.d.spdif += self.out.eq(~PREAMBLE_W >> cell)
+                m.d.spdif += self.out.eq(PREAMBLE_W >> cell)
 
-        # Auxiliary bits
-        with m.Elif((8 <= cell) & (cell <= 15)):
-            m.d.spdif += self.out.eq((cell >> 1) & 0x01)
-
-        # Audio sample
-        with m.Elif((16 <= cell) & (cell <= 55)):
-            m.d.spdif += self.out.eq((cell >> 1) & 0x01)
-        
-        # Parity
-        with m.Elif(cell >= 61):
-            m.d.spdif += self.out.eq(~self.out)
-
-        # Flags
         with m.Else():
-            m.d.spdif += self.out.eq((cell >> 1) & 0x01)
+            m.d.spdif += self.out.eq(~cell[1])
 
 
 
