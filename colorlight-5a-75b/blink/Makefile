@@ -9,7 +9,7 @@ build: clean
 	rm -rf $(name).json $(name).config
 
 prog: build
-	 openFPGALoader --write-flash --cable dirtyJtag --bitstream $(name).bit
+	openFPGALoader --write-flash --cable dirtyJtag --bitstream $(name).bit
 
 clean:
 	rm -rf $(name).log $(name).json $(name).config $(name).bit $(name).svf
