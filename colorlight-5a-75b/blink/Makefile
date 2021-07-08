@@ -8,7 +8,10 @@ build: clean
 	ecppack --svf $(name).svf $(name).config $(name).bit
 	rm -rf $(name).json $(name).config
 
-clean:
-	rm -rf $(name).log $(name).json $(name).config $(name).bit
+prog: build
+	 openFPGALoader --write-flash --cable dirtyJtag --bitstream $(name).bit
 
-.PHONY: all build clean
+clean:
+	rm -rf $(name).log $(name).json $(name).config $(name).bit $(name).svf
+
+.PHONY: all build prog clean
