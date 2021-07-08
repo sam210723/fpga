@@ -54,3 +54,6 @@ mimas-v2/sfp/test
 # nMigen
 __pycache__
 build
+
+# VSCode
+.vscode
