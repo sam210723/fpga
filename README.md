@@ -23,3 +23,4 @@ A collection of FPGA projects on various FPGA development boards.
 | [Colorlight 5A-75B](https://git.io/Jc9iW) | [Blink](colorlight-5a-75b/blink)                 | Basic blink example     | Complete |
 |                                           | [LiteX Base](colorlight-5a-75b/litex_base)       | Basic LiteX SoC example | Complete |
 |                                           | [LiteX PLL](colorlight-5a-75b/litex_pll)         | LiteX SoC with PLL      | Complete |
+|                                           | [LiteX Ethernet](colorlight-5a-75b/litex_eth)    | LiteX SoC with Ethernet | Complete |
