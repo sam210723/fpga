@@ -21,4 +21,4 @@ A collection of FPGA projects on various FPGA development boards.
 |                                           | [LED PWM](icesugar-nano/led_pwm)                 | Basic LED PWM example   | Complete |
 |                                           | [S/PDIF](icesugar-nano/spdif)                    | nMigen S/PDIF TX        | WIP      |
 | [Colorlight 5A-75B](https://git.io/Jc9iW) | [Blink](colorlight-5a-75b/blink)                 | Basic blink example     | Complete |
-|                                           | [LiteX Blink](colorlight-5a-75b/litex_blink)     | LiteX SoC blink example | Complete |
+|                                           | [LiteX Base](colorlight-5a-75b/litex_base)       | Basic LiteX SoC example | Complete |
