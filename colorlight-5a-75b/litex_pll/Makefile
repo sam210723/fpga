@@ -1,6 +1,6 @@
 name = litex_pll
 cpu  = picorv32
-freq = 100000000
+freq = 50000000
 
 all: build
 
@@ -9,7 +9,7 @@ build: clean
 	cp build/colorlight_5a_75b/gateware/colorlight_5a_75b.bit $(name).bit
 
 prog: build
-	openFPGALoader --write-sram --cable dirtyJtag --bitstream $(name).bit
+	openFPGALoader --write-flash --cable dirtyJtag --bitstream $(name).bit
 
 clean:
 	rm -rf build $(name).bit

@@ -1,6 +1,6 @@
 name = litex_eth
 cpu  = picorv32
-freq = 100000000
+freq = 50000000
 ip   = 192.168.1.20
 
 all: build
