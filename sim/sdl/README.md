@@ -6,3 +6,4 @@ This code is based on [Verilog Simulation with Verilator and SDL](https://projec
 |---------------------------|------------------------------------------------------|----------|
 | [SMPTE SD Bars](smpte_sd) | Standard Definition (SD) SMPTE test patten generator | Complete |
 | [SMPTE HD Bars](smpte_hd) | High Definition (HD) SMPTE test pattern generator    | Complete |
+| [Colour Gamut](gamut)     | 24-bit RGB colour gamut generator                    | Complete |
