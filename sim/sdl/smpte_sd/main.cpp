@@ -35,7 +35,8 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    sdl_renderer = SDL_CreateRenderer(sdl_window, -1, SDL_RENDERER_ACCELERATED);
+    sdl_renderer = SDL_CreateRenderer(sdl_window, -1,
+        SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (!sdl_renderer) {
         printf("Renderer creation failed: %s\n", SDL_GetError());
         return 1;
@@ -57,15 +58,9 @@ int main(int argc, char* argv[]) {
     //top->rst = 0;
     top->eval();
 
+    uint64_t frame_count = 0;
+    uint64_t start_ticks = SDL_GetPerformanceCounter();
     while (1) {
-        // check for quit event
-        SDL_Event e;
-        if (SDL_PollEvent(&e)) {
-            if (e.type == SDL_QUIT) {
-                break;
-            }
-        }
-
         // cycle the clock
         top->clk_pix = 1;
         top->eval();
@@ -83,12 +78,25 @@ int main(int argc, char* argv[]) {
 
         // update texture once per frame at start of blanking
         if (top->v == V_RES && top->h == 0) {
+            // check for quit event
+            SDL_Event e;
+            if (SDL_PollEvent(&e)) {
+                if (e.type == SDL_QUIT) {
+                    break;
+                }
+            }
+
             SDL_UpdateTexture(sdl_texture, NULL, screenbuffer, H_RES*sizeof(Pixel));
             SDL_RenderClear(sdl_renderer);
             SDL_RenderCopy(sdl_renderer, sdl_texture, NULL, NULL);
             SDL_RenderPresent(sdl_renderer);
+            frame_count++;
         }
     }
+    uint64_t end_ticks = SDL_GetPerformanceCounter();
+    double duration = ((double)(end_ticks-start_ticks))/SDL_GetPerformanceFrequency();
+    double fps = (double)frame_count/duration;
+    printf("%.1f FPS\n", fps);
 
     top->final();  // simulation done
 
