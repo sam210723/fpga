@@ -1,0 +1,6 @@
+run
+-ifn ../rtl/top.v
+-ofn netlist/sfp.ngc
+-ifmt Verilog
+-top top
+-p xc6slx9-2csg324
