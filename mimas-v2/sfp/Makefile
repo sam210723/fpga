@@ -23,6 +23,11 @@ test:
 	vvp -n test/tb > /dev/null
 	gtkwave test/tb.vcd --rcvar 'fontname_signals Monospace 16' --rcvar 'fontname_waves Monospace 12'
 
+prog:
+	@printf "\n====== Programming Mimas V2 via iMPACT ======\n"
+	impact -batch boards/numato-mimas-v2.bat
+	rm _impactbatch.log
+
 clean:
 	@printf "\n====== Cleaning development environment ======\n"
 	rm -rf test build
