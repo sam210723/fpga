@@ -1,6 +1,5 @@
 name = sfp
 top = rtl/top.vcd
-rtl = rtl/phy/pma/pma.v rtl/phy/pma/pll.v
 ucf = xilinx/mimas.ucf
 dev = xc6slx9-2csg324
 

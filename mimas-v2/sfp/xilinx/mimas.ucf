@@ -60,18 +60,18 @@ NET "LED[0]"               LOC = T18 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW 
 #NET "SFP3_TX"              LOC = L15 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 4 (P9) Pin 7
 #NET "SFP3_LOS"             LOC = L16 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 4 (P9) Pin 8
 
-#NET "SEV_SEG[0]"           LOC = A3  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # A
-#NET "SEV_SEG[1]"           LOC = B4  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # B
-#NET "SEV_SEG[2]"           LOC = A4  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # C
-#NET "SEV_SEG[3]"           LOC = C4  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # D
-#NET "SEV_SEG[4]"           LOC = C5  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # E
-#NET "SEV_SEG[5]"           LOC = D6  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # F
-#NET "SEV_SEG[6]"           LOC = C6  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # G
-#NET "SEV_SEG[7]"           LOC = A5  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # .
+NET "SEV_SEG[7]"           LOC = A3  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # A
+NET "SEV_SEG[6]"           LOC = B4  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # B
+NET "SEV_SEG[5]"           LOC = A4  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # C
+NET "SEV_SEG[4]"           LOC = C4  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # D
+NET "SEV_SEG[3]"           LOC = C5  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # E
+NET "SEV_SEG[2]"           LOC = D6  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # F
+NET "SEV_SEG[1]"           LOC = C6  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # G
+NET "SEV_SEG[0]"           LOC = A5  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # .
 
-#NET "SEV_SEG_EN[2]"        LOC = B3  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # Left
-#NET "SEV_SEG_EN[1]"        LOC = A2  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # Middle
-#NET "SEV_SEG_EN[0]"        LOC = B2  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # Right
+NET "SEV_SEG_EN[2]"        LOC = B3  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # Left
+NET "SEV_SEG_EN[1]"        LOC = A2  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # Middle
+NET "SEV_SEG_EN[0]"        LOC = B2  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # Right
 
 #NET "SW1"                  LOC = M18 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST | PULLUP;    # Push Button 1
 #NET "SW2"                  LOC = L18 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST | PULLUP;    # Push Button 2
