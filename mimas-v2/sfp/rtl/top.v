@@ -17,6 +17,13 @@ module top(
         .locked   (pll_ok)  // Active HIGH
     );
 
+    // Synchronous Reset Generator
+    wire resetn;
+    reset_gen rst(
+        .clk     (clk_eth),
+        .resetn  (resetn)
+    );
+
     // Status Display
     reg [7:0] status = 8'h00;
     hex #(
@@ -32,8 +39,27 @@ module top(
 
     // Status LEDs
     assign LED[0]   = pll_ok;       // PLL Lock Indicator
-    assign LED[7:1] = 6'b0000000;
+    assign LED[1]   = resetn;       // System RESET
+    assign LED[7:2] = 6'b000000;
 endmodule
+
+
+/**
+ * Generates synchronous RESET signal after 16 clock cycles
+ */
+module reset_gen(
+    input  clk,
+    output resetn
+    );
+
+    reg [15:0] x = 16'hFFFF;
+    always @(posedge clk)
+        x <= {x[14:0], 1'b0};
+
+    assign resetn = !x[15];
+
+endmodule
+
 
 `include "../rtl/phy/pma/pll.v"     // Phase Locked Loop
 `include "../rtl/hex.v"             // Seven Segment Hexadecimal Display
