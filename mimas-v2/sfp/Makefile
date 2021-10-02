@@ -1,7 +1,7 @@
 name = sfp
 top = rtl/top.vcd
 rtl = rtl/phy/pma/pma.v rtl/phy/pma/pll.v
-ucf = boards/numato-mimas-v2.ucf
+ucf = xilinx/mimas.ucf
 dev = xc6slx9-2csg324
 
 all: bitstream
@@ -25,7 +25,7 @@ test:
 
 prog:
 	@printf "\n====== Programming Mimas V2 via iMPACT ======\n"
-	impact -batch boards/numato-mimas-v2.bat
+	impact -batch xilinx/impact.bat
 	rm _impactbatch.log
 
 clean:
