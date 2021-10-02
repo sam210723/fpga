@@ -25,7 +25,7 @@ test:
 
 prog:
 	@printf "\n====== Programming Mimas V2 via iMPACT ======\n"
-	impact -batch xilinx/impact.bat
+	impact -batch xilinx/impact.batch
 	rm _impactbatch.log
 
 clean:
