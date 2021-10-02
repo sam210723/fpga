@@ -1,0 +1,92 @@
+# User Constraints File for the Numato Lab Mimas v2 (http://www.numato.com)
+CONFIG VCCAUX = "3.3"; 
+
+NET "CLK"                  LOC = V10 | IOSTANDARD = LVCMOS33 | PERIOD = 100MHz;                     # 100 MHz System Clock
+
+NET "UART_TX"              LOC = B8  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # UART Transmit via PIC18F14K50
+NET "UART_RX"              LOC = A8  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # UART Receive via PIC18F14K50
+
+NET "LED[7]"               LOC = P15 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # D1
+NET "LED[6]"               LOC = P16 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # D2
+NET "LED[5]"               LOC = N15 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # D3
+NET "LED[4]"               LOC = N16 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # D4
+NET "LED[3]"               LOC = U17 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # D5
+NET "LED[2]"               LOC = U18 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # D6
+NET "LED[1]"               LOC = T17 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # D7
+NET "LED[0]"               LOC = T18 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # D8
+
+NET "DP8"                  LOC = C17 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST | PULLUP;    # DP 8
+NET "DP7"                  LOC = C18 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST | PULLUP;    # DP 7
+NET "DP6"                  LOC = D17 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST | PULLUP;    # DP 6
+NET "DP5"                  LOC = D18 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST | PULLUP;    # DP 5
+NET "DP4"                  LOC = E18 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST | PULLUP;    # DP 4
+NET "DP3"                  LOC = E16 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST | PULLUP;    # DP 3
+NET "DP2"                  LOC = F18 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST | PULLUP;    # DP 2
+NET "DP1"                  LOC = F17 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST | PULLUP;    # DP 1
+
+NET "SFP0_FAULT"           LOC = U7  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 1 (P6) Pin 1
+NET "SFP0_DETECT"          LOC = V7  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 1 (P6) Pin 2
+NET "SFP0_DISABLE"         LOC = T4  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 1 (P6) Pin 3
+NET "SFP0_SCL"             LOC = V4  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 1 (P6) Pin 4
+NET "SFP0_RX"              LOC = U5  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 1 (P6) Pin 5
+NET "SFP0_SDA"             LOC = V5  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 1 (P6) Pin 6
+NET "SFP0_TX"              LOC = R3  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 1 (P6) Pin 7
+NET "SFP0_LOS"             LOC = T3  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 1 (P6) Pin 8
+
+#NET "SFP1_FAULT"           LOC = U8  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 2 (P7) Pin 1
+#NET "SFP1_DETECT"          LOC = V8  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 2 (P7) Pin 2
+#NET "SFP1_DISABLE"         LOC = R8  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 2 (P7) Pin 3
+#NET "SFP1_SCL"             LOC = T8  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 2 (P7) Pin 4
+#NET "SFP1_RX"              LOC = R5  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 2 (P7) Pin 5
+#NET "SFP1_SDA"             LOC = T5  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 2 (P7) Pin 6
+#NET "SFP1_TX"              LOC = T9  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 2 (P7) Pin 7
+#NET "SFP1_LOS"             LOC = V9  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 2 (P7) Pin 8
+
+#NET "SFP2_FAULT"           LOC = R11 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 3 (P8) Pin 1
+#NET "SFP2_DETECT"          LOC = T11 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 3 (P8) Pin 2
+#NET "SFP2_DISABLE"         LOC = R10 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 3 (P8) Pin 3
+#NET "SFP2_SCL"             LOC = T10 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 3 (P8) Pin 4
+#NET "SFP2_RX"              LOC = U13 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 3 (P8) Pin 5
+#NET "SFP2_SDA"             LOC = V13 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 3 (P8) Pin 6
+#NET "SFP2_TX"              LOC = U11 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 3 (P8) Pin 7
+#NET "SFP2_LOS"             LOC = V11 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 3 (P8) Pin 8
+
+#NET "SFP3_FAULT"           LOC = H17 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 4 (P9) Pin 1
+#NET "SFP3_DETECT"          LOC = H18 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 4 (P9) Pin 2
+#NET "SFP3_DISABLE"         LOC = J16 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 4 (P9) Pin 3
+#NET "SFP3_SCL"             LOC = J18 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 4 (P9) Pin 4
+#NET "SFP3_RX"              LOC = K15 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 4 (P9) Pin 5
+#NET "SFP3_SDA"             LOC = K16 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 4 (P9) Pin 6
+#NET "SFP3_TX"              LOC = L15 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 4 (P9) Pin 7
+#NET "SFP3_LOS"             LOC = L16 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # PMOD 4 (P9) Pin 8
+
+#NET "SEV_SEG[0]"           LOC = A3  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # A
+#NET "SEV_SEG[1]"           LOC = B4  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # B
+#NET "SEV_SEG[2]"           LOC = A4  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # C
+#NET "SEV_SEG[3]"           LOC = C4  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # D
+#NET "SEV_SEG[4]"           LOC = C5  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # E
+#NET "SEV_SEG[5]"           LOC = D6  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # F
+#NET "SEV_SEG[6]"           LOC = C6  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # G
+#NET "SEV_SEG[7]"           LOC = A5  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # .
+
+#NET "SEV_SEG_EN[2]"        LOC = B3  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # Left
+#NET "SEV_SEG_EN[1]"        LOC = A2  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # Middle
+#NET "SEV_SEG_EN[0]"        LOC = B2  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # Right
+
+#NET "SW1"                  LOC = M18 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST | PULLUP;    # Push Button 1
+#NET "SW2"                  LOC = L18 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST | PULLUP;    # Push Button 2
+#NET "SW3"                  LOC = M16 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST | PULLUP;    # Push Button 3
+#NET "SW4"                  LOC = L17 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST | PULLUP;    # Push Button 4
+#NET "SW5"                  LOC = K17 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST | PULLUP;    # Push Button 5
+#NET "SW6"                  LOC = K18 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST | PULLUP;    # Push Button 6
+
+#NET "VGA_HSYNC"            LOC = B12 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # Horizontal Sync
+#NET "VGA_VSYNC"            LOC = A12 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # Vertical Sync
+#NET "VGA_PIX[7]"           LOC = C9  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # R[2]
+#NET "VGA_PIX[6]"           LOC = B9  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # R[1]
+#NET "VGA_PIX[5]"           LOC = A9  | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # R[0]
+#NET "VGA_PIX[4]"           LOC = C11 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # G[2]
+#NET "VGA_PIX[3]"           LOC = A10 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # G[1]
+#NET "VGA_PIX[2]"           LOC = C10 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # G[0]
+#NET "VGA_PIX[1]"           LOC = A11 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # B[1]
+#NET "VGA_PIX[0]"           LOC = B11 | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = FAST;             # B[0]
