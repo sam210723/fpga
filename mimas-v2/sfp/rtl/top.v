@@ -6,7 +6,7 @@ module top(
     output  [2:0]   SEV_SEG_EN      // Seven Segment Display Enable
     );
 
-    // Clock Generator (125 MHz)
+    // Clock Generator (250 MHz)
     wire clk_eth;
     wire pll_ok;
     pll pll_eth (
@@ -28,7 +28,7 @@ module top(
     reg [7:0] status = 8'h00;
     hex #(
 		.refresh_rate     (100),
-		.sys_clk_freq     (125000000)
+		.sys_clk_freq     (250000000)
     )
     display (
         .clk              (clk_eth),
@@ -41,6 +41,7 @@ module top(
     assign LED[0]   = pll_ok;       // PLL Lock Indicator
     assign LED[1]   = resetn;       // System RESET
     assign LED[7:2] = 6'b000000;
+    
 endmodule
 
 
