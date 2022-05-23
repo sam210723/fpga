@@ -1,5 +1,5 @@
 # This file is based on ios_stream.py
-# Copyright (c) 2019 lorent Kermarrec <florent@enjoy-digital.fr>
+# Copyright (c) 2019 Florent Kermarrec <florent@enjoy-digital.fr>
 #
 # License: BSD
 #
