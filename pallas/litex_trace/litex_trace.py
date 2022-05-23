@@ -36,6 +36,7 @@ ios = [
     "H7", "G6", "E4", "D3", "F6", "F5", "C2", "C1"
 ]
 clk_pin = "A10"
+clk_freq = 100e6
 _io = [("clk100", 0, Pins(clk_pin), IOStandard("LVCMOS33"))]
 
 
@@ -67,7 +68,7 @@ class IOStreamer(Module):
 
 class Platform(XilinxPlatform):
     default_clk_name   = "clk100"
-    default_clk_period = 1e9/100e6
+    default_clk_period = 1e9/clk_freq
 
     def __init__(self, **kwargs):
         XilinxPlatform.__init__(self, "xc6slx45-csg324-2", _io, toolchain="ise", **kwargs)
@@ -76,12 +77,12 @@ class Platform(XilinxPlatform):
 class BaseSoC(SoCCore):
     def __init__(self):
         platform = Platform()
-        sys_clk_freq = int(100e6)
+        sys_clk_freq = int(clk_freq)
 
         SoCMini.__init__(self, platform, sys_clk_freq)
 
         clk100 = platform.request("clk100")
-        platform.add_period_constraint(clk100, 1e9/25e6)
+        platform.add_period_constraint(clk100, 1e9/clk_freq)
         self.submodules.crg = CRG(clk100)
 
         excludes =  [clk_pin]                       # Clock Pins
