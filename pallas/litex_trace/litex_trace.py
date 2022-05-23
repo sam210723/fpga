@@ -51,13 +51,11 @@ class IOStreamer(Module):
         for i in range(4-len(identifier)):
             identifier += " "
 
-        # UART
         pads = Record([("tx", 1)])
         self.comb += pad.eq(pads.tx)
         phy = RS232PHYTX(pads, int((baudrate/sys_clk_freq)*2**32))
         self.submodules += phy
 
-        # Memory
         mem  = Memory(8, 4, init=[ord(identifier[i]) for i in range(4)])
         port = mem.get_port()
         self.specials += mem, port
