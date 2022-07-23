@@ -32,31 +32,9 @@ module top(
     always @(posedge clk_pix) begin
         /* verilator lint_off WIDTH */
 
-        if (h <= (H_RES / 2) && v <= (V_RES / 2)) begin
-            r <= h / 2;
-            g <= 8'h00;
-            b <= 8'h00;
-        end
-        else if (h > (H_RES / 2) && v <= (V_RES / 2)) begin
-            r <= 8'h00;
-            g <= h / 2;
-            b <= 8'h00;
-        end
-        else if (h <= (H_RES / 2) && v > (V_RES / 2)) begin
-            r <= 8'h00;
-            g <= 8'h00;
-            b <= h / 2;
-        end
-        else if (h > (H_RES / 2) && v > (V_RES / 2)) begin
-            r <= h / 2;
-            g <= h / 2;
-            b <= h / 2;
-        end
-        else begin
-            r <= 8'h00;
-            g <= 8'h00;
-            b <= 8'h00;
-        end
+        r <= (H_RES - h) / 4;
+        g <= h / 4;
+        b <= v / 3;
 
         /* verilator lint_on WIDTH */
     end
