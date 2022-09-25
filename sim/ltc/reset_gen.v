@@ -2,15 +2,15 @@
  * Generates synchronous RESET signal after 16 clock cycles
  */
 
-module crg(
+module reset_gen(
     input  wire clk,
-    output wire rst_n
+    output wire reset_n
 );
 
     reg [15:0] x = 16'h0000;
     always @(posedge clk)
         x <= {x[14:0], 1'b1};
     
-    assign rst_n = x[15];
+    assign reset_n = x[15];
 
 endmodule;

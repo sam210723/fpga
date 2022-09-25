@@ -1,3 +1,7 @@
+/**
+ * SMPTE 12M Linear Timecode (LTC) Generator
+ */
+
 module top(
     input  wire clk,
     output wire ltc
@@ -39,11 +43,11 @@ module top(
     reg [79:0] frame;
     reg        out;
 
-    wire rst_n;
-    crg reset(clk, rst_n);
+    wire reset_n;
+    reset_gen crg(clk, reset_n);
 
     always @(posedge clk) begin
-        if (rst_n) begin
+        if (reset_n) begin
             out <= ~out;
         end
     end
