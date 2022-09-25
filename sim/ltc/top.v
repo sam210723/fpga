@@ -44,6 +44,10 @@ module top(
     // Registers
     reg [15:0] sync = 16'b0011111111111101; // SMPTE 12M Sync Word (0x3FFD)
     reg [79:0] frame;                       // LTC Frame
+    reg [4:0]  time_hour;                   // Timestamp Hour Value
+    reg [5:0]  time_minute;                 // Timestamp Minute Value
+    reg [5:0]  time_second;                 // Timestamp Second Value
+    reg [4:0]  time_frame;                  // Timestamp Frame Value
     reg        out;                         // LTC Output Buffer
 
     // Synchronous Reset Signal Generator
@@ -60,9 +64,37 @@ module top(
         .clk_o_f(LTC_FPS)
     );
 
+    // Serialise LTC Frame
     always @(posedge clk) begin
         if (reset_n) begin
-            out <= ~out;
+            out <= clk_ltc;
+        end
+    end
+
+    // Update Timestamp
+    always @(posedge clk_ltc) begin
+        // Increment Frame
+        time_frame <= time_frame + 1;
+
+        // Increment Second and Reset Frame
+        if (time_frame == LTC_FPS - 1) begin
+            time_frame <= 0;
+            time_second <= time_second + 1;
+
+            // Increment Minute and Reset Second
+            if (time_second == 59) begin
+                time_second <= 0;
+                time_minute <= time_minute + 1;
+
+                // Incrememt Hour and Reset Minute
+                if (time_minute == 59) begin
+                    time_minute <= 0;
+                    time_hour <= time_hour + 1;
+
+                    // Reset Hour
+                    if (time_hour == 23) time_hour <= 0;
+                end
+            end
         end
     end
 
