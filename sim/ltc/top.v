@@ -37,15 +37,28 @@ module top(
      *  0x40    16   Sync Word (0011 1111 1111 1101, 0x3FFD)
      */
 
-    parameter FPS = 25;     // Frames per second
-    parameter CLK = 25e6;   // Clock frequency in Hz
+    // Module Parameters
+    parameter CLK_FREQ = 25000000;          // System Clock Frequency (Hz)
+    parameter LTC_FPS = 25;                 // Frames per second
 
+    // Registers
     reg [15:0] sync = 16'b0011111111111101; // SMPTE 12M Sync Word (0x3FFD)
-    reg [79:0] frame;                       // Complete LTC frame 80 bits long (0x50)
-    reg        out;
+    reg [79:0] frame;                       // LTC Frame
+    reg        out;                         // LTC Output Buffer
 
+    // Synchronous Reset Signal Generator
     wire reset_n;
-    reset_gen crg(clk, reset_n);
+    reset_gen reset_gen(clk, reset_n);
+
+    // Clock Divider
+    wire clk_ltc;
+    clk_div clk_div(
+        .reset_n(reset_n),
+        .clk_i(clk),
+        .clk_o(clk_ltc),
+        .clk_i_f(CLK_FREQ),
+        .clk_o_f(LTC_FPS)
+    );
 
     always @(posedge clk) begin
         if (reset_n) begin
@@ -53,5 +66,5 @@ module top(
         end
     end
 
-    assign ltc = out;
+    assign ltc = out && reset_n;
 endmodule
