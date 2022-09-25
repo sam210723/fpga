@@ -34,13 +34,14 @@ module top(
      *  0x3A    1    Binary Group Flag 1 (External Sync Source Flag)
      *  0x3B    1    Polarity Correction Bit @ 25 FPS / Binary Group Flag 2 (BGF2)
      *  0x3C    4    User Field 8
+     *  0x40    16   Sync Word (0011 1111 1111 1101, 0x3FFD)
      */
 
     parameter FPS = 25;     // Frames per second
     parameter CLK = 25e6;   // Clock frequency in Hz
 
-    reg [15:0] sync = 16'b0011111111111101;     // SMPTE 12M Sync Word
-    reg [79:0] frame;
+    reg [15:0] sync = 16'b0011111111111101; // SMPTE 12M Sync Word (0x3FFD)
+    reg [79:0] frame;                       // Complete LTC frame 80 bits long (0x50)
     reg        out;
 
     wire reset_n;
