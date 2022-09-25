@@ -1,10 +1,10 @@
 /**
- * Generates synchronous RESET signal after 16 clock cycles
+ * Synchronous Reset Signal Generator
  */
 
 module reset_gen(
-    input  wire clk,
-    output wire reset_n
+    input  wire clk,        // Input Clock
+    output wire reset_n     // Reset Flag
 );
 
     reg [15:0] x = 16'h0000;
