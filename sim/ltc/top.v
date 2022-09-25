@@ -18,21 +18,21 @@ module top(
      *  0x0A    1    Drop Frame Flag
      *  0x0B    1    Color Frame Flag
      *  0x0C    4    User Field 2
-     *  0x10    4    Seconds (units)
+     *  0x10    4    Second (units)
      *  0x14    4    User Field 3
-     *  0x18    3    Seconds (tens)
-     *  0x1B    1    FLAG
+     *  0x18    3    Second (tens)
+     *  0x1B    1    Binary Group Flag 0 (BGF0) @ 25 FPS / Polarity Correction Bit
      *  0x1C    4    User Field 4
-     *  0x20    4    Minutes (units)
+     *  0x20    4    Minute (units)
      *  0x24    4    User Field 5
-     *  0x28    3    Minutes (tens)
-     *  0x2B    1    FLAG
+     *  0x28    3    Minute (tens)
+     *  0x2B    1    Binary Group Flag 2 (BGF2) @ 25 FPS / Binary Group Flag 0 (BGF0)
      *  0x2C    4    User Field 6
-     *  0x30    4    Hours (units)
+     *  0x30    4    Hour (units)
      *  0x34    4    User Field 7
-     *  0x38    2    Hours (tens)
+     *  0x38    2    Hour (tens)
      *  0x3A    1    Binary Group Flag 1 (External Sync Source Flag)
-     *  0x3B    1    FLAG
+     *  0x3B    1    Polarity Correction Bit @ 25 FPS / Binary Group Flag 2 (BGF2)
      *  0x3C    4    User Field 8
      */
 
