@@ -1,9 +1,9 @@
-name = gamut
+name = gradient
 
 all: build
 
 build: clean
-	verilator -I../ -cc top.v --exe main.cpp -o $(name) -CFLAGS "`sdl2-config --cflags`" -LDFLAGS "`sdl2-config --libs`"
+	verilator -I../ -cc top.v --exe main.cpp -o $(name) --trace -CFLAGS "`sdl2-config --cflags`" -LDFLAGS "`sdl2-config --libs`"
 	make -C ./obj_dir -f Vtop.mk
 	./obj_dir/$(name)
 
