@@ -4,10 +4,10 @@
 #include "verilated_vcd_c.h"
 
 // Simulation Properties
-const int CLK_MHZ = 25;     // Clock speed in MHz
-const int SIM_LEN_MS = 125; // Simulation duration in milliseconds
+const int  CLK_MHZ = 25;        // Clock speed in MHz
+const int  SIM_LEN_MS = 125;    // Simulation duration in milliseconds
 const long SIM_LEN = SIM_LEN_MS * 1e9;
-const int SIM_STEP = int((1 / (float)CLK_MHZ) * 1e6) / 2;
+const int  SIM_STEP = int((1 / (float)CLK_MHZ) * 1e6) / 2;
 
 int main(int argc, char* argv[]) {
     // Setup Verilator
