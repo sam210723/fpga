@@ -38,65 +38,76 @@ module top(
      */
 
     // Module Parameters
-    parameter CLK_FREQ = 25000000;          // System Clock Frequency (Hz)
-    parameter LTC_FPS = 25;                 // Frames per second
+    parameter CLK_FREQ = 25000000;  // System Clock Frequency (Hz)
+    parameter LTC_FPS = 25;         // Frames per second
 
     // Registers
-    reg [15:0] sync = 16'b0011111111111101; // SMPTE 12M Sync Word (0x3FFD)
-    reg [79:0] frame;                       // LTC Frame
-    reg [4:0]  time_hour;                   // Timestamp Hour Value
-    reg [5:0]  time_minute;                 // Timestamp Minute Value
-    reg [5:0]  time_second;                 // Timestamp Second Value
-    reg [4:0]  time_frame;                  // Timestamp Frame Value
-    reg        out;                         // LTC Output Buffer
+    reg [79:0] frame = 80'h3FFD;    // LTC Frame
+    reg [7:0]  pointer = 8'h00;     // Serialiser Bit Pointer
+    reg [4:0]  time_hour;           // Timestamp Hour Value
+    reg [5:0]  time_minute;         // Timestamp Minute Value
+    reg [5:0]  time_second;         // Timestamp Second Value
+    reg [4:0]  time_frame;          // Timestamp Frame Value
+    reg        out;                 // LTC Output Buffer
 
     // Synchronous Reset Signal Generator
     wire reset_n;
     reset_gen reset_gen(clk, reset_n);
 
-    // Clock Divider
+    // LTC Serialiser Clock
     wire clk_ltc;
-    clk_div clk_div(
+    clk_div clk_div_ltc(
         .reset_n(reset_n),
         .clk_i(clk),
         .clk_o(clk_ltc),
         .clk_i_f(CLK_FREQ),
-        .clk_o_f(LTC_FPS)
+        .clk_o_f(LTC_FPS * 80 * 2)
     );
 
     // Serialise LTC Frame
-    always @(posedge clk) begin
-        if (reset_n) begin
-            out <= clk_ltc;
-        end
-    end
-
-    // Update Timestamp
     always @(posedge clk_ltc) begin
-        // Increment Frame
-        time_frame <= time_frame + 1;
+        if (~pointer[0]) begin
+            // Invert Output Register (Middle)
+            if (frame[pointer[7:1]]) out <= ~out;
+        end else begin
+            // Invert Output Register (Start)
+            out <= ~out;
+        end
 
-        // Increment Second and Reset Frame
-        if (time_frame == LTC_FPS - 1) begin
-            time_frame <= 0;
-            time_second <= time_second + 1;
+        // Increment Pointer Register
+        pointer <= pointer + 1;
 
-            // Increment Minute and Reset Second
-            if (time_second == 59) begin
-                time_second <= 0;
-                time_minute <= time_minute + 1;
+        // Reset and Increment Time Registers
+        if (pointer == 159) begin
+            // Reset Pointer Register
+            pointer <= 0;
 
-                // Incrememt Hour and Reset Minute
-                if (time_minute == 59) begin
-                    time_minute <= 0;
-                    time_hour <= time_hour + 1;
+            // Increment Frame
+            time_frame <= time_frame + 1;
 
-                    // Reset Hour
-                    if (time_hour == 23) time_hour <= 0;
+            // Increment Second and Reset Frame
+            if (time_frame == LTC_FPS - 1) begin
+                time_frame <= 0;
+                time_second <= time_second + 1;
+
+                // Increment Minute and Reset Second
+                if (time_second == 59) begin
+                    time_second <= 0;
+                    time_minute <= time_minute + 1;
+
+                    // Incrememt Hour and Reset Minute
+                    if (time_minute == 59) begin
+                        time_minute <= 0;
+                        time_hour <= time_hour + 1;
+
+                        // Reset Hour
+                        if (time_hour == 23) time_hour <= 0;
+                    end
                 end
             end
         end
     end
 
+    // Output Signal
     assign ltc = out && reset_n;
 endmodule
