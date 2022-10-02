@@ -44,39 +44,54 @@ module ltc(
     localparam FRAME_LEN = 80;      // LTC Frame Length
 
     // Registers
-    reg [15:0] sync = 16'h3FFD;     // SMPTE 12M Sync Word
-    reg [63:0] frame_a = 64'h0;     // LTC Frame A
-    reg [63:0] frame_b = 64'h0;     // LTC Frame B
-    reg  [7:0] pointer = 8'h00;     // Serialiser Bit Pointer
-    reg        out;                 // Output Signal Buffer
+    reg  [63:0] frame = 64'h0;      // LTC Frame Registers
+    reg  [15:0] sync = 16'h3FFD;    // SMPTE 12M Sync Word
+    reg   [6:0] pointer = 7'h00;    // Encoder Pointer
+    reg         tick = 1'b0;        // Encoder Bit Period Tick
+    reg         out;                // Output Signal Buffer
 
     // LTC Encoder Clock Divider
     wire clk_ltc;
     clk_div #(
-        CLK_FREQ,
-        LTC_FPS * FRAME_LEN * 2
+        CLK_FREQ,                   // Input Clock Frequency (Hz)
+        LTC_FPS * FRAME_LEN * 2     // Output Clock Frequency (Hz)
     )
     clk_div_ltc(
-        .reset_n(reset_n),
-        .clk_i(clk),
-        .clk_o(clk_ltc)
+        .reset_n(reset_n),          // Reset Flag
+        .clk_i(clk),                // Input Clock
+        .clk_o(clk_ltc)             // Output Clock
     );
 
-    // Differential Manchester Encoder (Biphase Mark Code)
+    // Encoder Sync Period Flag
+    wire syncing;
+    assign syncing = pointer[6];
+
+    // Differential Manchester (Biphase Mark) Encoder
     always @(posedge clk_ltc) begin
-        if (~pointer[0]) begin
-            // Invert Output Register (Middle)
-            if (frame_a[pointer[6:1]]) out <= ~out;
-        end else begin
-            // Invert Output Register (Start)
-            out <= ~out;
+        if (syncing) begin  // Encode Sync Word
+            if (~tick) begin
+                // Invert Output Register (Middle)
+                if (sync[pointer[3:0]]) out <= ~out;
+            end else begin
+                // Invert Output Register (Start)
+                out <= ~out;
+            end
+        end else begin      // Encode LTC Frame
+            if (~tick) begin
+                // Invert Output Register (Middle)
+                if (frame[pointer[5:0]]) out <= ~out;
+            end else begin
+                // Invert Output Register (Start)
+                out <= ~out;
+            end
         end
 
-        // Increment Pointer Register
-        pointer <= pointer + 1;
+        // Increment Registers
+        if (tick) pointer <= pointer + 1;
+        tick <= ~tick;
 
         // Reset Pointer Register
-        if (pointer == 159) begin pointer <= 0;
+        if (pointer == 7'd79 && tick) begin pointer <= 0;
         end
     end
 
