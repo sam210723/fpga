@@ -1,0 +1,31 @@
+[*]
+[*] GTKWave Analyzer v3.3.111 (w)1999-2020 BSI
+[*] Sun Oct  2 07:43:23 2022
+[*]
+[dumpfile] "obj_dir/trace.vcd"
+[dumpfile_mtime] "Sun Oct  2 07:41:37 2022"
+[dumpfile_size] 216343743
+[savefile] "../trace.gtkw"
+[timestart] 0
+[size] 1920 1007
+[pos] -461 -204
+*-33.950489 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] TOP.
+[treeopen] TOP.top.
+[treeopen] TOP.top.ltc_encoder.
+[sst_width] 212
+[signals_width] 148
+[sst_expanded] 1
+[sst_vpaned_height] 285
+@28
+TOP.top.clk
+TOP.top.reset_n
+TOP.top.ltc_encoder.clk_ltc
+TOP.top.ltc_encoder.syncing
+TOP.top.ltc_encoder.tick
+TOP.top.ltc
+@24
+[color] 5
+TOP.top.ltc_encoder.pointer[6:0]
+[pattern_trace] 1
+[pattern_trace] 0
