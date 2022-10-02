@@ -47,6 +47,10 @@ module ltc(
     reg  [63:0] frame = 64'h0;      // LTC Frame Registers
     reg  [15:0] sync = 16'h3FFD;    // SMPTE 12M Sync Word
     reg   [6:0] pointer = 7'h00;    // Encoder Pointer
+    reg   [4:0] time_hour;          // Timestamp Hour Value
+    reg   [5:0] time_minute;        // Timestamp Minute Value
+    reg   [5:0] time_second;        // Timestamp Second Value
+    reg   [4:0] time_frame;         // Timestamp Frame Value
     reg         tick = 1'b0;        // Encoder Bit Period Tick
     reg         out;                // Output Signal Buffer
 
@@ -86,42 +90,36 @@ module ltc(
         if (tick) pointer <= pointer + 1;
         tick <= ~tick;
 
-        // Reset Pointer Register
-        if (pointer == 7'd79 && tick) begin pointer <= 0;
+        // Reset Pointer Register and Increment Timestamp
+        if (pointer == 7'd79 && tick) begin
+            pointer <= 0;
+
+            // Increment Frame
+            time_frame <= time_frame + 1;
+
+            // Increment Second and Reset Frame
+            if (time_frame == LTC_FPS - 1) begin
+                time_frame <= 0;
+                time_second <= time_second + 1;
+
+                // Increment Minute and Reset Second
+                if (time_second == 59) begin
+                    time_second <= 0;
+                    time_minute <= time_minute + 1;
+
+                    // Incrememt Hour and Reset Minute
+                    if (time_minute == 59) begin
+                        time_minute <= 0;
+                        time_hour <= time_hour + 1;
+
+                        // Reset Hour
+                        if (time_hour == 23) time_hour <= 0;
+                    end
+                end
+            end
         end
     end
 
     // Output Signal
     assign ltc = out && reset_n;
 endmodule
-
-/*
-reg  [4:0] time_hour;           // Timestamp Hour Value
-reg  [5:0] time_minute;         // Timestamp Minute Value
-reg  [5:0] time_second;         // Timestamp Second Value
-reg  [4:0] time_frame;          // Timestamp Frame Value
-
-// Increment Frame
-time_frame <= time_frame + 1;
-
-// Increment Second and Reset Frame
-if (time_frame == LTC_FPS - 1) begin
-    time_frame <= 0;
-    time_second <= time_second + 1;
-
-    // Increment Minute and Reset Second
-    if (time_second == 59) begin
-        time_second <= 0;
-        time_minute <= time_minute + 1;
-
-        // Incrememt Hour and Reset Minute
-        if (time_minute == 59) begin
-            time_minute <= 0;
-            time_hour <= time_hour + 1;
-
-            // Reset Hour
-            if (time_hour == 23) time_hour <= 0;
-        end
-    end
-end
-*/
