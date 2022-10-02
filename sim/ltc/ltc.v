@@ -41,6 +41,7 @@ module ltc(
     // Module Parameters
     parameter CLK_FREQ;             // System Clock Frequency (Hz)
     parameter LTC_FPS;              // Frames per second
+    localparam FRAME_LEN = 80;      // LTC Frame Length
 
     // Registers
     reg [15:0] sync = 16'h3FFD;     // SMPTE 12M Sync Word
@@ -53,7 +54,7 @@ module ltc(
     wire clk_ltc;
     clk_div #(
         CLK_FREQ,
-        LTC_FPS * 80 * 2
+        LTC_FPS * FRAME_LEN * 2
     )
     clk_div_ltc(
         .reset_n(reset_n),
