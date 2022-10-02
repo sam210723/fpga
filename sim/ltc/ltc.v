@@ -70,18 +70,14 @@ module ltc(
     always @(posedge clk_ltc) begin
         if (syncing) begin  // Encode Sync Word
             if (~tick) begin
-                // Invert Output Register (Middle)
                 if (sync[pointer[3:0]]) out <= ~out;
             end else begin
-                // Invert Output Register (Start)
                 out <= ~out;
             end
         end else begin      // Encode LTC Frame
             if (~tick) begin
-                // Invert Output Register (Middle)
                 if (frame[pointer[5:0]]) out <= ~out;
             end else begin
-                // Invert Output Register (Start)
                 out <= ~out;
             end
         end
